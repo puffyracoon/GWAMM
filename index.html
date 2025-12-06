@@ -1761,6 +1761,88 @@
 
       updateProgress();
     })();
+
+    // Convert all guide checklist items to checkboxes with persistence
+    (function () {
+      const storageKey = "gwammGuideChecklist";
+      let stepCounter = 0;
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(storageKey);
+          if (!raw) return {};
+          return JSON.parse(raw) || {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveState(state) {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(state));
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      const state = loadState();
+      
+      // Find all guide checklist items
+      const checklistItems = document.querySelectorAll('.guide-checklist li, .guide-ol li');
+      
+      checklistItems.forEach((li) => {
+        // Skip if already has a checkbox
+        if (li.querySelector('input[type="checkbox"]')) return;
+        
+        const stepId = `step-${stepCounter++}`;
+        const originalText = li.innerHTML;
+        
+        // Create checkbox
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.setAttribute('data-step-id', stepId);
+        checkbox.style.accentColor = '#f5c14b';
+        checkbox.style.width = '14px';
+        checkbox.style.height = '14px';
+        checkbox.style.marginRight = '8px';
+        checkbox.style.cursor = 'pointer';
+        checkbox.style.flexShrink = '0';
+        
+        // Load saved state
+        if (state[stepId]) {
+          checkbox.checked = true;
+          li.style.opacity = '0.6';
+          li.style.textDecoration = 'line-through';
+        }
+        
+        // Wrap content in label
+        const label = document.createElement('label');
+        label.style.display = 'flex';
+        label.style.alignItems = 'flex-start';
+        label.style.gap = '8px';
+        label.style.cursor = 'pointer';
+        label.innerHTML = originalText;
+        
+        // Clear li and rebuild
+        li.innerHTML = '';
+        li.appendChild(checkbox);
+        li.appendChild(label);
+        
+        // Add change listener
+        checkbox.addEventListener('change', () => {
+          state[stepId] = checkbox.checked;
+          saveState(state);
+          
+          if (checkbox.checked) {
+            li.style.opacity = '0.6';
+            li.style.textDecoration = 'line-through';
+          } else {
+            li.style.opacity = '1';
+            li.style.textDecoration = 'none';
+          }
+        });
+      });
+    })();
   </script>
 </body>
 </html>
