@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Guild Wars 1 – Dervish GWAMM Planner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --bg-alt: #10121a;
+      --bg-soft: #151826;
+      --accent: #f5c14b;
+      --accent-soft: rgba(245, 193, 75, 0.12);
+      --accent-strong: #ffdd7a;
+      --text: #f5f5f7;
+      --muted: #a3a7c2;
+      --border: #292d3f;
+      --danger: #ff7676;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 22px 40px rgba(0, 0, 0, 0.65);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #121528 0, #05060a 55%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 32px 24px 64px;
+      }
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 32px;
+      }
+    }
+
+    .title-block {
+      max-width: 650px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(245, 193, 75, 0.16);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin: 0 0 6px;
+      letter-spacing: 0.02em;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 34px;
+      }
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 540px;
+    }
+
+    .pill-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(245, 193, 75, 0.6);
+      background: radial-gradient(circle at top left, #403315 0, #141016 55%);
+      font-size: 12px;
+      margin-top: 10px;
+      color: var(--accent-strong);
+    }
+
+    .pill-highlight span {
+      font-size: 13px;
+    }
+
+    .code-pill {
+      font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      background: #050509;
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid #2b2f42;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      color: var(--muted);
+      max-width: 260px;
+    }
+
+    .code-pill strong {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .nav button {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: rgba(10, 12, 20, 0.9);
+      color: var(--muted);
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.18s ease-out;
+    }
+
+    .nav button span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .nav button.active {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(245, 193, 75, 0.16), #0b0911);
+      color: var(--accent-strong);
+      box-shadow: 0 0 0 1px rgba(245, 193, 75, 0.24);
+    }
+
+    .nav button.active span.dot {
+      background: var(--accent);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.3fr) minmax(0, 1.4fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #181a25 0, #060712 55%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(32, 35, 54, 0.92);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 16px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(245, 193, 75, 0.12), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title span.icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 30%;
+      background: linear-gradient(135deg, #f5c14b, #ff9c48);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #111;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5),
+        0 0 18px rgba(245, 193, 75, 0.7);
+    }
+
+    .card-subtitle {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 12px;
+    }
+
+    .pill {
+      border-radius: var(--radius-pill);
+      padding: 3px 9px;
+      font-size: 11px;
+      border: 1px solid var(--border);
+      background: rgba(7, 9, 14, 0.9);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .pill--accent {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+
+    .pill--role {
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 16px 0 6px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .attribute-list,
+    .skill-list,
+    .note-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+    }
+
+    .attribute-list li,
+    .skill-list li,
+    .note-list li {
+      padding: 3px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px dashed rgba(55, 60, 87, 0.5);
+    }
+
+    .attribute-list li:last-child,
+    .skill-list li:last-child,
+    .note-list li:last-child {
+      border-bottom: none;
+    }
+
+    .attribute-name {
+      color: var(--muted);
+    }
+
+    .attribute-value {
+      font-weight: 600;
+    }
+
+    .skill-name {
+      font-weight: 500;
+    }
+
+    .skill-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .hero-tabs {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .hero-btn {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: rgba(5, 6, 12, 0.9);
+      padding: 4px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.16s ease-out;
+    }
+
+    .hero-btn span.tag {
+      font-size: 10px;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-btn.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+
+    .hero-panel {
+      display: none;
+      border-radius: var(--radius-md);
+      background: rgba(3, 4, 9, 0.9);
+      border: 1px solid rgba(52, 57, 90, 0.85);
+      padding: 10px 12px 10px;
+    }
+
+    .hero-panel.active {
+      display: block;
+    }
+
+    .hero-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .hero-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .hero-role {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .tips-card {
+      margin-top: 16px;
+    }
+
+    .note-list li {
+      align-items: flex-start;
+    }
+
+    .note-bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      margin-top: 6px;
+      background: var(--accent);
+    }
+
+    .note-text {
+      flex: 1;
+    }
+
+    footer {
+      margin-top: 26px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      opacity: 0.75;
+    }
+
+    footer span {
+      opacity: 0.9;
+      color: var(--accent-strong);
+    }
+
+    /* Guide styles - bigger and clearer */
+    .guide-card {
+      max-height: 620px;
+      overflow: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-soft) #05060a;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .guide-card::-webkit-scrollbar {
+      width: 6px;
+    }
+    .guide-card::-webkit-scrollbar-track {
+      background: #05060a;
+    }
+    .guide-card::-webkit-scrollbar-thumb {
+      background: var(--accent-soft);
+      border-radius: 6px;
+    }
+
+    .guide-section-title {
+      font-size: 17px;
+      margin: 18px 0 8px;
+      font-weight: 600;
+    }
+
+    .guide-subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      margin: 0 0 6px;
+    }
+
+    .guide-ol {
+      margin: 6px 0 10px 22px;
+      padding: 0;
+      font-size: 15px;
+    }
+
+    .guide-ol li {
+      margin-bottom: 6px;
+    }
+
+    .guide-inline-pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 10px;
+      border: 1px solid rgba(245, 193, 75, 0.5);
+      font-size: 12px;
+      margin-left: 6px;
+      background: rgba(245, 193, 75, 0.06);
+      color: var(--accent-strong);
+    }
+
+    .guide-checklist {
+      margin: 6px 0 10px;
+      padding-left: 22px;
+      font-size: 15px;
+    }
+
+    .guide-checklist li {
+      margin-bottom: 6px;
+    }
+
+    .guide-hr {
+      border: none;
+      border-top: 1px solid rgba(60, 64, 96, 0.8);
+      margin: 14px 0 10px;
+    }
+
+    .guide-start-callout {
+      border-radius: 12px;
+      border: 1px solid rgba(245, 193, 75, 0.5);
+      background: radial-gradient(circle at top left, rgba(245, 193, 75, 0.16), #090712 70%);
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+
+    .guide-start-callout-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-strong);
+      margin-bottom: 4px;
+    }
+
+    .guide-start-callout p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    /* Checklist UI */
+    .phase-checklist {
+      margin: 4px 0 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(5, 6, 14, 0.9);
+      border: 1px solid rgba(70, 72, 104, 0.9);
+    }
+
+    .phase-checklist-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .phase-checklist-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .phase-checklist-progress {
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 193, 75, 0.5);
+      color: var(--accent-strong);
+      background: rgba(245, 193, 75, 0.06);
+      white-space: nowrap;
+    }
+
+    .phase-checklist ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .phase-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .phase-checklist input[type="checkbox"] {
+      accent-color: #f5c14b;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .phase-checklist label {
+      cursor: pointer;
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="title-block">
+        <div class="badge-row">
+          <div class="badge">
+            <div class="badge-dot"></div>
+            GW1 – Dervish Solo + 7 Heroes
+          </div>
+          <div class="badge">Hard Mode Missions • Vanquishes • GWAMM route</div>
+        </div>
+        <h1>Dervish GWAMM Planner</h1>
+        <p class="subtitle">
+          A complete, plug-and-play setup for a Nightfall Dervish: full build, 7-hero templates,
+          “how to use it”, and a step-by-step route to <em>God Walking Amongst Mere Mortals</em>.
+        </p>
+        <div class="pill-highlight">
+          <span>⭐</span>
+          <span><strong>Goal:</strong> 30 maxed titles → <em>God Walking Amongst Mere Mortals</em></span>
+        </div>
+      </div>
+      <div>
+        <div class="code-pill">
+          <strong>Tip</strong>
+          <span>Keep this open on a 2nd monitor / alt-tab while playing.</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="nav">
+      <button class="active" data-section="dervish">
+        <span class="dot"></span> Dervish build
+      </button>
+      <button data-section="heroes">
+        <span class="dot"></span> 7 hero templates
+      </button>
+      <button data-section="tips">
+        <span class="dot"></span> How to play the team
+      </button>
+      <button data-section="guide">
+        <span class="dot"></span> Full GWAMM guide
+      </button>
+    </div>
+
+    <main>
+      <!-- LEFT MAIN: Dervish OR Guide -->
+      <div id="section-dervish" class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">
+                <span class="icon">☄</span>
+                Dervish – Frontline DPS &amp; Party Backbone
+              </h2>
+              <p class="card-subtitle">
+                Scythe AoE, enchant-fueled defense, and “Save Yourselves!” to keep the party alive.
+              </p>
+            </div>
+            <div class="pill pill--role">Player</div>
+          </div>
+
+          <div class="pill-row">
+            <div class="pill pill--accent">Primary: Dervish</div>
+            <div class="pill">Role: Melee AoE DPS</div>
+            <div class="pill">Use: HM missions, vanquishes, bosses</div>
+          </div>
+
+          <h3 class="section-title">Attributes</h3>
+          <ul class="attribute-list">
+            <li>
+              <span class="attribute-name">Scythe Mastery</span>
+              <span class="attribute-value">12 base (16 with runes)</span>
+            </li>
+            <li>
+              <span class="attribute-name">Mysticism</span>
+              <span class="attribute-value">9 base (10 with rune)</span>
+            </li>
+            <li>
+              <span class="attribute-name">Earth Prayers</span>
+              <span class="attribute-value">9 base (10 with rune)</span>
+            </li>
+          </ul>
+
+          <h3 class="section-title">Skill Bar</h3>
+          <ul class="skill-list">
+            <li>
+              <span class="skill-name">1. Aura of Holy Might (Elite)</span>
+              <span class="skill-tag">Main damage steroid</span>
+            </li>
+            <li>
+              <span class="skill-name">2. Heart of Fury</span>
+              <span class="skill-tag">Attack speed + enchant</span>
+            </li>
+            <li>
+              <span class="skill-name">3. Ebon Dust Aura</span>
+              <span class="skill-tag">Blind on hit</span>
+            </li>
+            <li>
+              <span class="skill-name">4. Mystic Sweep</span>
+              <span class="skill-tag">Fast scythe attack</span>
+            </li>
+            <li>
+              <span class="skill-name">5. Eremite’s Attack</span>
+              <span class="skill-tag">AoE spike</span>
+            </li>
+            <li>
+              <span class="skill-name">6. Vow of Piety</span>
+              <span class="skill-tag">Armor + self-heal while enchanted</span>
+            </li>
+            <li>
+              <span class="skill-name">7. Vital Boon</span>
+              <span class="skill-tag">Cheap enchant + heal</span>
+            </li>
+            <li>
+              <span class="skill-name">8. “Save Yourselves!”</span>
+              <span class="skill-tag">Massive party damage reduction</span>
+            </li>
+          </ul>
+
+          <h3 class="section-title">Runes &amp; Insignias</h3>
+          <div class="two-col">
+            <div>
+              <ul class="attribute-list">
+                <li>
+                  <span class="attribute-name">Head</span>
+                  <span class="attribute-value">+1 Scythe Mastery</span>
+                </li>
+                <li>
+                  <span class="attribute-name">Chest</span>
+                  <span class="attribute-value">Superior Scythe Mastery</span>
+                </li>
+                <li>
+                  <span class="attribute-name">Gloves</span>
+                  <span class="attribute-value">Minor Mysticism</span>
+                </li>
+                <li>
+                  <span class="attribute-name">Legs</span>
+                  <span class="attribute-value">Minor Earth Prayers</span>
+                </li>
+                <li>
+                  <span class="attribute-name">Boots</span>
+                  <span class="attribute-value">Rune of Vitae</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <ul class="attribute-list">
+                <li>
+                  <span class="attribute-name">Insignias</span>
+                  <span class="attribute-value">Windwalker on all pieces</span>
+                </li>
+                <li>
+                  <span class="attribute-name">Reason</span>
+                  <span class="attribute-value">Permanent +armor while enchanted</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <h3 class="section-title">Weapons</h3>
+          <ul class="attribute-list">
+            <li>
+              <span class="attribute-name">Main Set</span>
+              <span class="attribute-value">Scythe; 15^ while enchanted, +30 HP, Sundering/Vampiric</span>
+            </li>
+            <li>
+              <span class="attribute-name">Defensive Set</span>
+              <span class="attribute-value">Shield (+10 vs phys, +30 HP) + 1h weapon</span>
+            </li>
+            <li>
+              <span class="attribute-name">Utility (Optional)</span>
+              <span class="attribute-value">High-energy staff for pre-buffing enchants</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="section-guide" class="card guide-card" style="display:none;">
+        <div class="card-inner">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">
+                <span class="icon">📜</span>
+                Full GWAMM Step-by-Step Route
+              </h2>
+              <p class="card-subtitle">
+                Clear phases, with a dedicated level 1 Nightfall start and a GWAMM checklist.
+              </p>
+            </div>
+          </div>
+
+          <!-- PHASE CHECKLIST UI -->
+          <div class="phase-checklist">
+            <div class="phase-checklist-header">
+              <div class="phase-checklist-title">High-level GWAMM checklist</div>
+              <div id="checklistProgress" class="phase-checklist-progress">
+                0 / 10 steps done
+              </div>
+            </div>
+            <ul>
+              <li>
+                <label>
+                  <input type="checkbox" data-check-id="p0" />
+                  0 – Dervish + heroes set up, Survivor plan ready
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-check-id="p1" />
+                  1 – Nightfall NM finished (Istan → Kourna → Vabbi → Desolation → Torment)
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-check-id="p2" />
+                  2 – Factions, Prophecies &amp; EotN NM finished
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-check-id="p3" />
+                  3 – All Protector &amp; Guardian titles maxed + Legendary Guardian
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-check-id="p4" />
+                  4 – All HM explorable areas vanquished + Legendary Vanquisher
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-check-id="p5" />
+                  5 – 100% maps for Tyria, Cantha, Elona + Legendary Cartographer
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-check-id="p6" />
+                  6 – Legendary Skill Hunter maxed
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-check-id="p7" />
+                  7 – All EotN reps + Sunspear + Lightbringer + Kurz/Lux maxed
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-check-id="p8" />
+                  8 – Survivor done (Legendary Survivor)
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" data-check-id="p9" />
+                  9 – Drunkard, Sweet Tooth, Party Animal maxed → 30 titles total
+                </label>
+              </li>
+            </ul>
+          </div>
+
+          <div class="guide-start-callout">
+            <div class="guide-start-callout-title">START HERE – LEVEL 1 NIGHTFALL DERVISH</div>
+            <p>
+              If you just created your Dervish, begin at <strong>Section A</strong> below
+              (“Level 1–20: Nightfall Story Path”). Everything else assumes you’ve done that.
+            </p>
+          </div>
+
+          <div>
+            <div class="guide-section-title">0. Titles This Plan Uses</div>
+            <p class="guide-subtitle">Target: 30 maxed titles using these groups:</p>
+            <ul class="guide-checklist">
+              <li><strong>Campaign / missions:</strong> Protector &amp; Guardian of Tyria, Cantha, Elona + Legendary Guardian.</li>
+              <li><strong>Exploration:</strong> Tyrian, Canthan, Elonian Cartographer + Legendary Cartographer.</li>
+              <li><strong>Vanquishing:</strong> Tyrian, Canthan, Elonian Vanquisher + Legendary Vanquisher.</li>
+              <li><strong>Skills:</strong> Tyrian, Canthan, Elonian Skill Hunter + Legendary Skill Hunter.</li>
+              <li><strong>Reputation:</strong> Asura, Norn, Deldrimor, Ebon Vanguard; Sunspear; Lightbringer; Kurzick <em>or</em> Luxon.</li>
+              <li><strong>Other:</strong> Survivor, Drunkard, Sweet Tooth, Party Animal.</li>
+            </ul>
+
+            <hr class="guide-hr" />
+
+            <!-- A. LEVEL 1–20 NIGHTFALL PATH -->
+            <div class="guide-section-title">A. Level 1–20: Nightfall Story Path (Your Main Start)</div>
+
+            <p class="guide-subtitle"><strong>A1. Istan – Level 1–10, first heroes, basic Sunspear</strong></p>
+            <ol class="guide-ol">
+              <li>Create a <strong>Nightfall Dervish</strong> and complete the tutorial island:
+                <ul class="guide-checklist">
+                  <li>Follow the initial tutorial quest chain (Rally/Basic training etc.) until it sends you into <strong>Chahbek Village</strong>.</li>
+                  <li>Complete mission <strong>Chahbek Village</strong> (sink the corsair ships).</li>
+                </ul>
+              </li>
+              <li>Arrive in <strong>Kamadan, Jewel of Istan</strong>.
+                <ul class="guide-checklist">
+                  <li>Immediately pick up the current <strong>Primary quest</strong> from Kormir / Sunspear NPCs.</li>
+                  <li>Keep that yellow-primary-quest active at all times – that is your “main story arrow”.</li>
+                </ul>
+              </li>
+              <li>Follow primaries through Istan zones:
+                <ul class="guide-checklist">
+                  <li>Plains of Jarin</li>
+                  <li>Cliffs of Dohjok</li>
+                  <li>Zehlon Reach</li>
+                  <li>Fahranur, The First City</li>
+                </ul>
+              </li>
+              <li>Do Istan missions in this order:
+                <ul class="guide-checklist">
+                  <li><strong>Jokanur Diggings</strong></li>
+                  <li><strong>Blacktide Den</strong></li>
+                  <li><strong>Consulate Docks</strong> (this moves you off Istan)</li>
+                </ul>
+              </li>
+              <li>While doing A1:
+                <ul class="guide-checklist">
+                  <li>Complete obvious side quests in each town for XP and Sunspear rank.</li>
+                  <li>Try to leave Istan around level 10–12 with Sunspear rank ~3–4.</li>
+                </ul>
+              </li>
+            </ol>
+
+            <p class="guide-subtitle"><strong>A2. Kourna – Level 10–15, war vs Varesh</strong></p>
+            <ol class="guide-ol">
+              <li>After <strong>Consulate Docks</strong> you’ll be sent to <strong>Sunspear Sanctuary / Kourna</strong>.
+                <ul class="guide-checklist">
+                  <li>Always pick up the next <strong>Primary quest</strong> when one finishes.</li>
+                </ul>
+              </li>
+              <li>Do Kourna missions in this order:
+                <ul class="guide-checklist">
+                  <li><strong>Venta Cemetery</strong></li>
+                  <li><strong>Kodonur Crossroads</strong></li>
+                  <li><strong>Rilohn Refuge</strong></li>
+                  <li><strong>Pogahn Passage</strong></li>
+                  <li><strong>Moddok Crevice</strong></li>
+                  <li><strong>Dajkah Inlet</strong></li>
+                  <li><strong>Nundu Bay</strong></li>
+                </ul>
+              </li>
+              <li>Use side quests in <strong>Yohlon Haven, Sunspear Sanctuary, Command Post</strong> for XP and Sunspear.</li>
+            </ol>
+
+            <p class="guide-subtitle"><strong>A3. Vabbi – Level 15–18, princes and palaces</strong></p>
+            <ol class="guide-ol">
+              <li>Primary quests will move you into Vabbi hubs: <strong>The Kodash Bazaar, Honur Hill, Yahnur Market</strong>.</li>
+              <li>Run Vabbi missions:
+                <ul class="guide-checklist">
+                  <li><strong>Tihark Orchard</strong></li>
+                  <li><strong>Grand Court of Sebelkeh</strong></li>
+                  <li><strong>Jennur’s Horde</strong></li>
+                  <li><strong>Dasha Vestibule</strong></li>
+                  <li><strong>Dzagonur Bastion</strong></li>
+                </ul>
+              </li>
+            </ol>
+
+            <p class="guide-subtitle"><strong>A4. Desolation – wurms and sulfur</strong></p>
+            <ol class="guide-ol">
+              <li>Complete the primary quest chain to learn wurm riding (Crossing the Desolation line).</li>
+              <li>Do Desolation missions:
+                <ul class="guide-checklist">
+                  <li><strong>Gate of Desolation</strong></li>
+                  <li><strong>Ruins of Morah</strong></li>
+                </ul>
+              </li>
+              <li>Pick up any Lightbringer-related quests and bounties you see.</li>
+            </ol>
+
+            <p class="guide-subtitle"><strong>A5. Realm of Torment – Level 18–20 and finale</strong></p>
+            <ol class="guide-ol">
+              <li>From <strong>The Mouth of Torment</strong>, follow Kormir’s primaries deeper in.</li>
+              <li>Take the <strong>Lightbringer bounty</strong> NPC in Torment areas every time.</li>
+              <li>Finish Nightfall missions:
+                <ul class="guide-checklist">
+                  <li><strong>Gate of Pain</strong></li>
+                  <li><strong>Gate of Madness</strong></li>
+                  <li><strong>Abaddon’s Gate</strong> (Nightfall final)</li>
+                </ul>
+              </li>
+            </ol>
+
+            <p class="guide-subtitle"><strong>End of Section A checkpoint</strong></p>
+            <ul class="guide-checklist">
+              <li>Nightfall story fully complete in Normal Mode.</li>
+              <li>Most of <strong>Protector of Elona</strong> done (you can redo a few missions later for bonus).</li>
+              <li>You should be level 20 with multiple heroes unlocked.</li>
+              <li>Survivor progress: ideally still deathless; if not, you’ll rebuild later via safe XP.</li>
+            </ul>
+
+            <hr class="guide-hr" />
+
+            <!-- B. OTHER CAMPAIGNS NM -->
+            <div class="guide-section-title">B. Finish All Other Campaigns in NM</div>
+
+            <p class="guide-subtitle"><strong>B1. Factions NM – clean mission order</strong></p>
+            <ol class="guide-ol">
+              <li>Travel to <strong>Shing Jea Monastery</strong> from Kamadan or Lion’s Arch.</li>
+              <li>Do Shing Jea missions:
+                <ul class="guide-checklist">
+                  <li><strong>Minister Cho’s Estate</strong></li>
+                  <li><strong>Zen Daijun</strong></li>
+                </ul>
+              </li>
+              <li>Follow primaries into Kaineng City; then run:
+                <ul class="guide-checklist">
+                  <li><strong>Vizunah Square</strong> (Foreign/Local)</li>
+                  <li><strong>Nahpui Quarter</strong></li>
+                  <li><strong>Tahnnakai Temple</strong></li>
+                  <li><strong>Arborstone</strong> (Kurzick) <em>or</em> <strong>Boreas Seabed</strong> (Luxon)</li>
+                  <li><strong>Sunjiang District</strong></li>
+                </ul>
+              </li>
+              <li>Choose Kurzick or Luxon route:
+                <ul class="guide-checklist">
+                  <li>If Kurzick: <strong>Eternal Grove</strong>.</li>
+                  <li>If Luxon: <strong>Gyala Hatchery</strong>.</li>
+                </ul>
+              </li>
+              <li>Endgame:
+                <ul class="guide-checklist">
+                  <li><strong>Raisu Palace</strong></li>
+                  <li><strong>Imperial Sanctum</strong> (Factions final)</li>
+                </ul>
+              </li>
+              <li>Try to get each mission’s bonus/master reward once as you go (for <strong>Protector of Cantha</strong> later).</li>
+            </ol>
+
+            <p class="guide-subtitle"><strong>B2. Prophecies NM – mission order</strong></p>
+            <ol class="guide-ol">
+              <li>From <strong>Lion’s Arch</strong>, take the travel quest into Prophecies if required.</li>
+              <li>Run missions in this sequence:
+                <ul class="guide-checklist">
+                  <li>The Great Northern Wall</li>
+                  <li>Fort Ranik</li>
+                  <li>Ruins of Surmia</li>
+                  <li>Nolani Academy</li>
+                  <li>Borlis Pass</li>
+                  <li>The Frost Gate</li>
+                  <li>The Wilds</li>
+                  <li>Bloodstone Fen</li>
+                  <li>Aurora Glade</li>
+                  <li>Riverside Province</li>
+                  <li>Sanctum Cay</li>
+                  <li>Dunes of Despair</li>
+                  <li>Thirsty River</li>
+                  <li>Elona Reach</li>
+                  <li>Augury Rock</li>
+                  <li>Ice Caves of Sorrow</li>
+                  <li>Iron Mines of Moladune</li>
+                  <li>Thunderhead Keep</li>
+                  <li>Ring of Fire</li>
+                  <li>Abaddon’s Mouth</li>
+                  <li>Hell’s Precipice (final Prophecies mission)</li>
+                </ul>
+              </li>
+              <li>Again, try to grab each mission’s bonus as you go for <strong>Protector of Tyria</strong>.</li>
+            </ol>
+
+            <p class="guide-subtitle"><strong>B3. Eye of the North NM – primary chains</strong></p>
+            <ol class="guide-ol">
+              <li>Enter EotN via the special quest from Kamadan / LA / Kaineng → reach the Eye of the North outpost.</li>
+              <li>From the Eye, follow the three main primary lines:
+                <ul class="guide-checklist">
+                  <li><strong>Norn:</strong> “Tracking the Nornbear”, “Curse of the Nornbear”, “Blood Washes Blood”, etc.</li>
+                  <li><strong>Asura:</strong> “The Knowledgeable Asura”, “Finding Gadd”, “Lab Space”, etc.</li>
+                  <li><strong>Ebon Vanguard / Charr:</strong> “The Missing Vanguard”, “Against the Charr”, “Warband of Brothers”, etc.</li>
+                </ul>
+              </li>
+              <li>Finish with:
+                <ul class="guide-checklist">
+                  <li>“Against the Destroyers”</li>
+                  <li>“Destruction’s Depths”</li>
+                  <li>“A Time for Heroes” (Great Destroyer final)</li>
+                </ul>
+              </li>
+              <li>Always take the appropriate reputation bounty in each region (Asura, Norn, Ebon, Deldrimor).</li>
+            </ol>
+
+            <p class="guide-subtitle"><strong>End of Section B checkpoint</strong></p>
+            <ul class="guide-checklist">
+              <li>Nightfall, Factions, Prophecies stories complete in Normal Mode.</li>
+              <li>EotN primary story finished.</li>
+              <li>Protector titles mostly done; rep titles already a decent level from just playing.</li>
+            </ul>
+
+            <hr class="guide-hr" />
+
+            <!-- C. PROTECTOR/GUARDIAN -->
+            <div class="guide-section-title">C. Protector &amp; Guardian – Hard Mode Missions</div>
+
+            <p class="guide-subtitle">Same missions as before, but in HM and making sure you’ve got the bonus/master reward.</p>
+
+            <p class="guide-subtitle"><strong>C1. Nightfall – Protector &amp; Guardian of Elona</strong></p>
+            <ul class="guide-checklist">
+              <li>Repeat Nightfall missions in HM, aiming to have:
+                <ul class="guide-checklist">
+                  <li>NM complete + bonus/master.</li>
+                  <li>HM complete + bonus/master.</li>
+                </ul>
+              </li>
+              <li>Use the same order you used in Section A (Istan → Kourna → Vabbi → Desolation → Torment).</li>
+              <li>When every mission has both NM/HM ticked with bonus → <strong>Protector of Elona</strong> + <strong>Guardian of Elona</strong>.</li>
+            </ul>
+
+            <p class="guide-subtitle"><strong>C2. Factions – Protector &amp; Guardian of Cantha</strong></p>
+            <ul class="guide-checklist">
+              <li>Run all Factions missions again in HM with bonus:
+                <ul class="guide-checklist">
+                  <li>Minister Cho’s → Zen Daijun → Vizunah → Nahpui → Tahnnakai → Arborstone/Boreas → Sunjiang → Eternal Grove/Gyala → Raisu → Imperial Sanctum.</li>
+                </ul>
+              </li>
+              <li>Finish both Protector &amp; Guardian of Cantha.</li>
+            </ul>
+
+            <p class="guide-subtitle"><strong>C3. Prophecies – Protector &amp; Guardian of Tyria</strong></p>
+            <ul class="guide-checklist">
+              <li>Do the full Prophecies mission list again in HM with bonus.</li>
+              <li>Some are long and punishing; flag heroes and pull carefully.</li>
+              <li>End with Protector &amp; Guardian of Tyria maxed.</li>
+            </ul>
+
+            <p class="guide-subtitle"><strong>End of Section C checkpoint</strong></p>
+            <ul class="guide-checklist">
+              <li>Protector of Tyria / Cantha / Elona – max.</li>
+              <li>Guardian of Tyria / Cantha / Elona – max.</li>
+              <li><strong>Legendary Guardian</strong> unlocked.</li>
+            </ul>
+
+            <hr class="guide-hr" />
+
+            <!-- D. VANQUISH/CARTO -->
+            <div class="guide-section-title">D. Vanquishing &amp; Cartography – HM Explorable Areas</div>
+
+            <p class="guide-subtitle">
+              We won’t list every single zone (it would be a book), but the process is strict and simple.
+            </p>
+
+            <p class="guide-subtitle"><strong>D1. Per-continent routine</strong></p>
+            <ol class="guide-ol">
+              <li>Switch to <strong>Hard Mode</strong> on that continent.</li>
+              <li>Open the world map and look for <strong>helmet icons</strong> – these are Vanquishable zones.</li>
+              <li>For each helmet zone:
+                <ul class="guide-checklist">
+                  <li>Enter with your 7-hero team.</li>
+                  <li>Grab any bounties (Sunspear, Lightbringer, Kurz/Lux, or EotN rep) if available.</li>
+                  <li>Kill everything until “<strong>Vanquished!</strong>” appears.</li>
+                  <li>While doing this, hug every wall and scrape edges for Cartographer %.</li>
+                </ul>
+              </li>
+              <li>When all helmets are done:
+                <ul class="guide-checklist">
+                  <li>Use texmod / map comparison screenshots to find any missing % for 100% maps.</li>
+                </ul>
+              </li>
+            </ol>
+
+            <p class="guide-subtitle"><strong>D2. Suggested order</strong></p>
+            <ul class="guide-checklist">
+              <li>1) <strong>Elona</strong> – good Sunspear/Lightbringer progress and open areas.</li>
+              <li>2) <strong>Cantha</strong> – dense mobs, good XP and faction.</li>
+              <li>3) <strong>Tyria</strong> – longest; do it when your team is fully optimised.</li>
+            </ul>
+
+            <p class="guide-subtitle"><strong>End of Section D checkpoint</strong></p>
+            <ul class="guide-checklist">
+              <li>Tyrian, Canthan, Elonian Vanquisher – max → <strong>Legendary Vanquisher</strong>.</li>
+              <li>Tyrian, Canthan, Elonian Cartographer – max → <strong>Legendary Cartographer</strong>.</li>
+            </ul>
+
+            <hr class="guide-hr" />
+
+            <!-- E. SKILL HUNTER -->
+            <div class="guide-section-title">E. Legendary Skill Hunter – All Elites</div>
+
+            <p class="guide-subtitle"><strong>E1. While doing everything else</strong></p>
+            <ul class="guide-checklist">
+              <li>Keep <strong>Signet of Capture</strong> on your bar or on a hero whenever you enter new areas.</li>
+              <li>Whenever you see an elite boss with a skill you need, kill it and cap the skill immediately.</li>
+            </ul>
+
+            <p class="guide-subtitle"><strong>E2. Cleanup phase</strong></p>
+            <ol class="guide-ol">
+              <li>Open lists of elites for Tyria, Cantha, Elona, and Core.</li>
+              <li>Mark ones you already own.</li>
+              <li>For each missing elite:
+                <ul class="guide-checklist">
+                  <li>Go to the boss’s zone in NM (safer) or HM.</li>
+                  <li>Fight your way to the boss.</li>
+                  <li>Use <strong>Signet of Capture</strong> when the boss is nearly dead.</li>
+                </ul>
+              </li>
+              <li>Repeat until:
+                <ul class="guide-checklist">
+                  <li>Tyrian Skill Hunter – max.</li>
+                  <li>Canthan Skill Hunter – max.</li>
+                  <li>Elonian Skill Hunter – max.</li>
+                  <li>Core elite count satisfied → <strong>Legendary Skill Hunter</strong>.</li>
+                </ul>
+              </li>
+            </ol>
+
+            <hr class="guide-hr" />
+
+            <!-- F. REPS -->
+            <div class="guide-section-title">F. Reputation Titles – EotN, Sunspear, Lightbringer, Kurz/Lux</div>
+
+            <p class="guide-subtitle"><strong>F1. EotN reputations</strong></p>
+            <ul class="guide-checklist">
+              <li>Asura, Norn, Ebon Vanguard, Deldrimor all to rank 10.</li>
+              <li>Use:
+                <ul class="guide-checklist">
+                  <li>HM Hero’s Handbooks (fill and turn in).</li>
+                  <li>HM dungeons with the appropriate bounty active.</li>
+                </ul>
+              </li>
+            </ul>
+
+            <p class="guide-subtitle"><strong>F2. Sunspear &amp; Lightbringer</strong></p>
+            <ul class="guide-checklist">
+              <li><strong>Sunspear:</strong> farm Nightfall areas (Istan, Kourna, Vabbi) with Sunspear bounty.</li>
+              <li><strong>Lightbringer:</strong> farm Realm of Torment areas and missions with LB bounty.</li>
+            </ul>
+
+            <p class="guide-subtitle"><strong>F3. Kurzick or Luxon</strong></p>
+            <ul class="guide-checklist">
+              <li>Stick to the side you chose in Factions (Kurz or Lux).</li>
+              <li>Repeat:
+                <ul class="guide-checklist">
+                  <li>Jade Quarry / Fort Aspenwood / Alliance Battles.</li>
+                  <li>Faction quests in Echovald (Kurzick) or Jade Sea (Luxon).</li>
+                  <li>Donate faction to title NPC to push the title to rank 10.</li>
+                </ul>
+              </li>
+            </ul>
+
+            <hr class="guide-hr" />
+
+            <!-- G. SURVIVOR + FESTIVALS -->
+            <div class="guide-section-title">G. Survivor &amp; Festival Titles</div>
+
+            <p class="guide-subtitle"><strong>G1. Finish Survivor (if not already done)</strong> <span class="guide-inline-pill">Legendary Survivor</span></p>
+            <ul class="guide-checklist">
+              <li>Play ultra-safe content:
+                <ul class="guide-checklist">
+                  <li>Easy NM missions and EotN dungeons.</li>
+                  <li>Turn in full storybooks (NM/HM) for large XP chunks.</li>
+                </ul>
+              </li>
+              <li>Once you reach 1,337,500 XP on a no-death streak, Survivor is maxed.</li>
+            </ul>
+
+            <p class="guide-subtitle"><strong>G2. Drunkard, Sweet Tooth, Party Animal</strong></p>
+            <ul class="guide-checklist">
+              <li><strong>Drunkard:</strong> buy/farm ales and long-duration drinks, stay drunk during vanquishes or while AFK in outposts.</li>
+              <li><strong>Sweet Tooth:</strong> use sweets as combat buffs and spam during festivals.</li>
+              <li><strong>Party Animal:</strong> spam fireworks/poppers/sparklers whenever you’re in towns or waiting.</li>
+            </ul>
+
+            <hr class="guide-hr" />
+
+            <!-- H. FINAL CHECK -->
+            <div class="guide-section-title">H. Final Check – Unlocking GWAMM</div>
+
+            <ol class="guide-ol">
+              <li>Open your <strong>Titles</strong> panel on the Dervish.</li>
+              <li>Count how many titles are at <strong>max rank</strong>.</li>
+              <li>Your meta-title <strong>“Kind of a Big Deal”</strong> reaches rank 6 at 30 maxed titles.</li>
+              <li>Once that’s true, you can select and display <strong>“God Walking Amongst Mere Mortals”</strong>.</li>
+            </ol>
+
+            <p class="guide-subtitle"><strong>Super-short route recap</strong></p>
+            <ul class="guide-checklist">
+              <li>Section A – Level 1 Dervish → finish Nightfall NM.</li>
+              <li>Section B – Finish Factions, Prophecies, EotN NM in listed mission order.</li>
+              <li>Section C – HM missions for all campaigns → Protectors, Guardians, Legendary Guardian.</li>
+              <li>Section D – Vanquish all zones + 100% maps → Legendary Vanquisher + Legendary Cartographer.</li>
+              <li>Section E – Capture all elites → Legendary Skill Hunter.</li>
+              <li>Section F – Max all reps (EotN, Sunspear, LB, Kurz/Lux).</li>
+              <li>Section G – Finish Survivor + Drunkard, Sweet Tooth, Party Animal.</li>
+              <li>Section H – Confirm 30 titles → equip GWAMM.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: heroes + tips -->
+      <div>
+        <div id="section-heroes" class="card" style="display:none;">
+          <div class="card-inner">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">
+                  <span class="icon">👥</span>
+                  7 Hero Templates
+                </h2>
+                <p class="card-subtitle">
+                  Mesmer + Necro + Ritualist + Monk core that carries NM/HM missions and vanquishes.
+                </p>
+              </div>
+            </div>
+
+            <div class="hero-tabs">
+              <div class="hero-buttons">
+                <button class="hero-btn active" data-hero="h1">
+                  H1 – Mesmer <span class="tag">Panic</span>
+                </button>
+                <button class="hero-btn" data-hero="h2">
+                  H2 – Mesmer <span class="tag">Ineptitude</span>
+                </button>
+                <button class="hero-btn" data-hero="h3">
+                  H3 – Necro <span class="tag">Discord 1</span>
+                </button>
+                <button class="hero-btn" data-hero="h4">
+                  H4 – Necro <span class="tag">Discord 2</span>
+                </button>
+                <button class="hero-btn" data-hero="h5">
+                  H5 – Necro <span class="tag">Minion Bomber</span>
+                </button>
+                <button class="hero-btn" data-hero="h6">
+                  H6 – Rit <span class="tag">SoS</span>
+                </button>
+                <button class="hero-btn" data-hero="h7">
+                  H7 – Monk <span class="tag">WoH Healer</span>
+                </button>
+              </div>
+
+              <!-- H1 -->
+              <div id="hero-h1" class="hero-panel active">
+                <div class="hero-heading">
+                  <div class="hero-name">Hero 1 – Panic Mesmer</div>
+                  <div class="hero-role">Crowd Control / Interrupts</div>
+                </div>
+                <div class="pill-row" style="margin:4px 0 10px;">
+                  <div class="pill pill--accent">Primary: Mesmer</div>
+                  <div class="pill">Role: Shutdown</div>
+                </div>
+                <h4 class="section-title">Skill Bar</h4>
+                <ul class="skill-list">
+                  <li><span class="skill-name">1. Panic (Elite)</span><span class="skill-tag">Mass AoE interrupt</span></li>
+                  <li><span class="skill-name">2. Power Drain</span><span class="skill-tag">Interrupt + energy</span></li>
+                  <li><span class="skill-name">3. Power Spike</span><span class="skill-tag">Fast interrupt</span></li>
+                  <li><span class="skill-name">4. Cry of Frustration</span><span class="skill-tag">AoE interrupt</span></li>
+                  <li><span class="skill-name">5. Shatter Hex</span><span class="skill-tag">Hex removal + damage</span></li>
+                  <li><span class="skill-name">6. Shatter Enchantment</span><span class="skill-tag">Enchant removal + damage</span></li>
+                  <li><span class="skill-name">7. Arcane Conundrum</span><span class="skill-tag">Slows enemy casting</span></li>
+                  <li><span class="skill-name">8. Resurrection Signet</span><span class="skill-tag">Party rez</span></li>
+                </ul>
+                <h4 class="section-title">Attributes &amp; Gear</h4>
+                <ul class="attribute-list">
+                  <li><span class="attribute-name">Domination</span><span class="attribute-value">12</span></li>
+                  <li><span class="attribute-name">Inspiration</span><span class="attribute-value">12</span></li>
+                  <li><span class="attribute-name">Fast Casting</span><span class="attribute-value">3</span></li>
+                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Domination, minor Inspiration &amp; Fast Casting, Vitae x2</span></li>
+                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Domination wand + focus</span></li>
+                </ul>
+              </div>
+
+              <!-- H2 -->
+              <div id="hero-h2" class="hero-panel">
+                <div class="hero-heading">
+                  <div class="hero-name">Hero 2 – Ineptitude Mesmer</div>
+                  <div class="hero-role">Anti-Melee / Damage</div>
+                </div>
+                <div class="pill-row" style="margin:4px 0 10px;">
+                  <div class="pill pill--accent">Primary: Mesmer</div>
+                  <div class="pill">Role: Melee shutdown</div>
+                </div>
+                <h4 class="section-title">Skill Bar</h4>
+                <ul class="skill-list">
+                  <li><span class="skill-name">1. Ineptitude (Elite)</span><span class="skill-tag">Blind + damage</span></li>
+                  <li><span class="skill-name">2. Clumsiness</span><span class="skill-tag">Melee damage + KD</span></li>
+                  <li><span class="skill-name">3. Wandering Eye</span><span class="skill-tag">KD on attacking foes</span></li>
+                  <li><span class="skill-name">4. Cry of Pain</span><span class="skill-tag">Bonus spike</span></li>
+                  <li><span class="skill-name">5. Power Spike</span><span class="skill-tag">Interrupt</span></li>
+                  <li><span class="skill-name">6. Power Drain</span><span class="skill-tag">Interrupt + energy</span></li>
+                  <li><span class="skill-name">7. Shatter Enchantment</span><span class="skill-tag">Enchant strip</span></li>
+                  <li><span class="skill-name">8. Resurrection Signet</span><span class="skill-tag">Rez</span></li>
+                </ul>
+                <h4 class="section-title">Attributes &amp; Gear</h4>
+                <ul class="attribute-list">
+                  <li><span class="attribute-name">Illusion</span><span class="attribute-value">12</span></li>
+                  <li><span class="attribute-name">Domination</span><span class="attribute-value">11</span></li>
+                  <li><span class="attribute-name">Inspiration</span><span class="attribute-value">6</span></li>
+                  <li><span class="attribute-name">Fast Casting</span><span class="attribute-value">3</span></li>
+                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Illusion, minor Dom/Insp/FC, Vitae</span></li>
+                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Illusion or Dom set</span></li>
+                </ul>
+              </div>
+
+              <!-- H3 -->
+              <div id="hero-h3" class="hero-panel">
+                <div class="hero-heading">
+                  <div class="hero-name">Hero 3 – Necromancer Discord 1</div>
+                  <div class="hero-role">Single-Target Spike</div>
+                </div>
+                <div class="pill-row" style="margin:4px 0 10px;">
+                  <div class="pill pill--accent">Primary: Necromancer</div>
+                  <div class="pill">Role: Spike &amp; support</div>
+                </div>
+                <h4 class="section-title">Skill Bar</h4>
+                <ul class="skill-list">
+                  <li><span class="skill-name">1. Discord (Elite)</span><span class="skill-tag">Main spike skill</span></li>
+                  <li><span class="skill-name">2. Animate Bone Minions</span><span class="skill-tag">Minion meatshield</span></li>
+                  <li><span class="skill-name">3. Putrid Bile</span><span class="skill-tag">Corpse explosion</span></li>
+                  <li><span class="skill-name">4. Enfeebling Blood</span><span class="skill-tag">Weakness on enemies</span></li>
+                  <li><span class="skill-name">5. Barbs</span><span class="skill-tag">Damage vs conditions/minions</span></li>
+                  <li><span class="skill-name">6. Necrosis</span><span class="skill-tag">Extra armor-ignoring damage</span></li>
+                  <li><span class="skill-name">7. Signet of Lost Souls</span><span class="skill-tag">Energy + damage</span></li>
+                  <li><span class="skill-name">8. Resurrection Signet</span><span class="skill-tag">Rez</span></li>
+                </ul>
+                <h4 class="section-title">Attributes &amp; Gear</h4>
+                <ul class="attribute-list">
+                  <li><span class="attribute-name">Death Magic</span><span class="attribute-value">12</span></li>
+                  <li><span class="attribute-name">Curses</span><span class="attribute-value">12</span></li>
+                  <li><span class="attribute-name">Soul Reaping</span><span class="attribute-value">3</span></li>
+                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Death, minor Curses &amp; Soul Reaping, Vitae x2</span></li>
+                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Curses or Death set</span></li>
+                </ul>
+              </div>
+
+              <!-- H4 -->
+              <div id="hero-h4" class="hero-panel">
+                <div class="hero-heading">
+                  <div class="hero-name">Hero 4 – Necromancer Discord 2</div>
+                  <div class="hero-role">Single-Target Spike</div>
+                </div>
+                <p class="card-subtitle" style="margin-bottom:6px;">
+                  Identical to Hero 3. Two Discord necros = brutal spikes on your called target.
+                </p>
+                <h4 class="section-title">Skill Bar / Attributes</h4>
+                <ul class="skill-list">
+                  <li><span class="skill-name">Copy Hero 3 exactly.</span><span class="skill-tag">Same bar, attributes, runes, weapon.</span></li>
+                </ul>
+              </div>
+
+              <!-- H5 -->
+              <div id="hero-h5" class="hero-panel">
+                <div class="hero-heading">
+                  <div class="hero-name">Hero 5 – Necromancer Minion Bomber</div>
+                  <div class="hero-role">Minions &amp; Corpse Explosions</div>
+                </div>
+                <div class="pill-row" style="margin:4px 0 10px;">
+                  <div class="pill pill--accent">Primary: Necromancer</div>
+                  <div class="pill">Role: Minion engine</div>
+                </div>
+                <h4 class="section-title">Skill Bar</h4>
+                <ul class="skill-list">
+                  <li><span class="skill-name">1. Jagged Bones (Elite)</span><span class="skill-tag">Minion bomber core</span></li>
+                  <li><span class="skill-name">2. Animate Bone Minions</span><span class="skill-tag">Summon minions</span></li>
+                  <li><span class="skill-name">3. Putrid Bile</span><span class="skill-tag">Corpse boom</span></li>
+                  <li><span class="skill-name">4. Death Nova</span><span class="skill-tag">Explosions on minions</span></li>
+                  <li><span class="skill-name">5. Barbs</span><span class="skill-tag">Synergy with minions</span></li>
+                  <li><span class="skill-name">6. Signet of Lost Souls</span><span class="skill-tag">Energy management</span></li>
+                  <li><span class="skill-name">7. Blood of the Master</span><span class="skill-tag">Heal minions</span></li>
+                  <li><span class="skill-name">8. Resurrection Signet</span><span class="skill-tag">Rez</span></li>
+                </ul>
+                <h4 class="section-title">Attributes &amp; Gear</h4>
+                <ul class="attribute-list">
+                  <li><span class="attribute-name">Death Magic</span><span class="attribute-value">12</span></li>
+                  <li><span class="attribute-name">Curses</span><span class="attribute-value">12</span></li>
+                  <li><span class="attribute-name">Soul Reaping</span><span class="attribute-value">3</span></li>
+                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Death, minor Curses &amp; Soul Reaping, Vitae x2</span></li>
+                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Death set</span></li>
+                </ul>
+              </div>
+
+              <!-- H6 -->
+              <div id="hero-h6" class="hero-panel">
+                <div class="hero-heading">
+                  <div class="hero-name">Hero 6 – Ritualist Signet of Spirits</div>
+                  <div class="hero-role">Spirit Spammer / Support</div>
+                </div>
+                <div class="pill-row" style="margin:4px 0 10px;">
+                  <div class="pill pill--accent">Primary: Ritualist</div>
+                  <div class="pill">Role: Passive damage &amp; support</div>
+                </div>
+                <h4 class="section-title">Skill Bar</h4>
+                <ul class="skill-list">
+                  <li><span class="skill-name">1. Signet of Spirits (Elite)</span><span class="skill-tag">Core spirit damage</span></li>
+                  <li><span class="skill-name">2. Bloodsong</span><span class="skill-tag">Offensive spirit</span></li>
+                  <li><span class="skill-name">3. Vampirism</span><span class="skill-tag">Extra spirit damage</span></li>
+                  <li><span class="skill-name">4. Shadowsong</span><span class="skill-tag">Blind &amp; damage</span></li>
+                  <li><span class="skill-name">5. Pain</span><span class="skill-tag">Simple damaging spirit</span></li>
+                  <li><span class="skill-name">6. Mend Body and Soul</span><span class="skill-tag">Condition removal + heal</span></li>
+                  <li><span class="skill-name">7. Spirit Rift</span><span class="skill-tag">Extra AoE damage</span></li>
+                  <li><span class="skill-name">8. Summon Spirits</span><span class="skill-tag">Reposition spirits</span></li>
+                </ul>
+                <h4 class="section-title">Attributes &amp; Gear</h4>
+                <ul class="attribute-list">
+                  <li><span class="attribute-name">Channeling</span><span class="attribute-value">12</span></li>
+                  <li><span class="attribute-name">Restoration</span><span class="attribute-value">11</span></li>
+                  <li><span class="attribute-name">Communing</span><span class="attribute-value">6</span></li>
+                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Channeling, minor Rest &amp; Communing, Vitae x2</span></li>
+                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Channeling set</span></li>
+                </ul>
+              </div>
+
+              <!-- H7 -->
+              <div id="hero-h7" class="hero-panel">
+                <div class="hero-heading">
+                  <div class="hero-name">Hero 7 – Monk Word of Healing</div>
+                  <div class="hero-role">Main Healer / Prot</div>
+                </div>
+                <div class="pill-row" style="margin:4px 0 10px;">
+                  <div class="pill pill--accent">Primary: Monk</div>
+                  <div class="pill">Role: Dedicated healer</div>
+                </div>
+                <h4 class="section-title">Skill Bar</h4>
+                <ul class="skill-list">
+                  <li><span class="skill-name">1. Word of Healing (Elite)</span><span class="skill-tag">Primary big heal</span></li>
+                  <li><span class="skill-name">2. Dwayna’s Kiss</span><span class="skill-tag">Strong single heal</span></li>
+                  <li><span class="skill-name">3. Orison of Healing</span><span class="skill-tag">Filler heal</span></li>
+                  <li><span class="skill-name">4. Cure Hex</span><span class="skill-tag">Hex removal</span></li>
+                  <li><span class="skill-name">5. Guardian</span><span class="skill-tag">Block support</span></li>
+                  <li><span class="skill-name">6. Protective Spirit</span><span class="skill-tag">Anti-spike</span></li>
+                  <li><span class="skill-name">7. Aegis</span><span class="skill-tag">Party-wide block</span></li>
+                  <li><span class="skill-name">8. Channeling</span><span class="skill-tag">Energy management</span></li>
+                </ul>
+                <h4 class="section-title">Attributes &amp; Gear</h4>
+                <ul class="attribute-list">
+                  <li><span class="attribute-name">Healing</span><span class="attribute-value">12</span></li>
+                  <li><span class="attribute-name">Protection</span><span class="attribute-value">12</span></li>
+                  <li><span class="attribute-name">Divine Favor</span><span class="attribute-value">3</span></li>
+                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Healing, minor Prot &amp; Divine, Vitae x2</span></li>
+                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Healing set</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="section-tips" class="card tips-card" style="display:none;">
+          <div class="card-inner">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">
+                  <span class="icon">⚔</span>
+                  How to Play This Team
+                </h2>
+                <p class="card-subtitle">
+                  Quick reminders so you don’t have to think mid-mission.
+                </p>
+              </div>
+            </div>
+
+            <h3 class="section-title">You (Dervish)</h3>
+            <ul class="note-list">
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  Keep <strong>2–3 enchants up at all times</strong> (Heart of Fury, Vow of Piety, Vital Boon, Ebon Dust Aura).
+                  This fuels your armor, blinds, and damage.
+                </div>
+              </li>
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  Open fights with <strong>Heart of Fury → Aura of Holy Might → Mystic Sweep → Eremite’s Attack</strong>.
+                  That deletes clumps of mobs in HM when heroes are also spiking.
+                </div>
+              </li>
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  Use <strong>“Save Yourselves!”</strong> whenever your adrenaline is up and your team is engaged.
+                  It’s basically a short party-wide “god mode”.
+                </div>
+              </li>
+            </ul>
+
+            <h3 class="section-title">Hero Micro &amp; Positioning</h3>
+            <ul class="note-list">
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  <strong>Flag your heroes</strong> slightly behind a corner or rock, then pull enemies to you.
+                  You take first aggro, they nuke safely from behind.
+                </div>
+              </li>
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  Use a bow or long-range spell to <strong>pull one group at a time</strong>.
+                  Don’t face-pull entire HM mobs when there are patrols nearby.
+                </div>
+              </li>
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  If something is spamming heals / wards / spirits, <strong>call it as a target</strong>.
+                  Two Discord necros + Panic Mesmer will annihilate it fast.
+                </div>
+              </li>
+            </ul>
+
+            <h3 class="section-title">What This Team Handles Well</h3>
+            <ul class="note-list">
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  <strong>HM Missions &amp; Guardians:</strong> Use this exact squad for most Guardian runs; tweak only if a mission has weird mechanics (escorts, splits).
+                </div>
+              </li>
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  <strong>Vanquishes:</strong> Slow and safe, especially in areas with lots of melee (Ineptitude + Ebon Dust Aura = perma-blind).
+                </div>
+              </li>
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  <strong>Dungeons / EotN reps:</strong> SoS + Discord + minions shred dungeons while you carve through the frontline.
+                </div>
+              </li>
+            </ul>
+
+            <h3 class="section-title">Tweaks</h3>
+            <ul class="note-list">
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  Need more defense? Turn one Discord Necro into a more defensive curses/prot bar, or bring Shelter/Union on your Rit.
+                </div>
+              </li>
+              <li>
+                <div class="note-bullet"></div>
+                <div class="note-text">
+                  Need more damage? Swap Monk into a Ritualist healer and add another offensive Mesmer or Necro.
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      Builds + route aimed at: <span>NM/HM missions, vanquishes, GWAMM grind</span>.  
+      Copy bars in-game, follow the guide tab, and enjoy seeing “God Walking Amongst Mere Mortals” on your Dervish.
+    </footer>
+  </div>
+
+  <script>
+    // Top section navigation
+    const navButtons = document.querySelectorAll(".nav button");
+    const sectionElements = {
+      dervish: document.getElementById("section-dervish"),
+      heroes: document.getElementById("section-heroes"),
+      tips: document.getElementById("section-tips"),
+      guide: document.getElementById("section-guide"),
+    };
+
+    navButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-section");
+        navButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        Object.keys(sectionElements).forEach((key) => {
+          if (key === target) {
+            sectionElements[key].style.display = "";
+          } else {
+            sectionElements[key].style.display = "none";
+          }
+        });
+      });
+    });
+
+    // Hero inner tabs
+    const heroButtons = document.querySelectorAll(".hero-btn");
+    const heroPanels = document.querySelectorAll(".hero-panel");
+
+    heroButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const heroId = btn.getAttribute("data-hero");
+
+        heroButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        heroPanels.forEach((panel) => {
+          panel.classList.toggle(
+            "active",
+            panel.id === "hero-" + heroId
+          );
+        });
+      });
+    });
+
+    // Phase checklist persistence
+    (function () {
+      const storageKey = "gwammPhaseChecklist";
+      const checkboxes = document.querySelectorAll('.phase-checklist input[type="checkbox"][data-check-id]');
+      const progressEl = document.getElementById("checklistProgress");
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(storageKey);
+          if (!raw) return {};
+          return JSON.parse(raw) || {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveState(state) {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(state));
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      function updateProgress() {
+        const total = checkboxes.length;
+        let done = 0;
+        checkboxes.forEach(cb => {
+          if (cb.checked) done++;
+        });
+        if (progressEl) {
+          progressEl.textContent = `${done} / ${total} steps done`;
+        }
+      }
+
+      const state = loadState();
+      checkboxes.forEach(cb => {
+        const id = cb.getAttribute("data-check-id");
+        if (state[id]) {
+          cb.checked = true;
+        }
+
+        cb.addEventListener("change", () => {
+          state[id] = cb.checked;
+          saveState(state);
+          updateProgress();
+        });
+      });
+
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>
