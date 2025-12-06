@@ -891,7 +891,7 @@
           <div>
             <div class="guide-section-title">0. Titles This Plan Uses</div>
             <p class="guide-subtitle">Target: 30 maxed titles using these groups:</p>
-            <ul class="guide-checklist">
+            <ul class="guide-info-list">
               <li><strong>Campaign / missions:</strong> Protector &amp; Guardian of Tyria, Cantha, Elona + Legendary Guardian.</li>
               <li><strong>Exploration:</strong> Tyrian, Canthan, Elonian Cartographer + Legendary Cartographer.</li>
               <li><strong>Vanquishing:</strong> Tyrian, Canthan, Elonian Vanquisher + Legendary Vanquisher.</li>
@@ -1762,7 +1762,7 @@
       updateProgress();
     })();
 
-    // Convert all guide checklist items to checkboxes with persistence
+    // Convert guide checklist items to checkboxes with persistence
     (function () {
       const storageKey = "gwammGuideChecklist";
       let stepCounter = 0;
@@ -1787,8 +1787,8 @@
 
       const state = loadState();
       
-      // Find all guide checklist items
-      const checklistItems = document.querySelectorAll('.guide-checklist li, .guide-ol li');
+      // Only target nested checklist items (ul.guide-checklist li), not top-level guide-ol or info lists
+      const checklistItems = document.querySelectorAll('.guide-checklist li');
       
       checklistItems.forEach((li) => {
         // Skip if already has a checkbox
@@ -1827,6 +1827,9 @@
         li.innerHTML = '';
         li.appendChild(checkbox);
         li.appendChild(label);
+        li.style.display = 'flex';
+        li.style.alignItems = 'flex-start';
+        li.style.gap = '0';
         
         // Add change listener
         checkbox.addEventListener('change', () => {
