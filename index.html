@@ -1,93 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Guild Wars 1 – Mesmer GWAMM Planner</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>Guild Wars 1 - Mesmer GWAMM Planner (2024)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
       --bg: #05060a;
-      --bg-alt: #10121a;
-      --bg-soft: #151826;
       --accent: #f5c14b;
       --accent-soft: rgba(245, 193, 75, 0.12);
       --accent-strong: #ffdd7a;
       --text: #f5f5f7;
       --muted: #a3a7c2;
       --border: #292d3f;
-      --danger: #ff7676;
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 22px 40px rgba(0, 0, 0, 0.65);
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
       background: radial-gradient(circle at top, #121528 0, #05060a 55%);
       color: var(--text);
       min-height: 100vh;
     }
-
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px 16px 48px;
-    }
-
+    .page { max-width: 1200px; margin: 0 auto; padding: 24px 16px 48px; }
+    @media (min-width: 768px) { .page { padding: 32px 24px 64px; } }
+    
+    header { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
     @media (min-width: 768px) {
-      .page {
-        padding: 32px 24px 64px;
-      }
+      header { flex-direction: row; align-items: center; justify-content: space-between; }
     }
-
-    header {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    @media (min-width: 768px) {
-      header {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 32px;
-      }
-    }
-
-    .title-block {
-      max-width: 650px;
-    }
-
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
+    
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
     .badge {
       padding: 4px 10px;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid var(--border);
       font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
       color: var(--muted);
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
-
     .badge-dot {
       width: 7px;
       height: 7px;
@@ -95,73 +50,32 @@
       background: var(--accent);
       box-shadow: 0 0 0 4px rgba(245, 193, 75, 0.16);
     }
-
-    h1 {
-      font-size: 28px;
-      margin: 0 0 6px;
-      letter-spacing: 0.02em;
-    }
-
-    @media (min-width: 768px) {
-      h1 {
-        font-size: 34px;
-      }
-    }
-
-    .subtitle {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      max-width: 540px;
-    }
-
+    
+    h1 { font-size: 28px; margin: 0 0 6px; }
+    @media (min-width: 768px) { h1 { font-size: 34px; } }
+    .subtitle { margin: 0; color: var(--muted); font-size: 14px; max-width: 540px; }
+    
     .pill-highlight {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       padding: 6px 12px;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       border: 1px solid rgba(245, 193, 75, 0.6);
       background: radial-gradient(circle at top left, #403315 0, #141016 55%);
       font-size: 12px;
       margin-top: 10px;
       color: var(--accent-strong);
     }
-
-    .pill-highlight span {
-      font-size: 13px;
-    }
-
-    .code-pill {
-      font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
-      font-size: 11px;
-      background: #050509;
-      border-radius: 999px;
-      padding: 3px 8px;
-      border: 1px solid #2b2f42;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 6px;
-      color: var(--muted);
-      max-width: 260px;
-    }
-
-    .code-pill strong {
-      color: var(--accent-strong);
-      font-weight: 600;
-    }
-
+    
     .nav {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      justify-content: flex-start;
       margin-bottom: 24px;
     }
-
     .nav button {
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       border: 1px solid var(--border);
       background: rgba(10, 12, 20, 0.9);
       color: var(--muted);
@@ -173,47 +87,38 @@
       gap: 8px;
       transition: all 0.18s ease-out;
     }
-
     .nav button span.dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: var(--border);
     }
-
     .nav button.active {
       border-color: var(--accent);
       background: linear-gradient(135deg, rgba(245, 193, 75, 0.16), #0b0911);
       color: var(--accent-strong);
       box-shadow: 0 0 0 1px rgba(245, 193, 75, 0.24);
     }
-
-    .nav button.active span.dot {
-      background: var(--accent);
-    }
-
+    .nav button.active span.dot { background: var(--accent); }
+    
     main {
       display: grid;
       grid-template-columns: minmax(0, 2.3fr) minmax(0, 1.4fr);
       gap: 18px;
     }
-
     @media (max-width: 900px) {
-      main {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      main { grid-template-columns: minmax(0, 1fr); }
     }
-
+    
     .card {
       background: radial-gradient(circle at top left, #181a25 0, #060712 55%);
-      border-radius: var(--radius-lg);
+      border-radius: 18px;
       border: 1px solid rgba(32, 35, 54, 0.92);
-      box-shadow: var(--shadow-soft);
+      box-shadow: 0 22px 40px rgba(0, 0, 0, 0.65);
       padding: 18px 16px 16px;
       position: relative;
       overflow: hidden;
     }
-
     .card::before {
       content: "";
       position: absolute;
@@ -222,12 +127,8 @@
       opacity: 0.7;
       pointer-events: none;
     }
-
-    .card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
+    .card-inner { position: relative; z-index: 1; }
+    
     .card-header {
       display: flex;
       align-items: center;
@@ -235,7 +136,6 @@
       gap: 10px;
       margin-bottom: 8px;
     }
-
     .card-title {
       font-size: 18px;
       margin: 0;
@@ -243,7 +143,6 @@
       align-items: center;
       gap: 8px;
     }
-
     .card-title span.icon {
       width: 20px;
       height: 20px;
@@ -254,25 +153,13 @@
       justify-content: center;
       font-size: 12px;
       color: #111;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5),
-        0 0 18px rgba(245, 193, 75, 0.7);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 0 18px rgba(245, 193, 75, 0.7);
     }
-
-    .card-subtitle {
-      margin: 0;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 8px 0 12px;
-    }
-
+    .card-subtitle { margin: 0; font-size: 13px; color: var(--muted); }
+    
+    .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
     .pill {
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       padding: 3px 9px;
       font-size: 11px;
       border: 1px solid var(--border);
@@ -280,20 +167,12 @@
       color: var(--muted);
       white-space: nowrap;
     }
-
     .pill--accent {
       border-color: var(--accent);
       background: var(--accent-soft);
       color: var(--accent-strong);
     }
-
-    .pill--role {
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      font-size: 10px;
-      color: var(--muted);
-    }
-
+    
     .section-title {
       font-size: 13px;
       text-transform: uppercase;
@@ -301,78 +180,37 @@
       color: var(--muted);
       margin: 16px 0 6px;
     }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 10px;
-    }
-
-    @media (max-width: 700px) {
-      .two-col {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .attribute-list,
-    .skill-list,
-    .note-list {
+    
+    .attribute-list, .skill-list, .note-list {
       list-style: none;
       margin: 0;
       padding: 0;
       font-size: 13px;
     }
-
-    .attribute-list li,
-    .skill-list li,
-    .note-list li {
+    .attribute-list li, .skill-list li, .note-list li {
       padding: 3px 0;
       display: flex;
       justify-content: space-between;
       gap: 8px;
       border-bottom: 1px dashed rgba(55, 60, 87, 0.5);
     }
-
-    .attribute-list li:last-child,
-    .skill-list li:last-child,
-    .note-list li:last-child {
+    .attribute-list li:last-child, .skill-list li:last-child, .note-list li:last-child {
       border-bottom: none;
     }
-
-    .attribute-name {
-      color: var(--muted);
-    }
-
-    .attribute-value {
-      font-weight: 600;
-    }
-
-    .skill-name {
-      font-weight: 500;
-    }
-
+    .attribute-name { color: var(--muted); }
+    .attribute-value { font-weight: 600; }
+    .skill-name { font-weight: 500; }
     .skill-tag {
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--muted);
     }
-
-    .hero-tabs {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 8px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-
+    
+    .hero-tabs { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
     .hero-btn {
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       border: 1px solid var(--border);
       background: rgba(5, 6, 12, 0.9);
       padding: 4px 10px;
@@ -384,32 +222,25 @@
       gap: 6px;
       transition: all 0.16s ease-out;
     }
-
     .hero-btn span.tag {
       font-size: 10px;
       opacity: 0.9;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
-
     .hero-btn.active {
       border-color: var(--accent);
       background: var(--accent-soft);
       color: var(--accent-strong);
     }
-
     .hero-panel {
       display: none;
-      border-radius: var(--radius-md);
+      border-radius: 12px;
       background: rgba(3, 4, 9, 0.9);
       border: 1px solid rgba(52, 57, 90, 0.85);
       padding: 10px 12px 10px;
     }
-
-    .hero-panel.active {
-      display: block;
-    }
-
+    .hero-panel.active { display: block; }
     .hero-heading {
       display: flex;
       align-items: baseline;
@@ -417,27 +248,9 @@
       gap: 8px;
       margin-bottom: 4px;
     }
-
-    .hero-name {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .hero-role {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-    }
-
-    .tips-card {
-      margin-top: 16px;
-    }
-
-    .note-list li {
-      align-items: flex-start;
-    }
-
+    .hero-name { font-size: 14px; font-weight: 600; }
+    
+    .note-list li { align-items: flex-start; }
     .note-bullet {
       width: 5px;
       height: 5px;
@@ -445,11 +258,8 @@
       margin-top: 6px;
       background: var(--accent);
     }
-
-    .note-text {
-      flex: 1;
-    }
-
+    .note-text { flex: 1; }
+    
     footer {
       margin-top: 26px;
       font-size: 11px;
@@ -457,82 +267,48 @@
       text-align: center;
       opacity: 0.75;
     }
-
-    footer span {
-      opacity: 0.9;
-      color: var(--accent-strong);
-    }
-
-    /* Guide styles - bigger and clearer */
+    
     .guide-card {
       max-height: 620px;
       overflow: auto;
       scrollbar-width: thin;
       scrollbar-color: var(--accent-soft) #05060a;
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.6;
     }
-
-    .guide-card::-webkit-scrollbar {
-      width: 6px;
-    }
-    .guide-card::-webkit-scrollbar-track {
-      background: #05060a;
-    }
-    .guide-card::-webkit-scrollbar-thumb {
-      background: var(--accent-soft);
-      border-radius: 6px;
-    }
-
+    .guide-card::-webkit-scrollbar { width: 6px; }
+    .guide-card::-webkit-scrollbar-track { background: #05060a; }
+    .guide-card::-webkit-scrollbar-thumb { background: var(--accent-soft); border-radius: 6px; }
+    
     .guide-section-title {
-      font-size: 17px;
-      margin: 18px 0 8px;
+      font-size: 16px;
+      margin: 16px 0 8px;
       font-weight: 600;
+      color: var(--accent-strong);
     }
-
     .guide-subtitle {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--muted);
       margin: 0 0 6px;
     }
-
     .guide-ol {
       margin: 6px 0 10px 22px;
       padding: 0;
-      font-size: 15px;
+      font-size: 14px;
     }
-
-    .guide-ol li {
-      margin-bottom: 6px;
-    }
-
-    .guide-inline-pill {
-      display: inline-block;
-      border-radius: 999px;
-      padding: 2px 10px;
-      border: 1px solid rgba(245, 193, 75, 0.5);
-      font-size: 12px;
-      margin-left: 6px;
-      background: rgba(245, 193, 75, 0.06);
-      color: var(--accent-strong);
-    }
-
+    .guide-ol li { margin-bottom: 6px; }
     .guide-checklist {
       margin: 6px 0 10px;
       padding-left: 22px;
-      font-size: 15px;
+      font-size: 14px;
     }
-
-    .guide-checklist li {
-      margin-bottom: 6px;
-    }
-
+    .guide-checklist li { margin-bottom: 6px; }
     .guide-hr {
       border: none;
       border-top: 1px solid rgba(60, 64, 96, 0.8);
       margin: 14px 0 10px;
     }
-
+    
     .guide-start-callout {
       border-radius: 12px;
       border: 1px solid rgba(245, 193, 75, 0.5);
@@ -540,7 +316,6 @@
       padding: 10px 12px;
       margin-bottom: 10px;
     }
-
     .guide-start-callout-title {
       font-size: 13px;
       text-transform: uppercase;
@@ -548,14 +323,12 @@
       color: var(--accent-strong);
       margin-bottom: 4px;
     }
-
     .guide-start-callout p {
       margin: 0;
       font-size: 14px;
       color: var(--text);
     }
-
-    /* Checklist UI */
+    
     .phase-checklist {
       margin: 4px 0 12px;
       padding: 10px 12px;
@@ -563,7 +336,6 @@
       background: rgba(5, 6, 14, 0.9);
       border: 1px solid rgba(70, 72, 104, 0.9);
     }
-
     .phase-checklist-header {
       display: flex;
       align-items: center;
@@ -571,14 +343,12 @@
       gap: 10px;
       margin-bottom: 8px;
     }
-
     .phase-checklist-title {
       font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--muted);
     }
-
     .phase-checklist-progress {
       font-size: 12px;
       padding: 3px 10px;
@@ -588,13 +358,11 @@
       background: rgba(245, 193, 75, 0.06);
       white-space: nowrap;
     }
-
     .phase-checklist ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
-
     .phase-checklist li {
       display: flex;
       align-items: center;
@@ -603,14 +371,12 @@
       font-size: 14px;
       color: var(--muted);
     }
-
     .phase-checklist input[type="checkbox"] {
       accent-color: #f5c14b;
       width: 16px;
       height: 16px;
       cursor: pointer;
     }
-
     .phase-checklist label {
       cursor: pointer;
       flex: 1;
@@ -624,182 +390,358 @@
         <div class="badge-row">
           <div class="badge">
             <div class="badge-dot"></div>
-            GW1 – Mesmer Solo + 7 Heroes
+            GW1 – Mesmer + 7 Heroes (2024 Meta)
           </div>
-          <div class="badge">Hard Mode Missions • Vanquishes • GWAMM route</div>
         </div>
         <h1>Mesmer GWAMM Planner</h1>
         <p class="subtitle">
-          A complete, plug-and-play setup for a Nightfall Mesmer: full build, 7-hero templates,
-          “how to use it”, and a step-by-step route to <em>God Walking Amongst Mere Mortals</em>.
+          Complete 2024 guide: Energy Surge Mesmerway, full hero progression (Koss→final team), and step-by-step route to <em>God Walking Amongst Mere Mortals</em>.
         </p>
         <div class="pill-highlight">
           <span>⭐</span>
-          <span><strong>Goal:</strong> 30 maxed titles → <em>God Walking Amongst Mere Mortals</em></span>
-        </div>
-      </div>
-      <div>
-        <div class="code-pill">
-          <strong>Tip</strong>
-          <span>Keep this open on a 2nd monitor / alt-tab while playing.</span>
+          <span><strong>Goal:</strong> 30 maxed titles → GWAMM</span>
         </div>
       </div>
     </header>
 
     <div class="nav">
-      <button class="active" data-section="dervish">
-        <span class="dot"></span> Mesmer build
-      </button>
-      <button data-section="heroes">
-        <span class="dot"></span> 7 hero templates
-      </button>
-      <button data-section="tips">
-        <span class="dot"></span> How to play the team
-      </button>
-      <button data-section="guide">
-        <span class="dot"></span> Full GWAMM guide
-      </button>
-      <button data-section="progression">
-        <span class="dot"></span> Hero progression
-      </button>
-    </div>
-
-      </button>
+      <button class="active" data-section="mesmer"><span class="dot"></span> Mesmer build</button>
+      <button data-section="heroes"><span class="dot"></span> 7 hero templates</button>
+      <button data-section="tips"><span class="dot"></span> How to play</button>
+      <button data-section="guide"><span class="dot"></span> GWAMM guide</button>
+      <button data-section="progression"><span class="dot"></span> Hero progression</button>
     </div>
 
     <main>
-      <!-- LEFT MAIN: Mesmer OR Guide -->
-      <div id="section-dervish" class="card">
+      <!-- MESMER BUILD -->
+      <div id="section-mesmer" class="card">
         <div class="card-inner">
           <div class="card-header">
             <div>
               <h2 class="card-title">
-                <span class="icon">🧠</span>
-                Mesmer – Domination Nuker &amp; Shutdown
+                <span class="icon">🧙</span>
+                Mesmer – Energy Surge (2024 Meta)
               </h2>
               <p class="card-subtitle">
-                Energy Surge damage, interrupts, and shutdown so your 7 heroes can delete everything safely in NM/HM.
+                Energy Surge spike damage + interrupts. Works with triple E-Surge hero team for maximum HM clear speed.
               </p>
             </div>
-            <div class="pill pill--role">Player</div>
-          </div>
-
-          <div class="pill-row">
-            <div class="pill pill--accent">Primary: Mesmer</div>
-            <div class="pill">Role: Domination nuker / shutdown</div>
-            <div class="pill">Use: HM missions, vanquishes, dungeons</div>
+            <div class="pill pill--accent">Player</div>
           </div>
 
           <h3 class="section-title">Attributes</h3>
           <ul class="attribute-list">
-            <li>
-              <span class="attribute-name">Domination Magic</span>
-              <span class="attribute-value">12 base (16 with runes)</span>
-            </li>
-            <li>
-              <span class="attribute-name">Inspiration Magic</span>
-              <span class="attribute-value">9 base (11 with rune)</span>
-            </li>
-            <li>
-              <span class="attribute-name">Fast Casting</span>
-              <span class="attribute-value">Rest of your points (3–4)</span>
-            </li>
+            <li><span class="attribute-name">Domination Magic</span><span class="attribute-value">12 + 1 + 3 = 16</span></li>
+            <li><span class="attribute-name">Fast Casting</span><span class="attribute-value">12 + 1 = 13</span></li>
+            <li><span class="attribute-name">Inspiration Magic</span><span class="attribute-value">3 + 1 = 4</span></li>
           </ul>
 
-          <h3 class="section-title">Skill Bar (Energy Surge HM Core)</h3>
+          <h3 class="section-title">Skill Bar</h3>
           <ul class="skill-list">
-            <li>
-              <span class="skill-name">1. Energy Surge (Elite)</span>
-              <span class="skill-tag">Big spike + AoE energy damage</span>
-            </li>
-            <li>
-              <span class="skill-name">2. Cry of Frustration</span>
-              <span class="skill-tag">AoE interrupt</span>
-            </li>
-            <li>
-              <span class="skill-name">3. Power Spike</span>
-              <span class="skill-tag">Fast single interrupt</span>
-            </li>
-            <li>
-              <span class="skill-name">4. Power Drain</span>
-              <span class="skill-tag">Interrupt + energy</span>
-            </li>
-            <li>
-              <span class="skill-name">5. Leech Signet</span>
-              <span class="skill-tag">No-energy interrupt</span>
-            </li>
-            <li>
-              <span class="skill-name">6. Shatter Hex</span>
-              <span class="skill-tag">Hex removal + damage</span>
-            </li>
-            <li>
-              <span class="skill-name">7. Shatter Enchantment</span>
-              <span class="skill-tag">Enchant strip + damage</span>
-            </li>
-            <li>
-              <span class="skill-name">8. Resurrection Signet</span>
-              <span class="skill-tag">Emergency rez</span>
-            </li>
+            <li><span class="skill-name">1. Energy Surge (Elite)</span><span class="skill-tag">Primary spike + AoE</span></li>
+            <li><span class="skill-name">2. Unnatural Signet</span><span class="skill-tag">Fast interrupt</span></li>
+            <li><span class="skill-name">3. Power Spike</span><span class="skill-tag">Interrupt spike</span></li>
+            <li><span class="skill-name">4. Shatter Enchantment</span><span class="skill-tag">Strip + dmg</span></li>
+            <li><span class="skill-name">5. Shatter Hex</span><span class="skill-tag">Hex removal + dmg</span></li>
+            <li><span class="skill-name">6. Power Drain</span><span class="skill-tag">Interrupt + energy</span></li>
+            <li><span class="skill-name">7. Drain Enchantment</span><span class="skill-tag">Energy management</span></li>
+            <li><span class="skill-name">8. Resurrection Signet</span><span class="skill-tag">Emergency rez</span></li>
           </ul>
 
-          <h3 class="section-title">Runes &amp; Insignias</h3>
-          <div class="two-col">
-            <div>
-              <ul class="attribute-list">
-                <li>
-                  <span class="attribute-name">Head</span>
-                  <span class="attribute-value">+1 Domination Magic</span>
-                </li>
-                <li>
-                  <span class="attribute-name">Chest</span>
-                  <span class="attribute-value">Superior Domination Magic</span>
-                </li>
-                <li>
-                  <span class="attribute-name">Gloves</span>
-                  <span class="attribute-value">Minor Inspiration Magic</span>
-                </li>
-                <li>
-                  <span class="attribute-name">Legs</span>
-                  <span class="attribute-value">Minor Fast Casting</span>
-                </li>
-                <li>
-                  <span class="attribute-name">Boots</span>
-                  <span class="attribute-value">Rune of Vitae</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul class="attribute-list">
-                <li>
-                  <span class="attribute-name">Insignias</span>
-                  <span class="attribute-value">Survivor on all pieces</span>
-                </li>
-                <li>
-                  <span class="attribute-name">Reason</span>
-                  <span class="attribute-value">Extra HP for safer HM play</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <h3 class="section-title">Weapons</h3>
+          <h3 class="section-title">Runes & Gear</h3>
           <ul class="attribute-list">
+            <li><span class="attribute-name">Head</span><span class="attribute-value">Superior Domination</span></li>
+            <li><span class="attribute-name">Body</span><span class="attribute-value">Minor Fast Casting</span></li>
+            <li><span class="attribute-name">Hands</span><span class="attribute-value">Minor Inspiration</span></li>
+            <li><span class="attribute-name">Legs/Feet</span><span class="attribute-value">2x Rune of Vitae</span></li>
+            <li><span class="attribute-name">Insignias</span><span class="attribute-value">Survivor (or Radiant for more energy)</span></li>
+            <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Domination wand + focus</span></li>
+          </ul>
+
+          <h3 class="section-title">Why This Build</h3>
+          <ul class="note-list">
             <li>
-              <span class="attribute-name">Main Set</span>
-              <span class="attribute-value">Domination wand + focus; 20% HSR/HCT Domination, +30 HP</span>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>Energy Surge</strong> is 2024 meta – higher sustained damage than Panic, synergizes with triple E-Surge heroes</div>
             </li>
             <li>
-              <span class="attribute-name">Defensive Set</span>
-              <span class="attribute-value">High-armor shield (+30 HP, +10 vs X) + Domination wand</span>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>BiP Necro</strong> hero gives unlimited energy – spam E-Surge on cooldown = insane AoE pressure</div>
             </li>
             <li>
-              <span class="attribute-name">Energy Set</span>
-              <span class="attribute-value">High energy staff for pulling / pre-casting</span>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>Unnatural Signet</strong> provides fast, no-cost interrupts between your spikes</div>
             </li>
           </ul>
         </div>
       </div>
 
+      <!-- 7 HERO TEMPLATES -->
+      <div id="section-heroes" class="card" style="display:none;">
+        <div class="card-inner">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">
+                <span class="icon">👥</span>
+                7 Hero Templates (2024 Mesmerway)
+              </h2>
+              <p class="card-subtitle">
+                Triple Energy Surge Mesmers + BiP Necro + Minion Master + Soul Twisting Rit + WoH Monk
+              </p>
+            </div>
+          </div>
+
+          <div class="hero-tabs">
+            <div class="hero-buttons">
+              <button class="hero-btn active" data-hero="h1">H1 – E-Surge Mes <span class="tag">1</span></button>
+              <button class="hero-btn" data-hero="h2">H2 – E-Surge Mes <span class="tag">2</span></button>
+              <button class="hero-btn" data-hero="h3">H3 – E-Surge Mes <span class="tag">3</span></button>
+              <button class="hero-btn" data-hero="h4">H4 – BiP Necro <span class="tag">Battery</span></button>
+              <button class="hero-btn" data-hero="h5">H5 – MM Necro <span class="tag">Minions</span></button>
+              <button class="hero-btn" data-hero="h6">H6 – ST Rit <span class="tag">Prot</span></button>
+              <button class="hero-btn" data-hero="h7">H7 – Monk <span class="tag">Healer</span></button>
+            </div>
+
+            <!-- H1: Energy Surge Mesmer 1 -->
+            <div id="hero-h1" class="hero-panel active">
+              <div class="hero-heading">
+                <div class="hero-name">Hero 1 – Energy Surge Mesmer (Gwen or Norgu)</div>
+              </div>
+              <h4 class="section-title">Attributes</h4>
+              <ul class="attribute-list">
+                <li><span class="attribute-name">Domination</span><span class="attribute-value">12 + 1 + 3 = 16</span></li>
+                <li><span class="attribute-name">Fast Casting</span><span class="attribute-value">10 + 1 = 11</span></li>
+                <li><span class="attribute-name">Inspiration</span><span class="attribute-value">8 + 1 = 9</span></li>
+              </ul>
+              <h4 class="section-title">Skills</h4>
+              <ul class="skill-list">
+                <li><span class="skill-name">1. Energy Surge (Elite)</span></li>
+                <li><span class="skill-name">2. Unnatural Signet</span></li>
+                <li><span class="skill-name">3. Power Spike</span></li>
+                <li><span class="skill-name">4. Shatter Enchantment</span></li>
+                <li><span class="skill-name">5. Shatter Hex</span></li>
+                <li><span class="skill-name">6. Power Drain</span></li>
+                <li><span class="skill-name">7. Drain Enchantment</span></li>
+                <li><span class="skill-name">8. Flesh of My Flesh</span></li>
+              </ul>
+              <h4 class="section-title">Gear</h4>
+              <ul class="attribute-list">
+                <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Dom, Minor FC/Insp, 2x Vitae</span></li>
+                <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Domination set</span></li>
+                <li><span class="attribute-name">Optional</span><span class="attribute-value">"Of the Necromancer" wrapping for +5 Soul Reaping</span></li>
+              </ul>
+            </div>
+
+            <!-- H2: Energy Surge Mesmer 2 -->
+            <div id="hero-h2" class="hero-panel">
+              <div class="hero-heading">
+                <div class="hero-name">Hero 2 – Energy Surge Mesmer (Norgu or Gwen)</div>
+              </div>
+              <p class="card-subtitle" style="margin-bottom:10px;">Identical to Hero 1. Run two copies of the same bar.</p>
+            </div>
+
+            <!-- H3: Energy Surge Mesmer 3 -->
+            <div id="hero-h3" class="hero-panel">
+              <div class="hero-heading">
+                <div class="hero-name">Hero 3 – Energy Surge Mesmer (Master of Whispers)</div>
+              </div>
+              <p class="card-subtitle" style="margin-bottom:10px;">Identical to Hero 1. Triple E-Surge = insane AoE pressure.</p>
+            </div>
+
+            <!-- H4: BiP Necro -->
+            <div id="hero-h4" class="hero-panel">
+              <div class="hero-heading">
+                <div class="hero-name">Hero 4 – Blood is Power Necro (Olias)</div>
+              </div>
+              <h4 class="section-title">Attributes</h4>
+              <ul class="attribute-list">
+                <li><span class="attribute-name">Blood Magic</span><span class="attribute-value">12 + 1 + 3 = 16</span></li>
+                <li><span class="attribute-name">Soul Reaping</span><span class="attribute-value">10 + 1 = 11</span></li>
+                <li><span class="attribute-name">Resto Magic</span><span class="attribute-value">6</span></li>
+              </ul>
+              <h4 class="section-title">Skills</h4>
+              <ul class="skill-list">
+                <li><span class="skill-name">1. Blood is Power (Elite)</span><span class="skill-tag">Energy battery</span></li>
+                <li><span class="skill-name">2. Blood Renewal</span></li>
+                <li><span class="skill-name">3. Blood Bond</span></li>
+                <li><span class="skill-name">4. Mend Body and Soul</span></li>
+                <li><span class="skill-name">5. Spirit Light</span></li>
+                <li><span class="skill-name">6. Foul Feast</span></li>
+                <li><span class="skill-name">7. Strip Enchantment</span></li>
+                <li><span class="skill-name">8. Death Pact Signet</span></li>
+              </ul>
+              <h4 class="section-title">Gear</h4>
+              <ul class="attribute-list">
+                <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Blood, Minor Soul/Resto, 2x Vitae</span></li>
+                <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Blood set</span></li>
+              </ul>
+            </div>
+
+            <!-- H5: Minion Master -->
+            <div id="hero-h5" class="hero-panel">
+              <div class="hero-heading">
+                <div class="hero-name">Hero 5 – Minion Master Necro (Livia)</div>
+              </div>
+              <h4 class="section-title">Attributes</h4>
+              <ul class="attribute-list">
+                <li><span class="attribute-name">Death Magic</span><span class="attribute-value">12 + 1 + 3 = 16</span></li>
+                <li><span class="attribute-name">Soul Reaping</span><span class="attribute-value">11 + 1 = 12</span></li>
+              </ul>
+              <h4 class="section-title">Skills</h4>
+              <ul class="skill-list">
+                <li><span class="skill-name">1. Aura of the Lich (Elite)</span></li>
+                <li><span class="skill-name">2. Animate Bone Minions</span></li>
+                <li><span class="skill-name">3. Animate Bone Fiends</span></li>
+                <li><span class="skill-name">4. Death Nova</span></li>
+                <li><span class="skill-name">5. Putrid Bile</span></li>
+                <li><span class="skill-name">6. Taste of Death</span></li>
+                <li><span class="skill-name">7. Signet of Lost Souls</span></li>
+                <li><span class="skill-name">8. Flesh of My Flesh</span></li>
+              </ul>
+              <h4 class="section-title">Gear</h4>
+              <ul class="attribute-list">
+                <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Death, Minor Soul, 3x Vitae</span></li>
+                <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Death set</span></li>
+              </ul>
+            </div>
+
+            <!-- H6: Soul Twisting Rit -->
+            <div id="hero-h6" class="hero-panel">
+              <div class="hero-heading">
+                <div class="hero-name">Hero 6 – Soul Twisting Ritualist (Xandra)</div>
+              </div>
+              <h4 class="section-title">Attributes</h4>
+              <ul class="attribute-list">
+                <li><span class="attribute-name">Communing</span><span class="attribute-value">12 + 1 + 3 = 16</span></li>
+                <li><span class="attribute-name">Spawning Power</span><span class="attribute-value">11 + 1 = 12</span></li>
+              </ul>
+              <h4 class="section-title">Skills</h4>
+              <ul class="skill-list">
+                <li><span class="skill-name">1. Soul Twisting (Elite)</span></li>
+                <li><span class="skill-name">2. Shelter</span></li>
+                <li><span class="skill-name">3. Union</span></li>
+                <li><span class="skill-name">4. Displacement</span></li>
+                <li><span class="skill-name">5. Armor of Unfeeling</span></li>
+                <li><span class="skill-name">6. Summon Spirits</span></li>
+                <li><span class="skill-name">7. Painful Bond</span></li>
+                <li><span class="skill-name">8. Flesh of My Flesh</span></li>
+              </ul>
+              <h4 class="section-title">Gear</h4>
+              <ul class="attribute-list">
+                <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Communing, Minor Spawn, 3x Vitae</span></li>
+                <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Communing set</span></li>
+              </ul>
+            </div>
+
+            <!-- H7: WoH Monk -->
+            <div id="hero-h7" class="hero-panel">
+              <div class="hero-heading">
+                <div class="hero-name">Hero 7 – Word of Healing Monk (Dunkoro or Ogden)</div>
+              </div>
+              <h4 class="section-title">Attributes</h4>
+              <ul class="attribute-list">
+                <li><span class="attribute-name">Healing Prayers</span><span class="attribute-value">12 + 1 + 3 = 16</span></li>
+                <li><span class="attribute-name">Divine Favor</span><span class="attribute-value">11 + 1 = 12</span></li>
+                <li><span class="attribute-name">Protection</span><span class="attribute-value">3</span></li>
+              </ul>
+              <h4 class="section-title">Skills</h4>
+              <ul class="skill-list">
+                <li><span class="skill-name">1. Word of Healing (Elite)</span></li>
+                <li><span class="skill-name">2. Patient Spirit</span></li>
+                <li><span class="skill-name">3. Dwayna's Kiss</span></li>
+                <li><span class="skill-name">4. Guardian</span></li>
+                <li><span class="skill-name">5. Cure Hex</span></li>
+                <li><span class="skill-name">6. Dismiss Condition</span></li>
+                <li><span class="skill-name">7. Holy Veil</span></li>
+                <li><span class="skill-name">8. Channeling</span></li>
+              </ul>
+              <h4 class="section-title">Gear</h4>
+              <ul class="attribute-list">
+                <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Healing, Minor Divine/Prot, 2x Vitae</span></li>
+                <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Healing set</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOW TO PLAY -->
+      <div id="section-tips" class="card" style="display:none;">
+        <div class="card-inner">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">
+                <span class="icon">⚔️</span>
+                How to Play This Team
+              </h2>
+              <p class="card-subtitle">
+                Positioning, pulling, and maximizing your Energy Surge Mesmerway team.
+              </p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Your Role (Mesmer Player)</h3>
+          <ul class="note-list">
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>Call targets</strong> with Ctrl+Space – your triple E-Surge heroes will focus fire on your called target = instant deletion</div>
+            </li>
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>Typical opener:</strong> Flag heroes back → wand-pull enemy group → when balled up → spam Energy Surge + Unnatural Signet on priority targets (monks, ele)</div>
+            </li>
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>Position behind heroes</strong> – let minions + spirits soak damage, you're artillery in the back</div>
+            </li>
+          </ul>
+
+          <h3 class="section-title">Hero Micro & Pulling</h3>
+          <ul class="note-list">
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>Always flag heroes</strong> at chokepoints, then use longbow/wand to pull mobs into your kill zone</div>
+            </li>
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>Avoid face-pulling</strong> in HM – fight one group at a time, watch for patrols</div>
+            </li>
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>BiP Management:</strong> Your BiP hero will spam Blood is Power on all 3 E-Surge mesmers = unlimited energy for spam</div>
+            </li>
+          </ul>
+
+          <h3 class="section-title">What This Team Dominates</h3>
+          <ul class="note-list">
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>HM Missions:</strong> Triple E-Surge deletes caster groups instantly, ST Rit + minions handle melee</div>
+            </li>
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>Vanquishes:</strong> Fast, consistent clears with minimal downtime – perfect for grinding titles</div>
+            </li>
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>HM Dungeons:</strong> ST spirits + minions + triple E-Surge = you can solo most EotN dungeons for rep farming</div>
+            </li>
+          </ul>
+
+          <h3 class="section-title">Adjustments</h3>
+          <ul class="note-list">
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>Need more defense?</strong> Replace one E-Surge mesmer with Panic Mesmer for more shutdown (use Panic elite instead of E-Surge)</div>
+            </li>
+            <li>
+              <div class="note-bullet"></div>
+              <div class="note-text"><strong>Boss fights:</strong> Single-target spike is lower – use your interrupts on priority skills, let heroes spam E-Surge</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- GWAMM GUIDE -->
       <div id="section-guide" class="card guide-card" style="display:none;">
         <div class="card-inner">
           <div class="card-header">
@@ -809,512 +751,319 @@
                 Full GWAMM Step-by-Step Route
               </h2>
               <p class="card-subtitle">
-                Clear phases, with a dedicated level 1 Nightfall start and a GWAMM checklist.
+                Level 1 Nightfall start → 30 maxed titles, with alternative paths and title synergies.
               </p>
             </div>
           </div>
 
-          <!-- PHASE CHECKLIST UI -->
           <div class="phase-checklist">
             <div class="phase-checklist-header">
-              <div class="phase-checklist-title">High-level GWAMM checklist</div>
-              <div id="checklistProgress" class="phase-checklist-progress">
-                0 / 10 steps done
-              </div>
+              <div class="phase-checklist-title">GWAMM Checklist</div>
+              <div id="checklistProgress" class="phase-checklist-progress">0 / 9 done</div>
             </div>
             <ul>
-              <li>
-                <label>
-                  <input type="checkbox" data-check-id="p0" />
-                  0 – Mesmer + heroes set up, Survivor plan ready
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" data-check-id="p1" />
-                  1 – Nightfall NM finished (Istan → Kourna → Vabbi → Desolation → Torment)
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" data-check-id="p2" />
-                  2 – Factions, Prophecies &amp; EotN NM finished
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" data-check-id="p3" />
-                  3 – All Protector &amp; Guardian titles maxed + Legendary Guardian
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" data-check-id="p4" />
-                  4 – All HM explorable areas vanquished + Legendary Vanquisher
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" data-check-id="p5" />
-                  5 – 100% maps for Tyria, Cantha, Elona + Legendary Cartographer
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" data-check-id="p6" />
-                  6 – Legendary Skill Hunter maxed
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" data-check-id="p7" />
-                  7 – All EotN reps + Sunspear + Lightbringer + Kurz/Lux maxed
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" data-check-id="p8" />
-                  8 – Survivor done (Legendary Survivor)
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" data-check-id="p9" />
-                  9 – Drunkard, Sweet Tooth, Party Animal maxed → 30 titles total
-                </label>
-              </li>
+              <li><label><input type="checkbox" data-check-id="p1"/> 1. Nightfall NM complete</label></li>
+              <li><label><input type="checkbox" data-check-id="p2"/> 2. Factions/Prophecies/EotN NM</label></li>
+              <li><label><input type="checkbox" data-check-id="p3"/> 3. Protector + Guardian (HM)</label></li>
+              <li><label><input type="checkbox" data-check-id="p4"/> 4. Vanquisher (all areas HM)</label></li>
+              <li><label><input type="checkbox" data-check-id="p5"/> 5. Cartographer (100% maps)</label></li>
+              <li><label><input type="checkbox" data-check-id="p6"/> 6. Skill Hunter (all elites)</label></li>
+              <li><label><input type="checkbox" data-check-id="p7"/> 7. All reps maxed</label></li>
+              <li><label><input type="checkbox" data-check-id="p8"/> 8. Survivor done</label></li>
+              <li><label><input type="checkbox" data-check-id="p9"/> 9. Final 3 titles → 30 total</label></li>
             </ul>
           </div>
 
           <div class="guide-start-callout">
-            <div class="guide-start-callout-title">START HERE – LEVEL 1 NIGHTFALL MESMER</div>
-            <p>
-              If you just created your Elementalist, begin at <strong>Section A</strong> below
-              (“Level 1–20: Nightfall Story Path”). Everything else assumes you’ve done that.
-            </p>
+            <div class="guide-start-callout-title">START: LEVEL 1 NIGHTFALL MESMER</div>
+            <p>Create Nightfall Mesmer → begin at Section A below</p>
           </div>
 
-          <div>
-            <div class="guide-section-title">0. Titles This Plan Uses</div>
-            <p class="guide-subtitle">Target: 30 maxed titles using these groups:</p>
-            <ul class="guide-checklist">
-              <li><strong>Campaign / missions:</strong> Protector &amp; Guardian of Tyria, Cantha, Elona + Legendary Guardian.</li>
-              <li><strong>Exploration:</strong> Tyrian, Canthan, Elonian Cartographer + Legendary Cartographer.</li>
-              <li><strong>Vanquishing:</strong> Tyrian, Canthan, Elonian Vanquisher + Legendary Vanquisher.</li>
-              <li><strong>Skills:</strong> Tyrian, Canthan, Elonian Skill Hunter + Legendary Skill Hunter.</li>
-              <li><strong>Reputation:</strong> Asura, Norn, Deldrimor, Ebon Vanguard; Sunspear; Lightbringer; Kurzick <em>or</em> Luxon.</li>
-              <li><strong>Other:</strong> Survivor, Drunkard, Sweet Tooth, Party Animal.</li>
-            </ul>
+          <div class="guide-section-title">0. Title Path Overview (Pick 30 from These)</div>
+          
+          <p class="guide-subtitle"><strong>CORE 24 TITLES (Everyone does these):</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>Campaign (9):</strong> Protector/Guardian of Tyria/Cantha/Elona (6), Legendary Guardian (1), Legendary Vanquisher (1), Legendary Cartographer (1)</li>
+            <li><strong>Vanquishing (3):</strong> Tyrian, Canthan, Elonian Vanquisher</li>
+            <li><strong>Cartography (3):</strong> Tyrian, Canthan, Elonian Cartographer</li>
+            <li><strong>Skill Hunter (4):</strong> Tyrian, Canthan, Elonian Skill Hunter, Legendary Skill Hunter</li>
+            <li><strong>EotN Reputation (5):</strong> Asura, Norn, Deldrimor, Ebon Vanguard, Master of the North</li>
+          </ul>
 
-            <hr class="guide-hr" />
+          <p class="guide-subtitle"><strong>CHOOSE 6 MORE (ranked easiest → hardest):</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>Easy:</strong> Sunspear (farm Nightfall with bounty), Lightbringer (farm Torment with bounty)</li>
+            <li><strong>Medium:</strong> Survivor (storybooks + safe XP), Treasure Hunter (chest runs), Wisdom (ID items), Kurzick OR Luxon</li>
+            <li><strong>Hard/Expensive:</strong> Drunkard (167 hours drunk), Sweet Tooth (10k sweets), Party Animal (10k items)</li>
+          </ul>
 
-            <!-- A. LEVEL 1–20 NIGHTFALL PATH -->
-            <div class="guide-section-title">A. Level 1–20: Nightfall Story Path (Your Main Start)</div>
+          <p class="guide-subtitle"><strong>Recommended path:</strong> 24 Core + Sunspear + Lightbringer + Survivor + Treasure Hunter + Wisdom + Kurzick/Luxon = 30 titles</p>
+          <p class="guide-subtitle"><strong>Budget path:</strong> 24 Core + Sunspear + Lightbringer + Survivor + Master of North + Drunkard + Sweet Tooth = 30 titles (skip expensive Treasure/Wisdom)</p>
 
-            <p class="guide-subtitle"><strong>A1. Istan – Level 1–10, first heroes, basic Sunspear</strong></p>
-            <ol class="guide-ol">
-              <li>Create a <strong>Nightfall Mesmer</strong> and complete the tutorial island:
-                <ul class="guide-checklist">
-                  <li>Follow the initial tutorial quest chain (Rally/Basic training etc.) until it sends you into <strong>Chahbek Village</strong>.</li>
-                  <li>Complete mission <strong>Chahbek Village</strong> (sink the corsair ships).</li>
-                </ul>
-              </li>
-              <li>Arrive in <strong>Kamadan, Jewel of Istan</strong>.
-                <ul class="guide-checklist">
-                  <li>Immediately pick up the current <strong>Primary quest</strong> from Kormir / Sunspear NPCs.</li>
-                  <li>Keep that yellow-primary-quest active at all times – that is your “main story arrow”.</li>
-                </ul>
-              </li>
-              <li>Follow primaries through Istan zones:
-                <ul class="guide-checklist">
-                  <li>Plains of Jarin</li>
-                  <li>Cliffs of Dohjok</li>
-                  <li>Zehlon Reach</li>
-                  <li>Fahranur, The First City</li>
-                </ul>
-              </li>
-              <li>Do Istan missions in this order:
-                <ul class="guide-checklist">
-                  <li><strong>Jokanur Diggings</strong></li>
-                  <li><strong>Blacktide Den</strong></li>
-                  <li><strong>Consulate Docks</strong> (this moves you off Istan)</li>
-                </ul>
-              </li>
-              <li>While doing A1:
-                <ul class="guide-checklist">
-                  <li>Complete obvious side quests in each town for XP and Sunspear rank.</li>
-                  <li>Try to leave Istan around level 10–12 with Sunspear rank ~3–4.</li>
-                </ul>
-              </li>
-            </ol>
+          <hr class="guide-hr"/>
 
-            <p class="guide-subtitle"><strong>A2. Kourna – Level 10–15, war vs Varesh</strong></p>
-            <ol class="guide-ol">
-              <li>After <strong>Consulate Docks</strong> you’ll be sent to <strong>Sunspear Sanctuary / Kourna</strong>.
-                <ul class="guide-checklist">
-                  <li>Always pick up the next <strong>Primary quest</strong> when one finishes.</li>
-                </ul>
-              </li>
-              <li>Do Kourna missions in this order:
-                <ul class="guide-checklist">
-                  <li><strong>Venta Cemetery</strong></li>
-                  <li><strong>Kodonur Crossroads</strong></li>
-                  <li><strong>Rilohn Refuge</strong></li>
-                  <li><strong>Pogahn Passage</strong></li>
-                  <li><strong>Moddok Crevice</strong></li>
-                  <li><strong>Dajkah Inlet</strong></li>
-                  <li><strong>Nundu Bay</strong></li>
-                </ul>
-              </li>
-              <li>Use side quests in <strong>Yohlon Haven, Sunspear Sanctuary, Command Post</strong> for XP and Sunspear.</li>
-            </ol>
+          <div class="guide-section-title">A. Nightfall NM + Unlock ALL Heroes</div>
+          
+          <p class="guide-subtitle"><strong>A1. Istan – First heroes (Level 1-10):</strong></p>
+          <ol class="guide-ol">
+            <li>Create Nightfall Mesmer, complete tutorial island (Fahranur)</li>
+            <li>Complete <strong>Chahbek Village</strong> mission → unlock <strong>Koss</strong> (Warrior)</li>
+            <li>Follow Primary quests through Plains/Cliffs/Zehlon/Sunspear areas → unlock:
+              <ul class="guide-checklist">
+                <li><strong>Dunkoro</strong> (Monk) – your main healer</li>
+                <li><strong>Melonni</strong> (Dervish) – frontline</li>
+                <li><strong>Tahlkora</strong> (Monk) – prot monk</li>
+              </ul>
+            </li>
+            <li>At Sun Docks: do "Zaishen Elite" quest → "Student Sousuke" → unlock <strong>Acolyte Sousuke</strong> (Elementalist)</li>
+            <li>Complete Istan missions in order:
+              <ul class="guide-checklist">
+                <li>Jokanur Diggings</li>
+                <li>Blacktide Den</li>
+                <li>Consulate Docks (moves you to Kourna)</li>
+              </ul>
+            </li>
+            <li>After Consulate Docks: in Kamadan/Sunspear Sanctuary, pick up hero quest for <strong>Olias</strong> (Necromancer)</li>
+          </ol>
 
-            <p class="guide-subtitle"><strong>A3. Vabbi – Level 15–18, princes and palaces</strong></p>
-            <ol class="guide-ol">
-              <li>Primary quests will move you into Vabbi hubs: <strong>The Kodash Bazaar, Honur Hill, Yahnur Market</strong>.</li>
-              <li>Run Vabbi missions:
-                <ul class="guide-checklist">
-                  <li><strong>Tihark Orchard</strong></li>
-                  <li><strong>Grand Court of Sebelkeh</strong></li>
-                  <li><strong>Jennur’s Horde</strong></li>
-                  <li><strong>Dasha Vestibule</strong></li>
-                  <li><strong>Dzagonur Bastion</strong></li>
-                </ul>
-              </li>
-            </ol>
+          <p class="guide-subtitle"><strong>A2. Open Eye of the North IMMEDIATELY (Critical for hero team):</strong></p>
+          <ol class="guide-ol">
+            <li>From Kamadan → take quest to Eye of the North</li>
+            <li>Do intro instance → reach <strong>Boreal Station</strong> → auto-unlock:
+              <ul class="guide-checklist">
+                <li><strong>Vekk</strong> (Elementalist)</li>
+                <li><strong>Ogden</strong> (Monk)</li>
+              </ul>
+            </li>
+            <li>Continue EotN primaries until Hall of Monuments vision → unlock <strong>Gwen</strong> (Mesmer)</li>
+            <li>Do <strong>Asura questline</strong> (The Knowledgeable Asura → Finding Gadd → etc.) → unlock <strong>Livia</strong> (Necromancer) at Vlox's Falls</li>
+            <li>From Gunnar's Hold: do <strong>Norn Fighting Tournament</strong> → unlock <strong>Xandra</strong> (Ritualist)</li>
+          </ol>
 
-            <p class="guide-subtitle"><strong>A4. Desolation – wurms and sulfur</strong></p>
-            <ol class="guide-ol">
-              <li>Complete the primary quest chain to learn wurm riding (Crossing the Desolation line).</li>
-              <li>Do Desolation missions:
-                <ul class="guide-checklist">
-                  <li><strong>Gate of Desolation</strong></li>
-                  <li><strong>Ruins of Morah</strong></li>
-                </ul>
-              </li>
-              <li>Pick up any Lightbringer-related quests and bounties you see.</li>
-            </ol>
+          <p class="guide-subtitle"><strong>A3. Return to Nightfall & finish story:</strong></p>
+          <ol class="guide-ol">
+            <li>Continue Nightfall: Kourna missions → Vabbi missions</li>
+            <li>In Vabbi: do "Brains or Brawn" quest → choose <strong>Norgu</strong> (Mesmer, NOT Goren the Warrior)</li>
+            <li>In hero choice quest: choose <strong>Master of Whispers</strong> (Necro, NOT Margrid the Ranger)</li>
+            <li>Finish Nightfall: Desolation missions → Realm of Torment → Abaddon's Gate (final mission)</li>
+          </ol>
 
-            <p class="guide-subtitle"><strong>A5. Realm of Torment – Level 18–20 and finale</strong></p>
-            <ol class="guide-ol">
-              <li>From <strong>The Mouth of Torment</strong>, follow Kormir’s primaries deeper in.</li>
-              <li>Take the <strong>Lightbringer bounty</strong> NPC in Torment areas every time.</li>
-              <li>Finish Nightfall missions:
-                <ul class="guide-checklist">
-                  <li><strong>Gate of Pain</strong></li>
-                  <li><strong>Gate of Madness</strong></li>
-                  <li><strong>Abaddon’s Gate</strong> (Nightfall final)</li>
-                </ul>
-              </li>
-            </ol>
+          <p class="guide-subtitle"><strong>✓ Section A Checkpoint:</strong></p>
+          <ul class="guide-checklist">
+            <li>Level 20 Mesmer</li>
+            <li>ALL heroes unlocked for final team</li>
+            <li>Nightfall NM story complete</li>
+            <li>If doing Survivor: ideally still deathless</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>End of Section A checkpoint</strong></p>
-            <ul class="guide-checklist">
-              <li>Nightfall story fully complete in Normal Mode.</li>
-              <li>Most of <strong>Protector of Elona</strong> done (you can redo a few missions later for bonus).</li>
-              <li>You should be level 20 with multiple heroes unlocked.</li>
-              <li>Survivor progress: ideally still deathless; if not, you’ll rebuild later via safe XP.</li>
-            </ul>
+          <hr class="guide-hr"/>
 
-            <hr class="guide-hr" />
+          <div class="guide-section-title">B. Build Your Final 2024 Mesmerway Team</div>
+          <p class="guide-subtitle">Map your heroes to the meta composition (see "7 hero templates" tab for exact skill bars):</p>
+          <ul class="guide-checklist">
+            <li><strong>Hero 1:</strong> Gwen → Energy Surge Mesmer 1</li>
+            <li><strong>Hero 2:</strong> Norgu → Energy Surge Mesmer 2</li>
+            <li><strong>Hero 3:</strong> Master of Whispers → Energy Surge Mesmer 3</li>
+            <li><strong>Hero 4:</strong> Olias → Blood is Power (BiP) Necro</li>
+            <li><strong>Hero 5:</strong> Livia → Minion Master Necro</li>
+            <li><strong>Hero 6:</strong> Xandra → Soul Twisting Ritualist</li>
+            <li><strong>Hero 7:</strong> Dunkoro or Ogden → Word of Healing Monk</li>
+          </ul>
+          <p class="guide-subtitle"><strong>This is your team for ALL remaining content. Don't change it.</strong></p>
 
-            <!-- B. OTHER CAMPAIGNS NM -->
-            <div class="guide-section-title">B. Finish All Other Campaigns in NM</div>
+          <hr class="guide-hr"/>
 
-            <p class="guide-subtitle"><strong>B1. Factions NM – clean mission order</strong></p>
-            <ol class="guide-ol">
-              <li>Travel to <strong>Shing Jea Monastery</strong> from Kamadan or Lion’s Arch.</li>
-              <li>Do Shing Jea missions:
-                <ul class="guide-checklist">
-                  <li><strong>Minister Cho’s Estate</strong></li>
-                  <li><strong>Zen Daijun</strong></li>
-                </ul>
-              </li>
-              <li>Follow primaries into Kaineng City; then run:
-                <ul class="guide-checklist">
-                  <li><strong>Vizunah Square</strong> (Foreign/Local)</li>
-                  <li><strong>Nahpui Quarter</strong></li>
-                  <li><strong>Tahnnakai Temple</strong></li>
-                  <li><strong>Arborstone</strong> (Kurzick) <em>or</em> <strong>Boreas Seabed</strong> (Luxon)</li>
-                  <li><strong>Sunjiang District</strong></li>
-                </ul>
-              </li>
-              <li>Choose Kurzick or Luxon route:
-                <ul class="guide-checklist">
-                  <li>If Kurzick: <strong>Eternal Grove</strong>.</li>
-                  <li>If Luxon: <strong>Gyala Hatchery</strong>.</li>
-                </ul>
-              </li>
-              <li>Endgame:
-                <ul class="guide-checklist">
-                  <li><strong>Raisu Palace</strong></li>
-                  <li><strong>Imperial Sanctum</strong> (Factions final)</li>
-                </ul>
-              </li>
-              <li>Try to get each mission’s bonus/master reward once as you go (for <strong>Protector of Cantha</strong> later).</li>
-            </ol>
+          <div class="guide-section-title">C. Finish Other Campaigns (NM)</div>
+          
+          <p class="guide-subtitle"><strong>C1. Factions NM:</strong></p>
+          <ul class="guide-checklist">
+            <li>Travel to Shing Jea from Kamadan</li>
+            <li>Complete all missions: Minister Cho's → Zen Daijun → Vizunah Square → Nahpui Quarter → Tahnnakai Temple → Arborstone/Boreas → Sunjiang District → Eternal Grove/Gyala → Raisu Palace → Imperial Sanctum</li>
+            <li>Try to get bonus/master as you go (saves HM re-runs)</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>B2. Prophecies NM – mission order</strong></p>
-            <ol class="guide-ol">
-              <li>From <strong>Lion’s Arch</strong>, take the travel quest into Prophecies if required.</li>
-              <li>Run missions in this sequence:
-                <ul class="guide-checklist">
-                  <li>The Great Northern Wall</li>
-                  <li>Fort Ranik</li>
-                  <li>Ruins of Surmia</li>
-                  <li>Nolani Academy</li>
-                  <li>Borlis Pass</li>
-                  <li>The Frost Gate</li>
-                  <li>The Wilds</li>
-                  <li>Bloodstone Fen</li>
-                  <li>Aurora Glade</li>
-                  <li>Riverside Province</li>
-                  <li>Sanctum Cay</li>
-                  <li>Dunes of Despair</li>
-                  <li>Thirsty River</li>
-                  <li>Elona Reach</li>
-                  <li>Augury Rock</li>
-                  <li>Ice Caves of Sorrow</li>
-                  <li>Iron Mines of Moladune</li>
-                  <li>Thunderhead Keep</li>
-                  <li>Ring of Fire</li>
-                  <li>Abaddon’s Mouth</li>
-                  <li>Hell’s Precipice (final Prophecies mission)</li>
-                </ul>
-              </li>
-              <li>Again, try to grab each mission’s bonus as you go for <strong>Protector of Tyria</strong>.</li>
-            </ol>
+          <p class="guide-subtitle"><strong>C2. Prophecies NM:</strong></p>
+          <ul class="guide-checklist">
+            <li>From Lion's Arch, run full Prophecies mission chain</li>
+            <li>Great Northern Wall → Fort Ranik → ... → Ring of Fire → Abaddon's Mouth → Hell's Precipice</li>
+            <li>Longest campaign but your E-Surge team makes it smooth</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>B3. Eye of the North NM – primary chains</strong></p>
-            <ol class="guide-ol">
-              <li>Enter EotN via the special quest from Kamadan / LA / Kaineng → reach the Eye of the North outpost.</li>
-              <li>From the Eye, follow the three main primary lines:
-                <ul class="guide-checklist">
-                  <li><strong>Norn:</strong> “Tracking the Nornbear”, “Curse of the Nornbear”, “Blood Washes Blood”, etc.</li>
-                  <li><strong>Asura:</strong> “The Knowledgeable Asura”, “Finding Gadd”, “Lab Space”, etc.</li>
-                  <li><strong>Ebon Vanguard / Charr:</strong> “The Missing Vanguard”, “Against the Charr”, “Warband of Brothers”, etc.</li>
-                </ul>
-              </li>
-              <li>Finish with:
-                <ul class="guide-checklist">
-                  <li>“Against the Destroyers”</li>
-                  <li>“Destruction’s Depths”</li>
-                  <li>“A Time for Heroes” (Great Destroyer final)</li>
-                </ul>
-              </li>
-              <li>Always take the appropriate reputation bounty in each region (Asura, Norn, Ebon, Deldrimor).</li>
-            </ol>
+          <p class="guide-subtitle"><strong>C3. Eye of the North NM:</strong></p>
+          <ul class="guide-checklist">
+            <li>Finish all three primary chains (Norn / Asura / Ebon Vanguard)</li>
+            <li>End with "A Time for Heroes" (Great Destroyer final)</li>
+            <li><strong>ALWAYS take appropriate reputation bounty</strong> (Asura/Norn/Ebon/Deldrimor) before entering missions/dungeons</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>End of Section B checkpoint</strong></p>
-            <ul class="guide-checklist">
-              <li>Nightfall, Factions, Prophecies stories complete in Normal Mode.</li>
-              <li>EotN primary story finished.</li>
-              <li>Protector titles mostly done; rep titles already a decent level from just playing.</li>
-            </ul>
+          <hr class="guide-hr"/>
 
-            <hr class="guide-hr" />
+          <div class="guide-section-title">D. Protector & Guardian Titles (HM Missions)</div>
+          <ul class="guide-checklist">
+            <li>Redo ALL missions in Hard Mode with bonus/master rewards</li>
+            <li><strong>Nightfall HM:</strong> All missions + bonus → Protector + Guardian of Elona</li>
+            <li><strong>Factions HM:</strong> All missions + bonus → Protector + Guardian of Cantha</li>
+            <li><strong>Prophecies HM:</strong> All missions + bonus → Protector + Guardian of Tyria</li>
+            <li><strong>Result:</strong> 6 titles + <strong>Legendary Guardian</strong> (7 total from this section)</li>
+          </ul>
+          <p class="guide-subtitle"><strong>Pro tip:</strong> Use consumables (consets) on hardest missions. Your Energy Surge team demolishes HM with proper flagging/pulling.</p>
 
-            <!-- C. PROTECTOR/GUARDIAN -->
-            <div class="guide-section-title">C. Protector &amp; Guardian – Hard Mode Missions</div>
+          <hr class="guide-hr"/>
 
-            <p class="guide-subtitle">Same missions as before, but in HM and making sure you’ve got the bonus/master reward.</p>
+          <div class="guide-section-title">E. Vanquishing & Cartography</div>
+          
+          <p class="guide-subtitle"><strong>Process for each continent:</strong></p>
+          <ol class="guide-ol">
+            <li>Switch to Hard Mode</li>
+            <li>Open world map → look for <strong>helmet icons</strong> (vanquishable zones)</li>
+            <li>For each helmet zone:
+              <ul class="guide-checklist">
+                <li>Enter with 7-hero team</li>
+                <li><strong>GRAB ALL BOUNTIES</strong> available (Sunspear, Lightbringer, Kurz/Lux, EotN reps)</li>
+                <li>Kill everything until "Vanquished!" appears</li>
+                <li>While clearing: scrape walls/edges for Cartographer %</li>
+              </ul>
+            </li>
+            <li>After all helmets done: use texmod/wiki to find missing % for 100% maps</li>
+          </ol>
 
-            <p class="guide-subtitle"><strong>C1. Nightfall – Protector &amp; Guardian of Elona</strong></p>
-            <ul class="guide-checklist">
-              <li>Repeat Nightfall missions in HM, aiming to have:
-                <ul class="guide-checklist">
-                  <li>NM complete + bonus/master.</li>
-                  <li>HM complete + bonus/master.</li>
-                </ul>
-              </li>
-              <li>Use the same order you used in Section A (Istan → Kourna → Vabbi → Desolation → Torment).</li>
-              <li>When every mission has both NM/HM ticked with bonus → <strong>Protector of Elona</strong> + <strong>Guardian of Elona</strong>.</li>
-            </ul>
+          <p class="guide-subtitle"><strong>Suggested order:</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>1) Elona:</strong> Open areas, good Sunspear/Lightbringer progress, easier mobs</li>
+            <li><strong>2) Cantha:</strong> Dense mobs, fast clears, good faction</li>
+            <li><strong>3) Tyria:</strong> Longest (54 zones), do last when team is fully optimized</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>C2. Factions – Protector &amp; Guardian of Cantha</strong></p>
-            <ul class="guide-checklist">
-              <li>Run all Factions missions again in HM with bonus:
-                <ul class="guide-checklist">
-                  <li>Minister Cho’s → Zen Daijun → Vizunah → Nahpui → Tahnnakai → Arborstone/Boreas → Sunjiang → Eternal Grove/Gyala → Raisu → Imperial Sanctum.</li>
-                </ul>
-              </li>
-              <li>Finish both Protector &amp; Guardian of Cantha.</li>
-            </ul>
+          <p class="guide-subtitle"><strong>Result:</strong> Legendary Vanquisher (3 vanq titles + 1 legendary) + Legendary Cartographer (3 carto titles + 1 legendary) = 8 titles from this section</p>
 
-            <p class="guide-subtitle"><strong>C3. Prophecies – Protector &amp; Guardian of Tyria</strong></p>
-            <ul class="guide-checklist">
-              <li>Do the full Prophecies mission list again in HM with bonus.</li>
-              <li>Some are long and punishing; flag heroes and pull carefully.</li>
-              <li>End with Protector &amp; Guardian of Tyria maxed.</li>
-            </ul>
+          <p class="guide-subtitle"><strong>Title synergies during vanquishing:</strong></p>
+          <ul class="guide-checklist">
+            <li>If doing <strong>Survivor</strong>: Vanquishes give massive safe XP chunks</li>
+            <li>If doing <strong>Drunkard</strong>: Stay drunk during vanquishes (long-duration ales)</li>
+            <li>If doing <strong>Wisdom</strong>: ID all gold drops during vanquishes</li>
+            <li>Use <strong>Sunspear/Lightbringer/Kurz/Lux/EotN bounties</strong> to push rep titles simultaneously</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>End of Section C checkpoint</strong></p>
-            <ul class="guide-checklist">
-              <li>Protector of Tyria / Cantha / Elona – max.</li>
-              <li>Guardian of Tyria / Cantha / Elona – max.</li>
-              <li><strong>Legendary Guardian</strong> unlocked.</li>
-            </ul>
+          <hr class="guide-hr"/>
 
-            <hr class="guide-hr" />
+          <div class="guide-section-title">F. Legendary Skill Hunter</div>
+          
+          <ol class="guide-ol">
+            <li><strong>While doing everything else:</strong> Keep Signet of Capture on your bar (or on a hero), cap elites as you encounter them</li>
+            <li><strong>After vanquishing:</strong> Check wiki lists for missing elites in each continent</li>
+            <li>Hunt down remaining elite bosses in NM or HM and cap them</li>
+            <li><strong>Result:</strong> Tyrian/Canthan/Elonian Skill Hunter + <strong>Legendary Skill Hunter</strong> (4 titles)</li>
+          </ol>
 
-            <!-- D. VANQUISH/CARTO -->
-            <div class="guide-section-title">D. Vanquishing &amp; Cartography – HM Explorable Areas</div>
+          <hr class="guide-hr"/>
 
-            <p class="guide-subtitle">
-              We won’t list every single zone (it would be a book), but the process is strict and simple.
-            </p>
+          <div class="guide-section-title">G. Reputation Titles</div>
+          
+          <p class="guide-subtitle"><strong>G1. EotN Reputations (5 titles):</strong></p>
+          <ul class="guide-checklist">
+            <li>Asura, Norn, Ebon Vanguard, Deldrimor all to Rank 10 → <strong>Master of the North</strong></li>
+            <li><strong>Method:</strong> HM dungeons with bounties + HM Hero's Handbooks (fill during missions, turn in for rep)</li>
+            <li>Fastest farms: Slavers' Exile (Deldrimor), Catacombs of Kathandrax (Ebon), Bloodstone Caves (Asura), Frostmaw's Burrows (Norn)</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>D1. Per-continent routine</strong></p>
-            <ol class="guide-ol">
-              <li>Switch to <strong>Hard Mode</strong> on that continent.</li>
-              <li>Open the world map and look for <strong>helmet icons</strong> – these are Vanquishable zones.</li>
-              <li>For each helmet zone:
-                <ul class="guide-checklist">
-                  <li>Enter with your 7-hero team.</li>
-                  <li>Grab any bounties (Sunspear, Lightbringer, Kurz/Lux, or EotN rep) if available.</li>
-                  <li>Kill everything until “<strong>Vanquished!</strong>” appears.</li>
-                  <li>While doing this, hug every wall and scrape edges for Cartographer %.</li>
-                </ul>
-              </li>
-              <li>When all helmets are done:
-                <ul class="guide-checklist">
-                  <li>Use texmod / map comparison screenshots to find any missing % for 100% maps.</li>
-                </ul>
-              </li>
-            </ol>
+          <p class="guide-subtitle"><strong>G2. Sunspear & Lightbringer (2 titles):</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>Sunspear:</strong> Should already be 80%+ done from Nightfall vanquishes. Farm Istan/Kourna/Vabbi with Sunspear bounty if needed</li>
+            <li><strong>Lightbringer:</strong> Farm Realm of Torment areas (Domain of Anguish HM or solo with heroes). Very fast with your E-Surge team</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>D2. Suggested order</strong></p>
-            <ul class="guide-checklist">
-              <li>1) <strong>Elona</strong> – good Sunspear/Lightbringer progress and open areas.</li>
-              <li>2) <strong>Cantha</strong> – dense mobs, good XP and faction.</li>
-              <li>3) <strong>Tyria</strong> – longest; do it when your team is fully optimised.</li>
-            </ul>
+          <p class="guide-subtitle"><strong>G3. Kurzick OR Luxon (1 title):</strong></p>
+          <ul class="guide-checklist">
+            <li>Pick the faction you chose in Factions story campaign</li>
+            <li><strong>Farm methods:</strong> Alliance Battles, Jade Quarry (PvP), Fort Aspenwood (PvP), or faction quests in Echovald/Jade Sea</li>
+            <li>Donate faction at guild NPC to push title to Rank 10</li>
+            <li><strong>Alternative:</strong> If you hate PvP, farm Luxon/Kurzick areas in explorable zones with appropriate bounty</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>End of Section D checkpoint</strong></p>
-            <ul class="guide-checklist">
-              <li>Tyrian, Canthan, Elonian Vanquisher – max → <strong>Legendary Vanquisher</strong>.</li>
-              <li>Tyrian, Canthan, Elonian Cartographer – max → <strong>Legendary Cartographer</strong>.</li>
-            </ul>
+          <hr class="guide-hr"/>
 
-            <hr class="guide-hr" />
+          <div class="guide-section-title">H. Legendary Survivor</div>
+          
+          <p class="guide-subtitle"><strong>Goal:</strong> 1,337,500 XP without dying once</p>
+          
+          <p class="guide-subtitle"><strong>IMPORTANT: Do this EARLY (from level 1) OR do it LAST on separate character</strong></p>
 
-            <!-- E. SKILL HUNTER -->
-            <div class="guide-section-title">E. Legendary Skill Hunter – All Elites</div>
+          <p class="guide-subtitle"><strong>Safe XP methods:</strong></p>
+          <ol class="guide-ol">
+            <li><strong>Storybooks (BEST METHOD):</strong>
+              <ul class="guide-checklist">
+                <li>Fill NM and HM storybooks during normal play</li>
+                <li>Store completed books (don't turn in yet)</li>
+                <li>When ready for Survivor push: turn in all books at once for massive XP chunks</li>
+                <li>Never enter combat while actively filling books</li>
+              </ul>
+            </li>
+            <li><strong>Easy NM missions:</strong> With overpowered hero team, repeat safe missions</li>
+            <li><strong>EotN NM dungeons:</strong> Slavers, Catacombs, etc. with heroes = very safe</li>
+            <li><strong>Vanquishing in HM:</strong> If confident with your team, vanquishes give huge XP (but risky)</li>
+          </ol>
 
-            <p class="guide-subtitle"><strong>E1. While doing everything else</strong></p>
-            <ul class="guide-checklist">
-              <li>Keep <strong>Signet of Capture</strong> on your bar or on a hero whenever you enter new areas.</li>
-              <li>Whenever you see an elite boss with a skill you need, kill it and cap the skill immediately.</li>
-            </ul>
+          <p class="guide-subtitle"><strong>If you die:</strong> Survivor title resets. Either start new character OR skip Survivor and do different title for your 30.</p>
 
-            <p class="guide-subtitle"><strong>E2. Cleanup phase</strong></p>
-            <ol class="guide-ol">
-              <li>Open lists of elites for Tyria, Cantha, Elona, and Core.</li>
-              <li>Mark ones you already own.</li>
-              <li>For each missing elite:
-                <ul class="guide-checklist">
-                  <li>Go to the boss’s zone in NM (safer) or HM.</li>
-                  <li>Fight your way to the boss.</li>
-                  <li>Use <strong>Signet of Capture</strong> when the boss is nearly dead.</li>
-                </ul>
-              </li>
-              <li>Repeat until:
-                <ul class="guide-checklist">
-                  <li>Tyrian Skill Hunter – max.</li>
-                  <li>Canthan Skill Hunter – max.</li>
-                  <li>Elonian Skill Hunter – max.</li>
-                  <li>Core elite count satisfied → <strong>Legendary Skill Hunter</strong>.</li>
-                </ul>
-              </li>
-            </ol>
+          <hr class="guide-hr"/>
 
-            <hr class="guide-hr" />
+          <div class="guide-section-title">I. Choose Your Final 2-3 Titles (to reach 30 total)</div>
+          
+          <p class="guide-subtitle">At this point you have ~27-28 titles. Pick remaining from:</p>
 
-            <!-- F. REPS -->
-            <div class="guide-section-title">F. Reputation Titles – EotN, Sunspear, Lightbringer, Kurz/Lux</div>
+          <p class="guide-subtitle"><strong>Medium difficulty:</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>Treasure Hunter (Rank 5):</strong> Open 1,000 chests. Farm chest runs in specific zones (Vabbi, Kurzick, EotN NM chests). Use lockpicks for retention.</li>
+            <li><strong>Wisdom (Rank 8):</strong> Identify 2,500 gold items. Farm during vanquishes + buy ID kits in bulk</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>F1. EotN reputations</strong></p>
-            <ul class="guide-checklist">
-              <li>Asura, Norn, Ebon Vanguard, Deldrimor all to rank 10.</li>
-              <li>Use:
-                <ul class="guide-checklist">
-                  <li>HM Hero’s Handbooks (fill and turn in).</li>
-                  <li>HM dungeons with the appropriate bounty active.</li>
-                </ul>
-              </li>
-            </ul>
+          <p class="guide-subtitle"><strong>Hard/Expensive:</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>Drunkard (Rank 3):</strong> Stay drunk for 10,000 minutes (~167 hours). Buy long-duration ales (Dwarven Ale, Keg), AFK in towns while drunk</li>
+            <li><strong>Sweet Tooth (Rank 3):</strong> Consume 10,000 sweets. Use during combat for buffs. Stock up during festivals (cheaper)</li>
+            <li><strong>Party Animal (Rank 3):</strong> Use 10,000 party items. Spam fireworks/sparklers in towns. Most expensive/tedious</li>
+          </ul>
 
-            <p class="guide-subtitle"><strong>F2. Sunspear &amp; Lightbringer</strong></p>
-            <ul class="guide-checklist">
-              <li><strong>Sunspear:</strong> farm Nightfall areas (Istan, Kourna, Vabbi) with Sunspear bounty.</li>
-              <li><strong>Lightbringer:</strong> farm Realm of Torment areas and missions with LB bounty.</li>
-            </ul>
+          <hr class="guide-hr"/>
 
-            <p class="guide-subtitle"><strong>F3. Kurzick or Luxon</strong></p>
-            <ul class="guide-checklist">
-              <li>Stick to the side you chose in Factions (Kurz or Lux).</li>
-              <li>Repeat:
-                <ul class="guide-checklist">
-                  <li>Jade Quarry / Fort Aspenwood / Alliance Battles.</li>
-                  <li>Faction quests in Echovald (Kurzick) or Jade Sea (Luxon).</li>
-                  <li>Donate faction to title NPC to push the title to rank 10.</li>
-                </ul>
-              </li>
-            </ul>
+          <div class="guide-section-title">J. Final Check – Unlocking GWAMM</div>
+          
+          <ol class="guide-ol">
+            <li>Open <strong>Titles panel</strong> (H key) on your Mesmer</li>
+            <li>Verify <strong>30 titles at maximum rank</strong></li>
+            <li>"Kind of a Big Deal" meta-title should be <strong>Rank 6</strong></li>
+            <li>You can now select and display: <strong>"God Walking Amongst Mere Mortals"</strong></li>
+          </ol>
 
-            <hr class="guide-hr" />
+          <p class="guide-subtitle"><strong>Congratulations! You have GWAMM!</strong></p>
+          <p class="guide-subtitle"><strong>Timeline estimate:</strong> 6-12 months depending on playtime (2-4 hours/day = ~6-8 months)</p>
 
-            <!-- G. SURVIVOR + FESTIVALS -->
-            <div class="guide-section-title">G. Survivor &amp; Festival Titles</div>
-
-            <p class="guide-subtitle"><strong>G1. Finish Survivor (if not already done)</strong> <span class="guide-inline-pill">Legendary Survivor</span></p>
-            <ul class="guide-checklist">
-              <li>Play ultra-safe content:
-                <ul class="guide-checklist">
-                  <li>Easy NM missions and EotN dungeons.</li>
-                  <li>Turn in full storybooks (NM/HM) for large XP chunks.</li>
-                </ul>
-              </li>
-              <li>Once you reach 1,337,500 XP on a no-death streak, Survivor is maxed.</li>
-            </ul>
-
-            <p class="guide-subtitle"><strong>G2. Drunkard, Sweet Tooth, Party Animal</strong></p>
-            <ul class="guide-checklist">
-              <li><strong>Drunkard:</strong> buy/farm ales and long-duration drinks, stay drunk during vanquishes or while AFK in outposts.</li>
-              <li><strong>Sweet Tooth:</strong> use sweets as combat buffs and spam during festivals.</li>
-              <li><strong>Party Animal:</strong> spam fireworks/poppers/sparklers whenever you’re in towns or waiting.</li>
-            </ul>
-
-            <hr class="guide-hr" />
-
-            <!-- H. FINAL CHECK -->
-            <div class="guide-section-title">H. Final Check – Unlocking GWAMM</div>
-
-            <ol class="guide-ol">
-              <li>Open your <strong>Titles</strong> panel on the Mesmer.</li>
-              <li>Count how many titles are at <strong>max rank</strong>.</li>
-              <li>Your meta-title <strong>“Kind of a Big Deal”</strong> reaches rank 6 at 30 maxed titles.</li>
-              <li>Once that’s true, you can select and display <strong>“God Walking Amongst Mere Mortals”</strong>.</li>
-            </ol>
-
-            <p class="guide-subtitle"><strong>Super-short route recap</strong></p>
-            <ul class="guide-checklist">
-              <li>Section A – Level 1 Mesmer → finish Nightfall NM.</li>
-              <li>Section B – Finish Factions, Prophecies, EotN NM in listed mission order.</li>
-              <li>Section C – HM missions for all campaigns → Protectors, Guardians, Legendary Guardian.</li>
-              <li>Section D – Vanquish all zones + 100% maps → Legendary Vanquisher + Legendary Cartographer.</li>
-              <li>Section E – Capture all elites → Legendary Skill Hunter.</li>
-              <li>Section F – Max all reps (EotN, Sunspear, LB, Kurz/Lux).</li>
+          <p class="guide-subtitle"><strong>Ultra-condensed recap:</strong></p>
+          <ul class="guide-checklist">
+            <li>A: Level 1 → finish Nightfall NM + unlock all heroes</li>
+            <li>B: Build final Energy Surge Mesmerway team</li>
+            <li>C: Finish Factions/Prophecies/EotN NM</li>
+            <li>D: All missions HM with bonus → Protector/Guardian/Legendary Guardian (7 titles)</li>
+            <li>E: Vanquish + 100% maps → Legendary Vanquisher + Cartographer (8 titles)</li>
+            <li>F: Cap all elites → Legendary Skill Hunter (4 titles)</li>
+            <li>G: Max all reps (8 titles)</li>
+            <li>H: Survivor (1 title)</li>
+            <li>I: Pick final 2-3 from Treasure/Wisdom/Drunkard/Sweet/Party</li>
+            <li>J: Confirm 30 maxed → equip GWAMM!</li>
+          </ul>
+        </div>
+      </div>
+      <!-- HERO PROGRESSION -->
       <div id="section-progression" class="card guide-card" style="display:none;">
         <div class="card-inner">
           <div class="card-header">
             <div>
               <h2 class="card-title">
                 <span class="icon">📈</span>
-                Hero Progression – From Koss to Full GWAMM Team
+                Hero Progression – Koss to Final Team
               </h2>
               <p class="card-subtitle">
-                Strict, stage-by-stage hero roadmap: when each hero unlocks, what role they fill, and exactly who they replace on the way to the final 7-hero Mesmer team.
+                Exact roadmap: when each hero unlocks, what role they fill, who they replace, and how you transition from Koss (first hero) to final 2024 Mesmerway team.
               </p>
             </div>
           </div>
@@ -1322,878 +1071,268 @@
           <div class="guide-start-callout">
             <div class="guide-start-callout-title">HOW TO USE THIS TAB</div>
             <p>
-              This is only about <strong>heroes</strong>. For missions / titles, use the <strong>Full GWAMM guide</strong> tab.
-              For exact skill bars and attributes for each role, use the <strong>7 hero templates</strong> tab.
+              This tracks ONLY hero unlocks and team transitions. For missions/titles, use <strong>GWAMM guide</strong> tab. For exact skill bars, use <strong>7 hero templates</strong> tab.
             </p>
           </div>
 
-          <div class="guide-section-title">Stage 0 – Level 1 start (no heroes yet)</div>
-          <p class="guide-subtitle">
-            You have <strong>no heroes</strong> yet. Just get to the first mission.
-          </p>
+          <div class="guide-section-title">Stage 0 – Tutorial (No Heroes Yet)</div>
+          <p class="guide-subtitle">You have <strong>no heroes</strong>. Complete tutorial until first mission.</p>
           <ol class="guide-ol">
-            <li>Create a <strong>Nightfall Mesmer</strong>.</li>
-            <li>Do the tutorial quests in Kamadan / Plains until the game sends you to the mission
-              <strong>Chahbek Village</strong>.</li>
-            <li>Enter and complete <strong>Chahbek Village</strong> – this unlocks your very first hero.</li>
+            <li>Create Nightfall Mesmer, do Fahranur tutorial island</li>
+            <li>Follow tutorial primaries in Kamadan/Plains of Jarin</li>
+            <li>When ready, sail to mission <strong>Chahbek Village</strong></li>
           </ol>
 
-          <hr class="guide-hr" />
+          <p class="guide-subtitle"><strong>Your "party" at this stage:</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>You</strong> + henchmen only (no heroes yet)</li>
+          </ul>
 
-          <div class="guide-section-title">Stage 1 – First hero: Koss (after Chahbek Village)</div>
-          <p class="guide-subtitle">
-            Right after your very first mission, you get a warrior hero to tank for you.
-          </p>
+          <hr class="guide-hr"/>
+
+          <div class="guide-section-title">Stage 1 – First Hero: Koss (Warrior)</div>
+          <p class="guide-subtitle">Complete <strong>Chahbek Village</strong> → immediately unlock <strong>Koss</strong></p>
           <ol class="guide-ol">
-            <li>After finishing <strong>Chahbek Village</strong>, you arrive in
-              <strong>Kamadan, Jewel of Istan</strong>.</li>
-            <li>At this point, the game automatically unlocks:
-              <ul class="guide-checklist">
-                <li><strong>Koss</strong> – <strong>Warrior hero</strong>, basic melee frontline.</li>
-              </ul>
-            </li>
-            <li>Add <strong>Koss</strong> to your party immediately and keep him in until later stages.</li>
+            <li>Do Chahbek Village mission (sink corsair ships)</li>
+            <li>Arrive in Kamadan → <strong>Koss</strong> auto-unlocks as your first hero</li>
+            <li>Add Koss to party (he's a tank/frontline Warrior)</li>
           </ol>
 
-          <p class="guide-subtitle"><strong>Snapshot party right now</strong></p>
+          <p class="guide-subtitle"><strong>Party comp now:</strong></p>
           <ul class="guide-checklist">
-            <li><strong>You:</strong> Mesmer (any simple Domination/Illusion build to start).</li>
-            <li><strong>Koss:</strong> default warrior bar – he exists to get hit instead of you.</li>
-            <li>Fill the rest with henchmen (at least 1 healer + 1 ranged).</li>
+            <li><strong>You:</strong> Mesmer (any beginner Domination bar)</li>
+            <li><strong>Koss:</strong> Warrior tank (default bar is fine)</li>
+            <li><strong>Henchmen:</strong> 1 healer monk + ranged DPS to fill slots</li>
           </ul>
 
-          <hr class="guide-hr" />
+          <p class="guide-subtitle"><strong>How long you use Koss:</strong></p>
+          <ul class="guide-checklist">
+            <li>Keep him until you get <strong>Olias</strong> (after Consulate Docks)</li>
+            <li>Once you have Olias making minions, Koss becomes redundant</li>
+          </ul>
 
-          <div class="guide-section-title">Stage 2 – Dunkoro, Melonni, Tahlkora (Istan primaries)</div>
-          <p class="guide-subtitle">
-            Just follow yellow <strong>Primary quests</strong> through Istan and you’ll quickly get 3 more core heroes.
-          </p>
+          <hr class="guide-hr"/>
+
+          <div class="guide-section-title">Stage 2 – Core Istan Heroes (Dunkoro, Melonni, Tahlkora, Sousuke)</div>
+          <p class="guide-subtitle">Follow Primary quests through Istan → unlock 4 more heroes quickly</p>
+          
           <ol class="guide-ol">
-            <li>From <strong>Kamadan</strong>, keep taking the current <strong>Primary quest</strong> (yellow marker)
-              from Kormir / Sunspear NPCs.</li>
-            <li>Those primaries send you through:
+            <li>Progress primaries through: Plains → Cliffs of Dohjok → Zehlon Reach → Sunspear areas</li>
+            <li>You automatically unlock (in this order):
               <ul class="guide-checklist">
-                <li><strong>Plains of Jarin</strong></li>
-                <li><strong>Cliffs of Dohjok</strong></li>
-                <li><strong>Zehlon Reach</strong></li>
-                <li><strong>The Astralarium</strong></li>
-                <li><strong>Sunspear Great Hall</strong></li>
+                <li><strong>Dunkoro</strong> (Monk) – becomes your main healer immediately</li>
+                <li><strong>Melonni</strong> (Dervish) – second frontliner alongside Koss</li>
+                <li><strong>Tahlkora</strong> (Monk) – prot/backup heals</li>
               </ul>
             </li>
-            <li>While you’re doing those primaries, you will unlock:
-              <ul class="guide-checklist">
-                <li><strong>Dunkoro</strong> – Monk hero (main healer).</li>
-                <li><strong>Melonni</strong> – Dervish hero (second melee frontline).</li>
-                <li><strong>Tahlkora</strong> – Monk hero (prot / extra heals).</li>
-              </ul>
-            </li>
+            <li>At Sun Docks: do "Zaishen Elite" trial → "Student Sousuke" quest → unlock <strong>Acolyte Sousuke</strong> (Elementalist)</li>
           </ol>
 
-          <p class="guide-subtitle"><strong>Snapshot party – Istan mid-game</strong></p>
+          <p class="guide-subtitle"><strong>Party comp now (mid-Istan):</strong></p>
           <ul class="guide-checklist">
-            <li><strong>You:</strong> Mesmer.</li>
-            <li><strong>Koss</strong> + <strong>Melonni</strong> – 2 melee bodies to stand in front.</li>
-            <li><strong>Dunkoro</strong> – main healer.</li>
-            <li><strong>Tahlkora</strong> – protection / extra heals.</li>
-            <li>Henchmen to fill remaining slots.</li>
+            <li><strong>You:</strong> Mesmer</li>
+            <li><strong>Koss + Melonni:</strong> dual frontline (they get hit, you don't)</li>
+            <li><strong>Dunkoro:</strong> main healer (replaces healer henchmen)</li>
+            <li><strong>Tahlkora:</strong> prot monk</li>
+            <li><strong>Acolyte Sousuke:</strong> fire nuker (default Savannah Heat bar works)</li>
+            <li>Henchmen fill remaining slots if needed</li>
           </ul>
 
-          <hr class="guide-hr" />
+          <p class="guide-subtitle"><strong>Who gets replaced at this stage:</strong></p>
+          <ul class="guide-checklist">
+            <li>Healer henchmen → <strong>Dunkoro</strong> (much better AI)</li>
+            <li>Tank henchmen → <strong>Koss/Melonni</strong> (you control positioning)</li>
+            <li>Caster henchmen → <strong>Sousuke</strong> (controllable AoE fire)</li>
+          </ul>
 
-          <div class="guide-section-title">Stage 3 – Acolyte Sousuke / Jin (your first caster hero choice)</div>
-          <p class="guide-subtitle">
-            Still in Istan, you choose between a ranger and an elementalist hero. For this Mesmer + caster plan, we assume you take the elementalist.
-          </p>
+          <hr class="guide-hr"/>
+
+          <div class="guide-section-title">Stage 3 – First Necro: Olias (After Consulate Docks)</div>
+          <p class="guide-subtitle">Complete <strong>Consulate Docks</strong> → immediately get Olias quest</p>
+          
           <ol class="guide-ol">
-            <li>After progressing the Istan story, you’ll gain access to the <strong>Sun Docks</strong> hero training quests.</li>
-            <li>From the Zaishen trainer, do:
-              <ul class="guide-checklist">
-                <li><strong>Zaishen Elite</strong> (trial quest).</li>
-                <li>Then take and complete <strong>Student Sousuke</strong> (or Student Jin).</li>
-              </ul>
-            </li>
-            <li>Finishing <strong>Student Sousuke</strong> unlocks:
-              <ul class="guide-checklist">
-                <li><strong>Acolyte Sousuke</strong> – <strong>Elementalist hero</strong>, fire nuker.</li>
-              </ul>
-            </li>
+            <li>Do Consulate Docks mission (final Istan mission)</li>
+            <li>Back in Kamadan/Sunspear Sanctuary, pick up hero quest for <strong>Olias</strong></li>
+            <li>Complete quest → <strong>Olias</strong> (Necromancer) joins</li>
+            <li>Respec Olias as basic <strong>Minion Master</strong> (Animate Bone Minions + Death Nova + Putrid Bile)</li>
           </ol>
 
-          <p class="guide-subtitle"><strong>Snapshot party – end of Istan, before Consulate Docks</strong></p>
+          <p class="guide-subtitle"><strong>Party comp now:</strong></p>
           <ul class="guide-checklist">
-            <li><strong>You:</strong> Mesmer.</li>
-            <li><strong>Koss</strong> + <strong>Melonni</strong> – frontline.</li>
-            <li><strong>Dunkoro</strong> + <strong>Tahlkora</strong> – double monk backline.</li>
-            <li><strong>Acolyte Sousuke</strong> – fire nuker (defaults are fine until you get better fire skills).</li>
+            <li><strong>You:</strong> Mesmer</li>
+            <li><strong>Melonni:</strong> solo frontline (Koss gets DROPPED)</li>
+            <li><strong>Olias:</strong> Minion Master (minions replace Koss as tanks)</li>
+            <li><strong>Dunkoro + Tahlkora:</strong> double monk backline</li>
+            <li><strong>Sousuke:</strong> fire damage</li>
+            <li>Henchmen if slots remain</li>
           </ul>
 
-          <hr class="guide-hr" />
+          <p class="guide-subtitle"><strong>Who gets replaced:</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>Koss OUT</strong> → <strong>Olias IN</strong></li>
+            <li><strong>Reason:</strong> Olias' minions provide better tanking than Koss + he adds necro damage/support</li>
+          </ul>
 
-          <div class="guide-section-title">Stage 4 – Olias (first long-term Necro hero)</div>
-          <p class="guide-subtitle">
-            After <strong>Consulate Docks</strong>, you immediately grab Olias and then open Eye of the North.
-          </p>
+          <hr class="guide-hr"/>
+
+          <div class="guide-section-title">Stage 4 – Open Eye of the North (CRITICAL: 5 Heroes at Once!)</div>
+          <p class="guide-subtitle">After Consulate Docks, IMMEDIATELY go to EotN before finishing Nightfall. This unlocks 5 critical heroes.</p>
+          
           <ol class="guide-ol">
-            <li>Complete the Nightfall mission <strong>Consulate Docks</strong> (see GWAMM guide Section A).</li>
-            <li>Back in <strong>Kamadan / Sunspear Sanctuary</strong>, do the post-Consulate hero quest that gives you
-              <strong>Olias</strong> – a <strong>Necromancer hero</strong>.</li>
-            <li>Respec <strong>Olias</strong> into either:
+            <li>From Kamadan, take quest to Eye of the North</li>
+            <li>Do intro instance → reach <strong>Boreal Station</strong> → auto-unlock:
               <ul class="guide-checklist">
-                <li>A basic <strong>minion master</strong> (Animate Bone Minions + Death Nova etc.), or</li>
-                <li>A simple <strong>curses support</strong> (Enfeebling Blood, Barbs, etc.).</li>
+                <li><strong>Vekk</strong> (Elementalist)</li>
+                <li><strong>Ogden</strong> (Monk)</li>
               </ul>
             </li>
+            <li>Continue primaries to Hall of Monuments vision → unlock <strong>Gwen</strong> (Mesmer) – your first Mesmer hero!</li>
+            <li>Do <strong>Asura questline</strong> (The Knowledgeable Asura → Finding Gadd → Finding the Bloodstone) → unlock <strong>Livia</strong> (Necromancer) at Vlox's Falls</li>
+            <li>From Gunnar's Hold, do <strong>Norn Fighting Tournament</strong> (Round One → Round Two → etc.) → unlock <strong>Xandra</strong> (Ritualist)</li>
           </ol>
 
-          <p class="guide-subtitle"><strong>Who Olias replaces</strong></p>
+          <p class="guide-subtitle"><strong>Party comp now (transitioning to endgame team):</strong></p>
           <ul class="guide-checklist">
-            <li>Drop <strong>Koss</strong> at this point – you now have enough heroes that a dedicated warrior is less useful.</li>
-            <li>Keep <strong>Melonni</strong> as your only melee until you are fully caster-based.</li>
+            <li><strong>You:</strong> Mesmer</li>
+            <li><strong>Gwen:</strong> Mesmer hero (run generic Domination/interrupt bar for now)</li>
+            <li><strong>Olias + Livia:</strong> 2x Necro (both as basic minion masters temporarily)</li>
+            <li><strong>Xandra:</strong> Ritualist (spirits for defense/damage)</li>
+            <li><strong>Dunkoro or Ogden:</strong> pick one as main monk healer</li>
+            <li><strong>Tahlkora OR Vekk:</strong> backup monk OR more damage (your choice)</li>
           </ul>
 
-          <hr class="guide-hr" />
+          <p class="guide-subtitle"><strong>Who gets replaced:</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>Melonni OUT</strong> – no longer need melee frontline (minions from 2 necros do this job)</li>
+            <li><strong>Sousuke OUT</strong> (or keep if you like, but Vekk does same job)</li>
+            <li>All henchmen → fully replaced by actual heroes</li>
+          </ul>
 
-          <div class="guide-section-title">Stage 5 – Enter Eye of the North (Vekk, Ogden, Gwen)</div>
-          <p class="guide-subtitle">
-            Now you open Eye of the North and immediately pick up several caster heroes, including your first Mesmer hero.
-          </p>
+          <hr class="guide-hr"/>
+
+          <div class="guide-section-title">Stage 5 – Final Nightfall Heroes (Norgu + Master of Whispers)</div>
+          <p class="guide-subtitle">Return to Nightfall story, finish it → unlock last 2 heroes you need</p>
+          
           <ol class="guide-ol">
-            <li>Take the quest from Kamadan that sends you to <strong>Eye of the North</strong> and do the intro instance.</li>
-            <li>Reach <strong>Boreal Station</strong> for the first time:
-              <ul class="guide-checklist">
-                <li><strong>Vekk</strong> – Elementalist hero – unlocks automatically.</li>
-                <li><strong>Ogden</strong> – Monk hero – unlocks automatically.</li>
-              </ul>
-            </li>
-            <li>Continue the Eye of the North primary quest chain until the first big vision in the
-              <strong>Hall of Monuments</strong> at the Eye:
-              <ul class="guide-checklist">
-                <li>After that vision, <strong>Gwen</strong> joins as a <strong>Mesmer hero</strong>.</li>
-              </ul>
-            </li>
+            <li>Progress Nightfall: Kourna missions → Vabbi missions</li>
+            <li>In Vabbi, do "Brains or Brawn" quest → choose <strong>Norgu</strong> (Mesmer, NOT Goren the Warrior)</li>
+            <li>In another hero choice quest, pick <strong>Master of Whispers</strong> (Necromancer, NOT Margrid the Ranger)</li>
+            <li>Finish Nightfall story: Desolation → Realm of Torment → Abaddon's Gate</li>
           </ol>
 
-          <p class="guide-subtitle"><strong>Snapshot party – early EotN</strong></p>
+          <p class="guide-subtitle"><strong>You now have access to:</strong></p>
           <ul class="guide-checklist">
-            <li><strong>You:</strong> Mesmer.</li>
-            <li><strong>Gwen</strong> – first Mesmer hero. Put her on a generic Domination/interrupt bar for now.</li>
-            <li><strong>Olias</strong> – Necro minion master or curses.</li>
-            <li><strong>Dunkoro</strong> or <strong>Ogden</strong> – your main healer monk.</li>
-            <li><strong>Tahlkora</strong> – optional extra monk/prot if needed.</li>
-            <li><strong>Sousuke</strong> or <strong>Vekk</strong> – Elementalist nuker.</li>
-            <li><strong>Melonni</strong> – optional melee; you can start phasing her out when you prefer full casters.</li>
+            <li><strong>3x Mesmer heroes:</strong> Gwen, Norgu, Master of Whispers (can respec MoW to Mesmer)</li>
+            <li><strong>3x Necro heroes:</strong> Olias, Livia, Master of Whispers (he's Necro primary)</li>
+            <li><strong>1x Ritualist:</strong> Xandra</li>
+            <li><strong>2x Monk:</strong> Dunkoro, Ogden</li>
           </ul>
 
-          <hr class="guide-hr" />
+          <p class="guide-subtitle"><strong>Note about Master of Whispers:</strong></p>
+          <ul class="guide-checklist">
+            <li>He's a <strong>Necromancer primary</strong>, but he'll run a <strong>Mesmer bar</strong> (Energy Surge) in your final team</li>
+            <li>This works perfectly because Energy Surge is Domination Magic (any class can use it with right attributes)</li>
+          </ul>
 
-          <div class="guide-section-title">Stage 6 – Norgu &amp; Master of Whispers (second Mesmer + second Necro)</div>
-          <p class="guide-subtitle">
-            Back in Nightfall’s Vabbi arc, you get another Mesmer hero and a second Necro hero.
-          </p>
-          <ol class="guide-ol">
-            <li>Progress the Nightfall story into <strong>Vabbi</strong> (see GWAMM guide Section A3).</li>
-            <li>Do the quest <strong>“Brains or Brawn”</strong> in Vabbi and choose:
+          <hr class="guide-hr"/>
+
+          <div class="guide-section-title">Stage 6 – BUILD FINAL 2024 MESMERWAY TEAM</div>
+          <p class="guide-subtitle">Now map your heroes to the meta 2024 Energy Surge composition</p>
+          
+          <p class="guide-subtitle"><strong>Final team assignment (see "7 hero templates" for exact bars):</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>Hero 1:</strong> <strong>Gwen</strong> → Energy Surge Mesmer 1 (Domination/Insp/FC split)</li>
+            <li><strong>Hero 2:</strong> <strong>Norgu</strong> → Energy Surge Mesmer 2 (same bar as Gwen)</li>
+            <li><strong>Hero 3:</strong> <strong>Master of Whispers</strong> → Energy Surge Mesmer 3 (same bar, even though he's Necro primary)</li>
+            <li><strong>Hero 4:</strong> <strong>Olias</strong> → Blood is Power (BiP) Necromancer (energy battery for mesmers)</li>
+            <li><strong>Hero 5:</strong> <strong>Livia</strong> → Minion Master Necromancer (Aura of the Lich elite)</li>
+            <li><strong>Hero 6:</strong> <strong>Xandra</strong> → Soul Twisting Ritualist (Shelter/Union/Displacement spirits)</li>
+            <li><strong>Hero 7:</strong> <strong>Dunkoro or Ogden</strong> → Word of Healing Monk (your only healer)</li>
+          </ul>
+
+          <p class="guide-subtitle"><strong>Why this composition works (2024 meta explained):</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>Triple Energy Surge:</strong> All 3 mesmers spam E-Surge on cooldown = insane AoE spike damage. When you call a target (Ctrl+Space), all 3 heroes focus fire it = instant deletion</li>
+            <li><strong>BiP Necro:</strong> Spams Blood is Power on all 3 mesmers → they have unlimited energy → constant E-Surge spam with no downtime</li>
+            <li><strong>Minion Master:</strong> Provides meat shields that soak damage. Enemies waste time attacking minions instead of your squishies</li>
+            <li><strong>Soul Twisting Rit:</strong> Shelter + Union spirits = massive damage reduction for whole party. ST elite lets you spam spirits constantly</li>
+            <li><strong>WoH Monk:</strong> Single dedicated healer is enough because ST spirits prevent most damage</li>
+          </ul>
+
+          <p class="guide-subtitle"><strong>What happened to the old heroes?</strong></p>
+          <ul class="guide-checklist">
+            <li><strong>Koss, Melonni, Sousuke, Tahlkora, Vekk:</strong> All permanently benched. You don't need them anymore.</li>
+            <li>Keep one monk (Dunkoro OR Ogden, doesn't matter which – pick your favorite)</li>
+            <li>This final 7-hero team is what you use for <strong>ALL remaining GWAMM content</strong> – missions, vanquishes, dungeons, everything</li>
+          </ul>
+
+          <hr class="guide-hr"/>
+
+          <div class="guide-section-title">Stage 7 – Optimization & Gear</div>
+          <p class="guide-subtitle">Once team is built, optimize their gear:</p>
+          
+          <ul class="guide-checklist">
+            <li><strong>All 3 E-Surge Mesmers:</strong>
               <ul class="guide-checklist">
-                <li><strong>Norgu</strong> – Mesmer hero (take him, not Goren).</li>
+                <li>Runes: Superior Domination, Minor Fast Casting, Minor Inspiration, 2x Vitae</li>
+                <li>Weapons: 40/40 Domination wand + focus (20% HSR / 20% HCT)</li>
+                <li>Optional: "Of the Necromancer" weapon wrapping for +5 Soul Reaping (helps energy management)</li>
               </ul>
             </li>
-            <li>In the Kourna / Vabbi hero choice between <strong>Master of Whispers</strong> and <strong>Margrid</strong>:
+            <li><strong>BiP Necro (Olias):</strong>
               <ul class="guide-checklist">
-                <li>Always pick <strong>Master of Whispers</strong> – he is a <strong>Necromancer hero</strong> and part of your final team.</li>
+                <li>Runes: Superior Blood Magic, Minor Soul Reaping/Restoration, 2x Vitae</li>
+                <li>Weapons: 40/40 Blood Magic set</li>
               </ul>
             </li>
-          </ol>
-
-          <p class="guide-subtitle"><strong>Who they replace</strong></p>
-          <ul class="guide-checklist">
-            <li><strong>Norgu</strong> replaces your last regular melee hero (<strong>Melonni</strong>) or a random henchman.</li>
-            <li><strong>Master of Whispers</strong> replaces any “extra” caster (for example Sousuke/Vekk) that is not Gwen, Olias, or your main monk.</li>
-          </ul>
-
-          <p class="guide-subtitle"><strong>Snapshot party – late Nightfall / early HM</strong></p>
-          <ul class="guide-checklist">
-            <li><strong>You:</strong> Mesmer (eventually Energy Surge build).</li>
-            <li><strong>Gwen</strong> + <strong>Norgu</strong> – your 2 Mesmer heroes (future Panic + Ineptitude bars).</li>
-            <li><strong>Olias</strong> + <strong>Master of Whispers</strong> – 2 Necro heroes (future Discord bars).</li>
-            <li><strong>Dunkoro</strong> or <strong>Ogden</strong> – main healer monk.</li>
-            <li>One remaining slot for Tahlkora / Sousuke / Vekk depending on whether you want more safety or more damage.</li>
-          </ul>
-
-          <hr class="guide-hr" />
-
-          <div class="guide-section-title">Stage 7 – Livia &amp; Xandra (third Necro + Ritualist)</div>
-          <p class="guide-subtitle">
-            Deep in Eye of the North you pick up your 3rd Necro hero and the Ritualist hero for the final SoS bar.
-          </p>
-          <ol class="guide-ol">
-            <li>Follow the <strong>Asura primary quest chain</strong> in Eye of the North – quests like
-              “The Knowledgeable Asura”, “Finding Gadd”, “Finding the Bloodstone”.</li>
-            <li>Completing that chain unlocks <strong>Livia</strong> at <strong>Vlox’s Falls</strong> as a <strong>Necromancer hero</strong>.</li>
-            <li>From <strong>Gunnar’s Hold</strong>, do the <strong>Norn Fighting Tournament</strong> (Round One, etc.):</li>
-            <li>Win the tournament and you unlock <strong>Xandra</strong> as a <strong>Ritualist hero</strong>.</li>
-          </ol>
-
-          <p class="guide-subtitle"><strong>Who they replace, and what roles they take</strong></p>
-          <ul class="guide-checklist">
-            <li><strong>Livia</strong> becomes your dedicated <strong>Minion Bomber Necro</strong> (see “Minion Bomber” bar in hero templates).</li>
-            <li><strong>Olias</strong> and <strong>Master of Whispers</strong> both switch to the <strong>Discord</strong> bar (Discord 1 &amp; 2).</li>
-            <li><strong>Xandra</strong> becomes your <strong>SoS Ritualist</strong> (Signet of Spirits bar in hero templates).</li>
-            <li>Drop any remaining temporary heroes – Koss, Melonni, Sousuke, Vekk, and any extra monk beyond the one main WoH healer.</li>
-          </ul>
-
-          <hr class="guide-hr" />
-
-          <div class="guide-section-title">Stage 8 – Final mapping to the 7-hero template roles</div>
-          <p class="guide-subtitle">
-            At this point you match your actual heroes to the exact template roles used by the rest of the site.
-          </p>
-          <ul class="guide-checklist">
-            <li><strong>Hero slot 1 – Panic Mesmer:</strong> <strong>Gwen</strong> or <strong>Norgu</strong>.</li>
-            <li><strong>Hero slot 2 – Ineptitude Mesmer:</strong> the other Mesmer hero (Norgu or Gwen).</li>
-            <li><strong>Hero slot 3 – Discord Necro 1:</strong> usually <strong>Olias</strong>.</li>
-            <li><strong>Hero slot 4 – Discord Necro 2:</strong> usually <strong>Master of Whispers</strong>.</li>
-            <li><strong>Hero slot 5 – Minion Bomber Necro:</strong> <strong>Livia</strong>.</li>
-            <li><strong>Hero slot 6 – SoS Ritualist:</strong> <strong>Xandra</strong>.</li>
-            <li><strong>Hero slot 7 – WoH Monk:</strong> <strong>Dunkoro</strong> or <strong>Ogden</strong>, whichever you prefer.</li>
-          </ul>
-
-          <p class="guide-subtitle">
-            Once you’ve done this mapping, you are running the exact 7-hero team assumed by the
-            <strong>How to play the team</strong> tab and the <strong>Full GWAMM guide</strong>. From here on, you don’t need to think about heroes – just follow the mission / title route.
-          </p>
-        </div>
-      </div>
-              <li>Section G – Finish Survivor + Drunkard, Sweet Tooth, Party Animal.</li>
-              <li>Section H – Confirm 30 titles → equip GWAMM.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div id="section-progression" class="card guide-card" style="display:none;">
-        <div class="card-inner">
-          <div class="card-header">
-            <div>
-              <h2 class="card-title">
-                <span class="icon">📈</span>
-                Hero Progression – From Koss to Final GWAMM Team
-              </h2>
-              <p class="card-subtitle">
-                Strict, step-by-step hero roadmap: who you unlock when, what they do, and exactly who they replace on the road to the final 7-hero Mesmer team.
-              </p>
-            </div>
-          </div>
-
-          <div class="guide-start-callout">
-            <div class="guide-start-callout-title">READ THIS FIRST</div>
-            <p>
-              This tab is only about <strong>heroes</strong>. For missions / titles, follow the
-              <strong>Full GWAMM guide</strong>. For exact skill bars, use the <strong>7 hero templates</strong> tab.
-            </p>
-          </div>
-
-          <div class="guide-section-title">Stage 0 – Level 1 Start (no heroes yet)</div>
-          <p class="guide-subtitle">
-            You have <strong>no heroes yet</strong>. Just clear the tutorial primaries in Kamadan.
-          </p>
-          <ol class="guide-ol">
-            <li>Create your <strong>Nightfall Mesmer</strong> and do the tutorial quests in Kamadan / Plains of Jarin
-              until the game tells you to sail to the first mission, <strong>Chahbek Village</strong>.</li>
-            <li>Don’t worry about heroes at all in this stage – you get Koss immediately after the first mission.</li>
-          </ol>
-
-          <hr class="guide-hr" />
-
-          <div class="guide-section-title">Stage 1 – First hero: Koss (after Chahbek Village)</div>
-          <p class="guide-subtitle">
-            As soon as you complete the first real mission, you get your first hero: <strong>Koss</strong>.
-          </p>
-          <ol class="guide-ol">
-            <li>Enter and complete the mission <strong>Chahbek Village</strong> from Kamadan (corsair ship mission).</li>
-            <li>After the mission you arrive in <strong>Kamadan, Jewel of Istan</strong>. At this point:
+            <li><strong>MM Necro (Livia):</strong>
               <ul class="guide-checklist">
-                <li><strong>Koss</strong> is unlocked as a <strong>Warrior hero</strong> (frontline DPS / meatshield).</li>
+                <li>Runes: Superior Death Magic, Minor Soul Reaping, 3x Vitae</li>
+                <li>Weapons: 40/40 Death Magic set</li>
               </ul>
             </li>
-            <li>From now until you get more heroes, always add <strong>Koss</strong> to your party as your first hero slot.</li>
-          </ol>
-
-          <p class="guide-subtitle"><strong>Snapshot party – right after Chahbek Village</strong></p>
-          <ul class="guide-checklist">
-            <li><strong>You:</strong> Mesmer (any basic damage + interrupt bar).</li>
-            <li><strong>Koss:</strong> default Warrior bar – he stands in front, you stand behind.</li>
-            <li>Fill remaining slots with henchmen (at least 1 healer, 1 ranged DPS).</li>
-          </ul>
-
-          <hr class="guide-hr" />
-
-          <div class="guide-section-title">Stage 2 – Dunkoro, Melonni, Tahlkora (Istan primaries)</div>
-          <p class="guide-subtitle">
-            By just following yellow <strong>Primary quests</strong> through Istan, you quickly unlock monk and dervish heroes.
-          </p>
-          <ol class="guide-ol">
-            <li>In <strong>Kamadan</strong>, always take the next <strong>Primary quest</strong> from the Sunspear NPCs.</li>
-            <li>Follow them through these areas:
+            <li><strong>ST Rit (Xandra):</strong>
               <ul class="guide-checklist">
-                <li><strong>Plains of Jarin</strong></li>
-                <li><strong>Cliffs of Dohjok</strong></li>
-                <li><strong>Zehlon Reach</strong></li>
-                <li><strong>The Astralarium</strong></li>
-                <li><strong>Sunspear Great Hall</strong></li>
+                <li>Runes: Superior Communing, Minor Spawning Power, 3x Vitae</li>
+                <li>Weapons: 40/40 Communing set</li>
               </ul>
             </li>
-            <li>While doing those primaries, you unlock:
+            <li><strong>WoH Monk (Dunkoro/Ogden):</strong>
               <ul class="guide-checklist">
-                <li><strong>Dunkoro</strong> – Monk hero (healing). Make him your <em>main healer</em> as soon as he joins.</li>
-                <li><strong>Melonni</strong> – Dervish hero (frontline DPS).</li>
-                <li><strong>Tahlkora</strong> – Monk hero (can be prot / backup heals).</li>
+                <li>Runes: Superior Healing Prayers, Minor Divine Favor/Protection, 2x Vitae</li>
+                <li>Weapons: 40/40 Healing Prayers set</li>
               </ul>
             </li>
-          </ol>
-
-          <p class="guide-subtitle"><strong>Snapshot party – mid Istan</strong></p>
-          <ul class="guide-checklist">
-            <li><strong>You:</strong> Mesmer.</li>
-            <li><strong>Koss</strong> + <strong>Melonni</strong>: 2x melee frontliners.</li>
-            <li><strong>Dunkoro:</strong> main healer monk.</li>
-            <li><strong>Tahlkora:</strong> prot / secondary healer.</li>
-            <li>Fill the last slot(s) with henchmen until you recruit a caster hero.</li>
           </ul>
 
-          <hr class="guide-hr" />
-
-          <div class="guide-section-title">Stage 3 – Acolyte Sousuke (or Jin) – caster hero choice</div>
-          <p class="guide-subtitle">
-            Before you leave Istan, you do a short hero-trial chain and choose an Elementalist (Sousuke) or Ranger (Jin).
-          </p>
-          <ol class="guide-ol">
-            <li>Keep doing Istan primaries until you unlock the <strong>Sun Docks</strong> area.</li>
-            <li>There, from the Zaishen NPCs / Field General, do:
-              <ul class="guide-checklist">
-                <li><strong>Zaishen Elite</strong> (trial quest).</li>
-                <li>Then <strong>Student Sousuke</strong> <em>or</em> <strong>Student Jin</strong>.</li>
-              </ul>
-            </li>
-            <li>For this Mesmer GWAMM route, choose:
-              <ul class="guide-checklist">
-                <li><strong>Student Sousuke</strong> → unlocks <strong>Acolyte Sousuke</strong> (Elementalist hero).</li>
-              </ul>
-            </li>
-          </ol>
-
-          <p class="guide-subtitle"><strong>Snapshot party – end of Istan, pre–Consulate Docks</strong></p>
+          <p class="guide-subtitle"><strong>Where to get 40/40 sets:</strong></p>
           <ul class="guide-checklist">
-            <li><strong>You:</strong> Mesmer.</li>
-            <li><strong>Koss</strong> + <strong>Melonni</strong>: frontliners.</li>
-            <li><strong>Dunkoro</strong> + <strong>Tahlkora</strong>: 2x monks.</li>
-            <li><strong>Acolyte Sousuke</strong>: Elementalist nuker.</li>
-            <li>Use henchmen for any remaining slot.</li>
+            <li>Craft from <strong>Gertrud</strong> (Vasburg Armory, EotN) or <strong>Telamon</strong> (Leviathan Pits, Factions)</li>
+            <li>Need: weapon + focus/offhand with "Aptitude not Attitude" inscription (20% HSR) + "Guided by Fate" (20% HCT)</li>
+            <li>Alternative: Farm collectors or buy from players</li>
           </ul>
 
-          <hr class="guide-hr" />
-
-          <div class="guide-section-title">Stage 4 – Olias (first long-term Necro hero)</div>
-          <p class="guide-subtitle">
-            After <strong>Consulate Docks</strong>, you immediately grab Olias and start moving into a Necro-heavy comp.
-          </p>
-          <ol class="guide-ol">
-            <li>Complete the Nightfall mission <strong>Consulate Docks</strong> (see GWAMM guide Section A).</li>
-            <li>In <strong>Kamadan / Sunspear Sanctuary</strong>, take the hero quest for
-              <strong>Olias</strong> and complete it – he joins as a <strong>Necromancer hero</strong>.</li>
-            <li>Respec <strong>Olias</strong> into either:
-              <ul class="guide-checklist">
-                <li>A basic <strong>minion master</strong> (Animate Bone Minions + Death Nova), or</li>
-                <li>A basic <strong>curses Necro</strong> (Enfeebling Blood, Barbs, etc.).</li>
-              </ul>
-            </li>
-          </ol>
-
-          <p class="guide-subtitle"><strong>Who Olias replaces</strong></p>
+          <p class="guide-subtitle"><strong>✓ Final Checkpoint:</strong></p>
           <ul class="guide-checklist">
-            <li>Drop <strong>Koss</strong> (your Warrior) – from now on you don’t need a dedicated warrior hero.</li>
-            <li>Your frontline is <strong>Melonni</strong> + minions; your backline is monks + casters.</li>
+            <li>You have the exact 7-hero team the GWAMM guide assumes</li>
+            <li>All heroes have proper skill bars from "7 hero templates" tab</li>
+            <li>You never need to think about hero composition again – this team does everything</li>
+            <li>Now just follow the GWAMM guide tab for mission/title order!</li>
           </ul>
-
-          <hr class="guide-hr" />
-
-          <div class="guide-section-title">Stage 5 – Eye of the North entry: Vekk, Ogden, Gwen</div>
-          <p class="guide-subtitle">
-            Now you open Eye of the North and unlock several strong caster heroes, including your first Mesmer hero.
-          </p>
-          <ol class="guide-ol">
-            <li>From Kamadan, take the quest that sends you to <strong>Eye of the North</strong> and do the intro instance.</li>
-            <li>Arrive at <strong>Boreal Station</strong> – you automatically unlock:
-              <ul class="guide-checklist">
-                <li><strong>Vekk</strong> – Elementalist hero.</li>
-                <li><strong>Ogden</strong> – Monk hero.</li>
-              </ul>
-            </li>
-            <li>Continue the EotN primary quests until you reach the first big vision in the
-              <strong>Hall of Monuments</strong> at the Eye:
-              <ul class="guide-checklist">
-                <li>After that cutscene, <strong>Gwen</strong> joins as a <strong>Mesmer hero</strong>.</li>
-              </ul>
-            </li>
-          </ol>
-
-          <p class="guide-subtitle"><strong>Snapshot party – early EotN</strong></p>
-          <ul class="guide-checklist">
-            <li><strong>You:</strong> Mesmer.</li>
-            <li><strong>Gwen:</strong> your first Mesmer hero – run her as a generic Domination interrupt Mesmer.</li>
-            <li><strong>Olias:</strong> Necro (minion/curses).</li>
-            <li><strong>Dunkoro or Ogden:</strong> main healer monk.</li>
-            <li><strong>Tahlkora:</strong> backup monk/prot if needed.</li>
-            <li><strong>Sousuke or Vekk:</strong> Elementalist nuker.</li>
-            <li><strong>Melonni:</strong> optional frontline; you can keep or start dropping melee in favour of more casters.</li>
-          </ul>
-
-          <hr class="guide-hr" />
-
-          <div class="guide-section-title">Stage 6 – Norgu &amp; Master of Whispers (second Mesmer + second Necro)</div>
-          <p class="guide-subtitle">
-            In Vabbi you add your second Mesmer hero, and in the Nightfall story you choose Master of Whispers as your second Necro hero.
-          </p>
-          <ol class="guide-ol">
-            <li>Play Nightfall onward into <strong>Vabbi</strong> (see GWAMM guide Section A3).</li>
-            <li>During the Vabbi primaries, you get the quest <strong>“Brains or Brawn”</strong>:
-              <ul class="guide-checklist">
-                <li>Choose <strong>Norgu</strong> (Mesmer hero) instead of Goren (Warrior).</li>
-              </ul>
-            </li>
-            <li>In the Kourna/Vabbi arc where you pick between <strong>Master of Whispers</strong> and <strong>Margrid</strong>:
-              <ul class="guide-checklist">
-                <li>Pick <strong>Master of Whispers</strong> – he is your second long-term <strong>Necro hero</strong>.</li>
-              </ul>
-            </li>
-          </ol>
-
-          <p class="guide-subtitle"><strong>Who they replace</strong></p>
-          <ul class="guide-checklist">
-            <li><strong>Norgu</strong> replaces <strong>Melonni</strong> or any remaining melee/hench – you don’t need Dervish frontline long-term.</li>
-            <li><strong>Master of Whispers</strong> replaces a filler caster (Sousuke, Vekk, or Tahlkora if you feel safe without double monk).</li>
-          </ul>
-
-          <p class="guide-subtitle"><strong>Snapshot party – late Nightfall / early hard content</strong></p>
-          <ul class="guide-checklist">
-            <li><strong>You:</strong> Mesmer (Energy Surge once you have it).</li>
-            <li><strong>Gwen</strong> + <strong>Norgu</strong>: 2x Mesmer heroes (Panic / Ineptitude later).</li>
-            <li><strong>Olias</strong> + <strong>Master of Whispers</strong>: 2x Necro heroes.</li>
-            <li><strong>Dunkoro or Ogden:</strong> main healer monk.</li>
-            <li>Last slot: Sousuke/Vekk or Tahlkora depending if you want more damage or more safety.</li>
-          </ul>
-
-          <hr class="guide-hr" />
-
-          <div class="guide-section-title">Stage 7 – Livia &amp; Xandra (third Necro + Ritualist)</div>
-          <p class="guide-subtitle">
-            Deep in EotN you add the third Necro hero and the Ritualist hero needed for the final 7-hero comp.
-          </p>
-          <ol class="guide-ol">
-            <li>Follow the <strong>Asura primary quest chain</strong> in EotN (The Knowledgeable Asura, Finding Gadd, etc.).</li>
-            <li>Completing that chain unlocks <strong>Livia</strong> as a <strong>Necromancer hero</strong> at <strong>Vlox’s Falls</strong>.</li>
-            <li>From <strong>Gunnar’s Hold</strong>, do the <strong>Norn Fighting Tournament</strong> quests (Round One: Fight! etc.).</li>
-            <li>Win the tournament – this unlocks <strong>Xandra</strong> as a <strong>Ritualist hero</strong>.</li>
-          </ol>
-
-          <p class="guide-subtitle"><strong>Who they replace, and final roles</strong></p>
-          <ul class="guide-checklist">
-            <li><strong>Livia</strong> becomes your <strong>Minion Bomber Necro</strong> (Hero 5 from templates).</li>
-            <li><strong>Olias</strong> + <strong>Master of Whispers</strong> become <strong>Discord Necro 1 &amp; 2</strong> (Heroes 3 &amp; 4).</li>
-            <li><strong>Xandra</strong> becomes your <strong>SoS Ritualist</strong> (Hero 6).</li>
-            <li>Drop all leftover “temporary” heroes: Koss, Melonni, Sousuke, Vekk, any extra monk beyond your 1 dedicated WoH healer.</li>
-          </ul>
-
-          <hr class="guide-hr" />
-
-          <div class="guide-section-title">Stage 8 – Final mapping to the 7 hero templates</div>
-          <p class="guide-subtitle">
-            At this point you just map each hero to the exact bar in the <strong>7 hero templates</strong> tab.
-          </p>
-          <ul class="guide-checklist">
-            <li><strong>Hero slot 1 – Panic Mesmer:</strong> <strong>Gwen</strong> or <strong>Norgu</strong>.</li>
-            <li><strong>Hero slot 2 – Ineptitude Mesmer:</strong> the other Mesmer hero (Norgu or Gwen).</li>
-            <li><strong>Hero slot 3 – Discord Necro 1:</strong> usually <strong>Olias</strong>.</li>
-            <li><strong>Hero slot 4 – Discord Necro 2:</strong> usually <strong>Master of Whispers</strong>.</li>
-            <li><strong>Hero slot 5 – Minion Bomber Necro:</strong> <strong>Livia</strong>.</li>
-            <li><strong>Hero slot 6 – SoS Ritualist:</strong> <strong>Xandra</strong>.</li>
-            <li><strong>Hero slot 7 – WoH Monk:</strong> <strong>Dunkoro</strong> or <strong>Ogden</strong>, whichever you prefer.</li>
-          </ul>
-
-          <p class="guide-subtitle">
-            Once this mapping is done, you are running the exact team the rest of the site assumes –
-            you no longer need to think about heroes, just follow the main GWAMM guide and use the hero templates tab for bars.
-          </p>
-        </div>
-      </div>
-      <!-- RIGHT: heroes + tips -->
-      <div>
-        <div id="section-heroes" class="card" style="display:none;">
-          <div class="card-inner">
-            <div class="card-header">
-              <div>
-                <h2 class="card-title">
-                  <span class="icon">👥</span>
-                  7 Hero Templates
-                </h2>
-                <p class="card-subtitle">
-                  Mesmer + Necro + Ritualist + Monk core that carries NM/HM missions and vanquishes.
-                </p>
-              </div>
-            </div>
-
-            <div class="hero-tabs">
-              <div class="hero-buttons">
-                <button class="hero-btn active" data-hero="h1">
-                  H1 – Mesmer <span class="tag">Panic</span>
-                </button>
-                <button class="hero-btn" data-hero="h2">
-                  H2 – Mesmer <span class="tag">Ineptitude</span>
-                </button>
-                <button class="hero-btn" data-hero="h3">
-                  H3 – Necro <span class="tag">Discord 1</span>
-                </button>
-                <button class="hero-btn" data-hero="h4">
-                  H4 – Necro <span class="tag">Discord 2</span>
-                </button>
-                <button class="hero-btn" data-hero="h5">
-                  H5 – Necro <span class="tag">Minion Bomber</span>
-                </button>
-                <button class="hero-btn" data-hero="h6">
-                  H6 – Rit <span class="tag">SoS</span>
-                </button>
-                <button class="hero-btn" data-hero="h7">
-                  H7 – Monk <span class="tag">WoH Healer</span>
-                </button>
-              </div>
-
-              <!-- H1 -->
-              <div id="hero-h1" class="hero-panel active">
-                <div class="hero-heading">
-                  <div class="hero-name">Hero 1 – Panic Mesmer</div>
-                  <div class="hero-role">Crowd Control / Interrupts</div>
-                </div>
-                <div class="pill-row" style="margin:4px 0 10px;">
-                  <div class="pill pill--accent">Primary: Mesmer</div>
-                  <div class="pill">Role: Shutdown</div>
-                </div>
-                <h4 class="section-title">Skill Bar</h4>
-                <ul class="skill-list">
-                  <li><span class="skill-name">1. Panic (Elite)</span><span class="skill-tag">Mass AoE interrupt</span></li>
-                  <li><span class="skill-name">2. Power Drain</span><span class="skill-tag">Interrupt + energy</span></li>
-                  <li><span class="skill-name">3. Power Spike</span><span class="skill-tag">Fast interrupt</span></li>
-                  <li><span class="skill-name">4. Cry of Frustration</span><span class="skill-tag">AoE interrupt</span></li>
-                  <li><span class="skill-name">5. Shatter Hex</span><span class="skill-tag">Hex removal + damage</span></li>
-                  <li><span class="skill-name">6. Shatter Enchantment</span><span class="skill-tag">Enchant removal + damage</span></li>
-                  <li><span class="skill-name">7. Arcane Conundrum</span><span class="skill-tag">Slows enemy casting</span></li>
-                  <li><span class="skill-name">8. Resurrection Signet</span><span class="skill-tag">Party rez</span></li>
-                </ul>
-                <h4 class="section-title">Attributes &amp; Gear</h4>
-                <ul class="attribute-list">
-                  <li><span class="attribute-name">Domination</span><span class="attribute-value">12</span></li>
-                  <li><span class="attribute-name">Inspiration</span><span class="attribute-value">12</span></li>
-                  <li><span class="attribute-name">Fast Casting</span><span class="attribute-value">3</span></li>
-                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Domination, minor Inspiration &amp; Fast Casting, Vitae x2</span></li>
-                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Domination wand + focus</span></li>
-                </ul>
-              </div>
-
-              <!-- H2 -->
-              <div id="hero-h2" class="hero-panel">
-                <div class="hero-heading">
-                  <div class="hero-name">Hero 2 – Ineptitude Mesmer</div>
-                  <div class="hero-role">Anti-Melee / Damage</div>
-                </div>
-                <div class="pill-row" style="margin:4px 0 10px;">
-                  <div class="pill pill--accent">Primary: Mesmer</div>
-                  <div class="pill">Role: Melee shutdown</div>
-                </div>
-                <h4 class="section-title">Skill Bar</h4>
-                <ul class="skill-list">
-                  <li><span class="skill-name">1. Ineptitude (Elite)</span><span class="skill-tag">Blind + damage</span></li>
-                  <li><span class="skill-name">2. Clumsiness</span><span class="skill-tag">Melee damage + KD</span></li>
-                  <li><span class="skill-name">3. Wandering Eye</span><span class="skill-tag">KD on attacking foes</span></li>
-                  <li><span class="skill-name">4. Cry of Pain</span><span class="skill-tag">Bonus spike</span></li>
-                  <li><span class="skill-name">5. Power Spike</span><span class="skill-tag">Interrupt</span></li>
-                  <li><span class="skill-name">6. Power Drain</span><span class="skill-tag">Interrupt + energy</span></li>
-                  <li><span class="skill-name">7. Shatter Enchantment</span><span class="skill-tag">Enchant strip</span></li>
-                  <li><span class="skill-name">8. Resurrection Signet</span><span class="skill-tag">Rez</span></li>
-                </ul>
-                <h4 class="section-title">Attributes &amp; Gear</h4>
-                <ul class="attribute-list">
-                  <li><span class="attribute-name">Illusion</span><span class="attribute-value">12</span></li>
-                  <li><span class="attribute-name">Domination</span><span class="attribute-value">11</span></li>
-                  <li><span class="attribute-name">Inspiration</span><span class="attribute-value">6</span></li>
-                  <li><span class="attribute-name">Fast Casting</span><span class="attribute-value">3</span></li>
-                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Illusion, minor Dom/Insp/FC, Vitae</span></li>
-                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Illusion or Dom set</span></li>
-                </ul>
-              </div>
-
-              <!-- H3 -->
-              <div id="hero-h3" class="hero-panel">
-                <div class="hero-heading">
-                  <div class="hero-name">Hero 3 – Necromancer Discord 1</div>
-                  <div class="hero-role">Single-Target Spike</div>
-                </div>
-                <div class="pill-row" style="margin:4px 0 10px;">
-                  <div class="pill pill--accent">Primary: Necromancer</div>
-                  <div class="pill">Role: Spike &amp; support</div>
-                </div>
-                <h4 class="section-title">Skill Bar</h4>
-                <ul class="skill-list">
-                  <li><span class="skill-name">1. Discord (Elite)</span><span class="skill-tag">Main spike skill</span></li>
-                  <li><span class="skill-name">2. Animate Bone Minions</span><span class="skill-tag">Minion meatshield</span></li>
-                  <li><span class="skill-name">3. Putrid Bile</span><span class="skill-tag">Corpse explosion</span></li>
-                  <li><span class="skill-name">4. Enfeebling Blood</span><span class="skill-tag">Weakness on enemies</span></li>
-                  <li><span class="skill-name">5. Barbs</span><span class="skill-tag">Damage vs conditions/minions</span></li>
-                  <li><span class="skill-name">6. Necrosis</span><span class="skill-tag">Extra armor-ignoring damage</span></li>
-                  <li><span class="skill-name">7. Signet of Lost Souls</span><span class="skill-tag">Energy + damage</span></li>
-                  <li><span class="skill-name">8. Resurrection Signet</span><span class="skill-tag">Rez</span></li>
-                </ul>
-                <h4 class="section-title">Attributes &amp; Gear</h4>
-                <ul class="attribute-list">
-                  <li><span class="attribute-name">Death Magic</span><span class="attribute-value">12</span></li>
-                  <li><span class="attribute-name">Curses</span><span class="attribute-value">12</span></li>
-                  <li><span class="attribute-name">Soul Reaping</span><span class="attribute-value">3</span></li>
-                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Death, minor Curses &amp; Soul Reaping, Vitae x2</span></li>
-                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Curses or Death set</span></li>
-                </ul>
-              </div>
-
-              <!-- H4 -->
-              <div id="hero-h4" class="hero-panel">
-                <div class="hero-heading">
-                  <div class="hero-name">Hero 4 – Necromancer Discord 2</div>
-                  <div class="hero-role">Single-Target Spike</div>
-                </div>
-                <p class="card-subtitle" style="margin-bottom:6px;">
-                  Identical to Hero 3. Two Discord necros = brutal spikes on your called target.
-                </p>
-                <h4 class="section-title">Skill Bar / Attributes</h4>
-                <ul class="skill-list">
-                  <li><span class="skill-name">Copy Hero 3 exactly.</span><span class="skill-tag">Same bar, attributes, runes, weapon.</span></li>
-                </ul>
-              </div>
-
-              <!-- H5 -->
-              <div id="hero-h5" class="hero-panel">
-                <div class="hero-heading">
-                  <div class="hero-name">Hero 5 – Necromancer Minion Bomber</div>
-                  <div class="hero-role">Minions &amp; Corpse Explosions</div>
-                </div>
-                <div class="pill-row" style="margin:4px 0 10px;">
-                  <div class="pill pill--accent">Primary: Necromancer</div>
-                  <div class="pill">Role: Minion engine</div>
-                </div>
-                <h4 class="section-title">Skill Bar</h4>
-                <ul class="skill-list">
-                  <li><span class="skill-name">1. Jagged Bones (Elite)</span><span class="skill-tag">Minion bomber core</span></li>
-                  <li><span class="skill-name">2. Animate Bone Minions</span><span class="skill-tag">Summon minions</span></li>
-                  <li><span class="skill-name">3. Putrid Bile</span><span class="skill-tag">Corpse boom</span></li>
-                  <li><span class="skill-name">4. Death Nova</span><span class="skill-tag">Explosions on minions</span></li>
-                  <li><span class="skill-name">5. Barbs</span><span class="skill-tag">Synergy with minions</span></li>
-                  <li><span class="skill-name">6. Signet of Lost Souls</span><span class="skill-tag">Energy management</span></li>
-                  <li><span class="skill-name">7. Blood of the Master</span><span class="skill-tag">Heal minions</span></li>
-                  <li><span class="skill-name">8. Resurrection Signet</span><span class="skill-tag">Rez</span></li>
-                </ul>
-                <h4 class="section-title">Attributes &amp; Gear</h4>
-                <ul class="attribute-list">
-                  <li><span class="attribute-name">Death Magic</span><span class="attribute-value">12</span></li>
-                  <li><span class="attribute-name">Curses</span><span class="attribute-value">12</span></li>
-                  <li><span class="attribute-name">Soul Reaping</span><span class="attribute-value">3</span></li>
-                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Death, minor Curses &amp; Soul Reaping, Vitae x2</span></li>
-                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Death set</span></li>
-                </ul>
-              </div>
-
-              <!-- H6 -->
-              <div id="hero-h6" class="hero-panel">
-                <div class="hero-heading">
-                  <div class="hero-name">Hero 6 – Ritualist Signet of Spirits</div>
-                  <div class="hero-role">Spirit Spammer / Support</div>
-                </div>
-                <div class="pill-row" style="margin:4px 0 10px;">
-                  <div class="pill pill--accent">Primary: Ritualist</div>
-                  <div class="pill">Role: Passive damage &amp; support</div>
-                </div>
-                <h4 class="section-title">Skill Bar</h4>
-                <ul class="skill-list">
-                  <li><span class="skill-name">1. Signet of Spirits (Elite)</span><span class="skill-tag">Core spirit damage</span></li>
-                  <li><span class="skill-name">2. Bloodsong</span><span class="skill-tag">Offensive spirit</span></li>
-                  <li><span class="skill-name">3. Vampirism</span><span class="skill-tag">Extra spirit damage</span></li>
-                  <li><span class="skill-name">4. Shadowsong</span><span class="skill-tag">Blind &amp; damage</span></li>
-                  <li><span class="skill-name">5. Pain</span><span class="skill-tag">Simple damaging spirit</span></li>
-                  <li><span class="skill-name">6. Mend Body and Soul</span><span class="skill-tag">Condition removal + heal</span></li>
-                  <li><span class="skill-name">7. Spirit Rift</span><span class="skill-tag">Extra AoE damage</span></li>
-                  <li><span class="skill-name">8. Summon Spirits</span><span class="skill-tag">Reposition spirits</span></li>
-                </ul>
-                <h4 class="section-title">Attributes &amp; Gear</h4>
-                <ul class="attribute-list">
-                  <li><span class="attribute-name">Channeling</span><span class="attribute-value">12</span></li>
-                  <li><span class="attribute-name">Restoration</span><span class="attribute-value">11</span></li>
-                  <li><span class="attribute-name">Communing</span><span class="attribute-value">6</span></li>
-                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Channeling, minor Rest &amp; Communing, Vitae x2</span></li>
-                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Channeling set</span></li>
-                </ul>
-              </div>
-
-              <!-- H7 -->
-              <div id="hero-h7" class="hero-panel">
-                <div class="hero-heading">
-                  <div class="hero-name">Hero 7 – Monk Word of Healing</div>
-                  <div class="hero-role">Main Healer / Prot</div>
-                </div>
-                <div class="pill-row" style="margin:4px 0 10px;">
-                  <div class="pill pill--accent">Primary: Monk</div>
-                  <div class="pill">Role: Dedicated healer</div>
-                </div>
-                <h4 class="section-title">Skill Bar</h4>
-                <ul class="skill-list">
-                  <li><span class="skill-name">1. Word of Healing (Elite)</span><span class="skill-tag">Primary big heal</span></li>
-                  <li><span class="skill-name">2. Dwayna’s Kiss</span><span class="skill-tag">Strong single heal</span></li>
-                  <li><span class="skill-name">3. Orison of Healing</span><span class="skill-tag">Filler heal</span></li>
-                  <li><span class="skill-name">4. Cure Hex</span><span class="skill-tag">Hex removal</span></li>
-                  <li><span class="skill-name">5. Guardian</span><span class="skill-tag">Block support</span></li>
-                  <li><span class="skill-name">6. Protective Spirit</span><span class="skill-tag">Anti-spike</span></li>
-                  <li><span class="skill-name">7. Aegis</span><span class="skill-tag">Party-wide block</span></li>
-                  <li><span class="skill-name">8. Channeling</span><span class="skill-tag">Energy management</span></li>
-                </ul>
-                <h4 class="section-title">Attributes &amp; Gear</h4>
-                <ul class="attribute-list">
-                  <li><span class="attribute-name">Healing</span><span class="attribute-value">12</span></li>
-                  <li><span class="attribute-name">Protection</span><span class="attribute-value">12</span></li>
-                  <li><span class="attribute-name">Divine Favor</span><span class="attribute-value">3</span></li>
-                  <li><span class="attribute-name">Runes</span><span class="attribute-value">Sup Healing, minor Prot &amp; Divine, Vitae x2</span></li>
-                  <li><span class="attribute-name">Weapon</span><span class="attribute-value">40/40 Healing set</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="section-tips" class="card tips-card" style="display:none;">
-          <div class="card-inner">
-            <div class="card-header">
-              <div>
-                <h2 class="card-title">
-                  <span class="icon">⚔</span>
-                  How to Play This Team
-                </h2>
-                <p class="card-subtitle">
-                  Quick reminders so you don’t have to think mid-mission.
-                </p>
-              </div>
-            </div>
-
-            <h3 class="section-title">You (Mesmer)</h3>
-            <ul class="note-list">
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  Your job is to <strong>call targets and shut down casters</strong>. Always
-                  <strong>Ctrl+space</strong> a high-priority target (healer / dangerous caster)
-                  so Discord Necros and Panic Mesmer focus it with you.
-                </div>
-              </li>
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  Typical opener on a big group:
-                  <strong>Flag heroes back → wand pull → once they ball up → Energy Surge on your called target → Cry of Frustration → spam Power Spike / Power Drain / Leech Signet on casters.</strong>
-                </div>
-              </li>
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  Position <strong>behind your heroes</strong>, not in front. You are artillery:
-                  let minions + spirits + melee enemies run into your heroes’ line, then drop fire into the ball.
-                </div>
-              </li>
-            </ul>
-
-            <h3 class="section-title">Hero Micro &amp; Positioning</h3>
-            <ul class="note-list">
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  <strong>Flag your heroes</strong> at a good chokepoint, then use a longbow / wand to tag a mob and drag it into your kill zone.
-                  Once they’re balled up, unload your fire skills.
-                </div>
-              </li>
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  Avoid face-pulling in HM. Always try to fight <strong>one group at a time</strong> and watch for patrols.
-                  If you accidentally grab two groups, kite back toward your flagged heroes and let spirits/minions soak the hit.
-                </div>
-              </li>
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  Call high-priority targets (healers, dangerous casters). Panic Mesmer + Discord Necros will
-                  immediately pile on your called target while you shut them down.
-                </div>
-              </li>
-            </ul>
-
-            <h3 class="section-title">What This Team Handles Well</h3>
-            <ul class="note-list">
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  <strong>HM Missions &amp; Guardians:</strong> Panic + Ineptitude heroes shut down casters and melee,
-                  Discord + SoS + your fire nukes clean up. Only tweak for very special missions (escort/split-heavy).
-                </div>
-              </li>
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  <strong>Vanquishes:</strong> Very solid – your job is to group mobs and nuke them.
-                  Heroes give you minions, spirits, and shutdown so even big packs are manageable.
-                </div>
-              </li>
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  <strong>Dungeons / EotN reps:</strong> Spirits + Discord + minion bomber chew through dungeon mobs
-                  while you detonate rooms with Searing Flames.
-                </div>
-              </li>
-            </ul>
-
-            <h3 class="section-title">Tweaks</h3>
-            <ul class="note-list">
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  Need more defense? Put more HP on you, and swap one Discord Necro to a heavier curses/prot bar,
-                  or add <strong>Shelter / Union</strong> on the Ritualist.
-                </div>
-              </li>
-              <li>
-                <div class="note-bullet"></div>
-                <div class="note-text">
-                  Need more damage? Swap Monk to a Ritualist healer and add another offensive Mesmer/Necro hero.
-                  Your Ele + triple Necro + double Mesmer becomes pure lawnmower mode.
-                </div>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </main>
 
     <footer>
-      Builds + route aimed at: <span>NM/HM missions, vanquishes, GWAMM grind</span>.  
-      Copy bars in-game, follow the guide tab, and enjoy seeing “God Walking Amongst Mere Mortals” on your Elementalist.
+      <p>2024 Mesmer GWAMM Planner • Energy Surge Mesmerway Meta • Updated for current PvXwiki builds</p>
+      <p style="margin-top:8px;">Copy exact skill bars from "7 hero templates" tab → Follow GWAMM guide → Enjoy your title!</p>
     </footer>
   </div>
-
   <script>
-    // Top section navigation
+    // Navigation between sections
     const navButtons = document.querySelectorAll(".nav button");
-    const sectionElements = {
-      dervish: document.getElementById("section-dervish"),
+    const sections = {
+      mesmer: document.getElementById("section-mesmer"),
       heroes: document.getElementById("section-heroes"),
       tips: document.getElementById("section-tips"),
       guide: document.getElementById("section-guide"),
@@ -2203,20 +1342,23 @@
     navButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const target = btn.getAttribute("data-section");
+        
+        // Update active nav button
         navButtons.forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
 
-        Object.keys(sectionElements).forEach((key) => {
+        // Show/hide sections
+        Object.keys(sections).forEach((key) => {
           if (key === target) {
-            sectionElements[key].style.display = "";
+            sections[key].style.display = "";
           } else {
-            sectionElements[key].style.display = "none";
+            sections[key].style.display = "none";
           }
         });
       });
     });
 
-    // Hero inner tabs
+    // Hero tabs switching
     const heroButtons = document.querySelectorAll(".hero-btn");
     const heroPanels = document.querySelectorAll(".hero-panel");
 
@@ -2224,19 +1366,18 @@
       btn.addEventListener("click", () => {
         const heroId = btn.getAttribute("data-hero");
 
+        // Update active hero button
         heroButtons.forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
 
+        // Show/hide hero panels
         heroPanels.forEach((panel) => {
-          panel.classList.toggle(
-            "active",
-            panel.id === "hero-" + heroId
-          );
+          panel.classList.toggle("active", panel.id === "hero-" + heroId);
         });
       });
     });
 
-    // Phase checklist persistence
+    // Phase checklist persistence with localStorage
     (function () {
       const storageKey = "gwammPhaseChecklist";
       const checkboxes = document.querySelectorAll('.phase-checklist input[type="checkbox"][data-check-id]');
@@ -2256,28 +1397,31 @@
         try {
           localStorage.setItem(storageKey, JSON.stringify(state));
         } catch (e) {
-          // ignore
+          // Ignore storage errors
         }
       }
 
       function updateProgress() {
         const total = checkboxes.length;
         let done = 0;
-        checkboxes.forEach(cb => {
+        checkboxes.forEach((cb) => {
           if (cb.checked) done++;
         });
         if (progressEl) {
-          progressEl.textContent = `${done} / ${total} steps done`;
+          progressEl.textContent = `${done} / ${total} done`;
         }
       }
 
       const state = loadState();
-      checkboxes.forEach(cb => {
+      
+      // Initialize checkboxes from saved state
+      checkboxes.forEach((cb) => {
         const id = cb.getAttribute("data-check-id");
         if (state[id]) {
           cb.checked = true;
         }
 
+        // Add change listener
         cb.addEventListener("change", () => {
           state[id] = cb.checked;
           saveState(state);
@@ -2288,7 +1432,7 @@
       updateProgress();
     })();
 
-    // Convert guide checklist items to checkboxes with persistence
+    // Guide section: Convert guide checklist items to checkboxes with persistence
     (function () {
       const storageKey = "gwammGuideChecklist";
       let stepCounter = 0;
@@ -2307,70 +1451,160 @@
         try {
           localStorage.setItem(storageKey, JSON.stringify(state));
         } catch (e) {
-          // ignore
+          // Ignore
         }
       }
 
       const state = loadState();
-      
-      // Only target nested checklist items (ul.guide-checklist li)
-      const checklistItems = document.querySelectorAll('.guide-checklist li');
-      
+
+      // Only target guide checklist items (ul.guide-checklist li)
+      const checklistItems = document.querySelectorAll(".guide-checklist li");
+
       checklistItems.forEach((li) => {
         // Skip if already has a checkbox
         if (li.querySelector('input[type="checkbox"]')) return;
-        
+
         const stepId = `step-${stepCounter++}`;
         const originalText = li.innerHTML;
-        
+
         // Create checkbox
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.setAttribute('data-step-id', stepId);
-        checkbox.style.accentColor = '#f5c14b';
-        checkbox.style.width = '14px';
-        checkbox.style.height = '14px';
-        checkbox.style.marginRight = '8px';
-        checkbox.style.cursor = 'pointer';
-        checkbox.style.flexShrink = '0';
-        
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.setAttribute("data-step-id", stepId);
+        checkbox.style.accentColor = "#f5c14b";
+        checkbox.style.width = "14px";
+        checkbox.style.height = "14px";
+        checkbox.style.marginRight = "8px";
+        checkbox.style.cursor = "pointer";
+        checkbox.style.flexShrink = "0";
+
         // Load saved state
         if (state[stepId]) {
           checkbox.checked = true;
-          li.style.opacity = '0.6';
-          li.style.textDecoration = 'line-through';
+          li.style.opacity = "0.6";
+          li.style.textDecoration = "line-through";
         }
-        
+
         // Wrap content in label
-        const label = document.createElement('label');
-        label.style.display = 'flex';
-        label.style.alignItems = 'flex-start';
-        label.style.gap = '8px';
-        label.style.cursor = 'pointer';
+        const label = document.createElement("label");
+        label.style.display = "flex";
+        label.style.alignItems = "flex-start";
+        label.style.gap = "8px";
+        label.style.cursor = "pointer";
+        label.style.flex = "1";
         label.innerHTML = originalText;
-        
+
         // Clear li and rebuild
-        li.innerHTML = '';
+        li.innerHTML = "";
         li.appendChild(checkbox);
         li.appendChild(label);
-        li.style.display = 'flex';
-        li.style.alignItems = 'flex-start';
-        li.style.gap = '0';
-        
+        li.style.display = "flex";
+        li.style.alignItems = "flex-start";
+        li.style.gap = "0";
+
         // Add change listener
-        checkbox.addEventListener('change', () => {
+        checkbox.addEventListener("change", () => {
           state[stepId] = checkbox.checked;
           saveState(state);
-          
+
           if (checkbox.checked) {
-            li.style.opacity = '0.6';
-            li.style.textDecoration = 'line-through';
+            li.style.opacity = "0.6";
+            li.style.textDecoration = "line-through";
           } else {
-            li.style.opacity = '1';
-            li.style.textDecoration = 'none';
+            li.style.opacity = "1";
+            li.style.textDecoration = "none";
           }
         });
       });
+    })();
+
+    // Hero progression section: Convert guide-ol items to checkboxes
+    (function () {
+      const storageKey = "gwammProgressionChecklist";
+      let stepCounter = 0;
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(storageKey);
+          if (!raw) return {};
+          return JSON.parse(raw) || {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveState(state) {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(state));
+        } catch (e) {
+          // Ignore
+        }
+      }
+
+      const state = loadState();
+
+      // Target progression section guide-ol items
+      const progressionSection = document.getElementById("section-progression");
+      if (progressionSection) {
+        const checklistItems = progressionSection.querySelectorAll(".guide-ol > li");
+
+        checklistItems.forEach((li) => {
+          // Skip if already has a checkbox
+          if (li.querySelector('input[type="checkbox"]')) return;
+
+          const stepId = `prog-${stepCounter++}`;
+          const originalText = li.innerHTML;
+
+          // Create checkbox
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.setAttribute("data-step-id", stepId);
+          checkbox.style.accentColor = "#f5c14b";
+          checkbox.style.width = "14px";
+          checkbox.style.height = "14px";
+          checkbox.style.marginRight = "8px";
+          checkbox.style.cursor = "pointer";
+          checkbox.style.flexShrink = "0";
+
+          // Load saved state
+          if (state[stepId]) {
+            checkbox.checked = true;
+            li.style.opacity = "0.6";
+            li.style.textDecoration = "line-through";
+          }
+
+          // Wrap content in label
+          const label = document.createElement("label");
+          label.style.display = "flex";
+          label.style.alignItems = "flex-start";
+          label.style.gap = "8px";
+          label.style.cursor = "pointer";
+          label.style.flex = "1";
+          label.innerHTML = originalText;
+
+          // Clear li and rebuild
+          li.innerHTML = "";
+          li.appendChild(checkbox);
+          li.appendChild(label);
+          li.style.display = "flex";
+          li.style.alignItems = "flex-start";
+          li.style.gap = "0";
+
+          // Add change listener
+          checkbox.addEventListener("change", () => {
+            state[stepId] = checkbox.checked;
+            saveState(state);
+
+            if (checkbox.checked) {
+              li.style.opacity = "0.6";
+              li.style.textDecoration = "line-through";
+            } else {
+              li.style.opacity = "1";
+              li.style.textDecoration = "none";
+            }
+          });
+        });
+      }
     })();
   </script>
 </body>
